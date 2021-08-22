@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\Notifications\VerifyMail;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
 class VerificationController extends Controller
@@ -36,7 +41,22 @@ class VerificationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
+
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
+    public function verify(Request $request)
+    {
+        $user = User::where('verify_code', $request['verify_code'])->where('email_verified_at', NULL)->first();
+        if ($user) {
+            $user =  User::where('id', $user['id'])->update([
+                'email_verified_at' => date('Y-m-d H:i:s'),
+            ]);
+            return redirect('/home');
+        } else {
+            Session::flash('message', ' کد تایید نادرست است ');
+            return redirect()->back();
+        }
+    }
+
+
 }

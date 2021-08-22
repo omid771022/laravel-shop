@@ -34,7 +34,7 @@
                 <span class="checkmark"></span>
             </label>
             <div class="recover-password">
-                <a href="recoverpassword.html">بازیابی رمز عبور</a>
+                <a href="{{route('password.request')}}">بازیابی رمز عبور</a>
             </div>
         </div>
         <div class="form-footer">
@@ -46,16 +46,3 @@
 
 
 @endsection
-
-<!-- 
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/omid771022/laravel-shop.git
-git push -u origin main -->
-
-
-<!-- git remote add origin https://github.com/omid771022/laravel-shop.git
-git branch -M main -->
-<!-- git push -u origin main -->

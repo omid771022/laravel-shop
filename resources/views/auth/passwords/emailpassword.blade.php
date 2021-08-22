@@ -3,9 +3,9 @@
 @section('content')
 <main>
     <div class="account">
-        <form action="{{route('password.email')}}" class="form" method="post">
+        <form action="{{route('checkveryifycode')}}" class="form" method="post">
         @csrf     
-        
+
         <a class="account-logo" href="index.html">
                 <img src="img/weblogo.png" alt="">
             </a>

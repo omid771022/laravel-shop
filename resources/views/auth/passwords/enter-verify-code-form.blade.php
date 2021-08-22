@@ -4,16 +4,14 @@
 <main>
 
     <div class="account">
-        <form action="{{route('verification.verify')}}" class="form" method="post">
+        <form action="{{route('checkcode')}}" class="form" method="GET">
 
-            @csrf
             <a class="account-logo" href="index.html">
                 <img src="img/weblogo.png" alt="">
             </a>
             <div class="card-header">
-                <p class="activation-code-title">کد فرستاده شده به ایمیل  <span>Mohammadniko3@gmail.com</span> را وارد کنید</p>
+                <p class="activation-code-title">کد فرستاده شده به ایمیل  <span>{{ request()->email}}</span> را وارد کنید</p>
             </div>
-
 
             @if(Session::has('message'))
             <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
@@ -29,10 +27,7 @@
             </div>
         </form>
         <br>
-        <form action="{{route('verification.resend')}}" method="post">
-            @csrf
-              <button type="submit" class="btn btn-primary">ارسال مجدد</button>
-          </form>
+
     </div>
 </main>
 
