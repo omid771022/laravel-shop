@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
+
+
 Route::get('/', function () {
     return view('home');
 });
@@ -31,6 +34,11 @@ Route::post('password/update', 'Auth\ForgotPasswordController@passwordUpdate')->
 
 
 
-Route::group(['prefix' => 'dashboard'], function () {
+
+Route::group(['prefix' => 'dashboard' , 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'DashboardController@index')->name('Dashboard.index');
 });  
+Route::group(['prefix' => 'category','middleware' => ['auth', 'verified']], function () {
+    Route::get('/', 'CategoryController@index')->name('category.index');
+});  
+
