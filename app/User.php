@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Notifications\VerifyMail;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\ResatPasswordNotification;
@@ -12,6 +13,8 @@ use App\Notifications\VerifyMail as NotificationsVerifyMail;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+    use HasRoles;
+
 
     /**
      * The attributes that are mass assignable.

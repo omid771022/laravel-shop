@@ -21,7 +21,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Auth::routes(['verify'=>true]);
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/email/verify', 'Auth\VerificationController@verify')->name('verification.verify');
@@ -35,10 +35,16 @@ Route::post('password/update', 'Auth\ForgotPasswordController@passwordUpdate')->
 
 
 
-Route::group(['prefix' => 'dashboard' , 'middleware' => ['auth', 'verified']], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'DashboardController@index')->name('Dashboard.index');
-});  
-Route::group(['prefix' => 'category','middleware' => ['auth', 'verified']], function () {
+});
+Route::group(['prefix' => 'category', 'middleware' => ['auth', 'verified', 'permission:manage_role_permissions']], function () {
     Route::get('/', 'CategoryController@index')->name('category.index');
-});  
-
+    Route::post('/store', 'CategoryController@store')->name('categories.store');
+    Route::get('/edit/{id}', 'CategoryController@edit')->name('categories.edit');
+    Route::post('/update/{id}', 'CategoryController@update')->name('categories.update');
+    Route::get('/delete/{id}', 'CategoryController@delete')->name('categories.delete');
+});
+Route::group(['prefix' =>'RolePermission', 'middleware'=>['auth', 'verified','permission:manage_role_permissions']],function(){
+Route::get('/','RolePermission@index')->name('RolePermission');
+});

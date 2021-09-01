@@ -11,10 +11,11 @@
     </div>
 
     <ul>
-        <li class="item-li i-dashboard is-active"><a href="index.html">پیشخوان</a></li>
+        @if(Request::is('admin/dashboard/*') || Request::is('admin/dashboard')) ? atom @endif
+        <li class="item-li i-dashboard "><a href="index.html">پیشخوان</a></li>
         <li class="item-li i-courses "><a href="courses.html">دوره ها</a></li>
         <li class="item-li i-users"><a href="users.html"> کاربران</a></li>
-        <li class="item-li i-categories"><a href="{{route('category.index')}}">دسته بندی ها</a></li>
+        <li class="item-li i-categories @if(Request::is('category/*') || Request::is('category')) ?  is-active  @endif  "><a href="{{route('category.index')}}">دسته بندی ها</a></li>
         <li class="item-li i-slideshow"><a href="slideshow.html">اسلایدشو</a></li>
         <li class="item-li i-banners"><a href="banners.html">بنر ها</a></li>
         <li class="item-li i-articles"><a href="articles.html">مقالات</a></li>
