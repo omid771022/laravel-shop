@@ -1430,6 +1430,7 @@ select {
     color: #fff !important;
 }
 .ui-checkbox {
+    padding-right: 35px;
     display: -ms-flexbox;
     display: -webkit-box;
     display: flex;

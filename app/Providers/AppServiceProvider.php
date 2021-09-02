@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->loadJsonTranslationsFrom(__DIR__ . "/../resources/lang/fa");
     }
 
     /**

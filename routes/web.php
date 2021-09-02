@@ -38,13 +38,15 @@ Route::post('password/update', 'Auth\ForgotPasswordController@passwordUpdate')->
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'DashboardController@index')->name('Dashboard.index');
 });
-Route::group(['prefix' => 'category', 'middleware' => ['auth', 'verified', 'permission:manage_role_permissions']], function () {
+Route::group(['prefix' => 'dashboard/category', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'CategoryController@index')->name('category.index');
     Route::post('/store', 'CategoryController@store')->name('categories.store');
     Route::get('/edit/{id}', 'CategoryController@edit')->name('categories.edit');
     Route::post('/update/{id}', 'CategoryController@update')->name('categories.update');
     Route::get('/delete/{id}', 'CategoryController@delete')->name('categories.delete');
 });
-Route::group(['prefix' =>'RolePermission', 'middleware'=>['auth', 'verified','permission:manage_role_permissions']],function(){
-Route::get('/','RolePermission@index')->name('RolePermission');
+Route::group(['prefix' =>'dashboard/RolePermission', 'middleware'=>['auth', 'verified']],function(){
+Route::get('/','RolePermissionController@index')->name('RolePermission.index');
+Route::post('/store', 'RolePermissionController@store')->name('RolePermission.store');
+Route::post('/storePermissions', 'RolePermissionController@storePermissions')->name('storePermissions');
 });
