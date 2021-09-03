@@ -3,9 +3,10 @@
 namespace App\Repositories;
 
 use Spatie\Permission\Models\Role;
+use App\Repositories\RoleRepoInterface;
 use Spatie\Permission\Models\Permission;
 
-class RoleRepo{
+class RoleRepo implements RoleRepoInterface{
     public function roleAll(){
         return Role::all();
     }
@@ -15,8 +16,17 @@ class RoleRepo{
     }
 
     public function rolePermssion($request){
-        // return Role::create(['name' => $request->name])->syncPermissions($request->permissions);
+   
         return Role::create(['name'=> $request->name])->syncPermissions($request->permissions);
     }
+
+
+public function permissionCreate($request){
+   return Permission::create([
+        'name' => $request->name,
+    ]);
+}
+
+
 }
 ?>

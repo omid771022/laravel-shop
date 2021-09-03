@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+
 use App\Http\Requests\CategoryRequest;
-use App\Repositories\CategoryRepo;
 use Illuminate\Support\Facades\Session;
+use App\Repositories\CategoryRepoInterface;
 
 class CategoryController extends Controller
 {
     public $repo;
-    public function __construct(CategoryRepo $categoryRepo)
+    public function __construct(CategoryRepoInterface $categoryRepo)
     {
         $this->repo = $categoryRepo;
     }

@@ -3,8 +3,10 @@ namespace App\Repositories;
 
 use App\Category;
 
+use App\Repositories\CategoryRepoInterface;
 
-class CategoryRepo{
+
+class CategoryRepo implements CategoryRepoInterface{
 public function all(){
     return Category::all();
 }

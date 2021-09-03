@@ -13,7 +13,7 @@
     <ul>
         <li class="item-li i-dashboard "><a href="index.html">پیشخوان</a></li>
         <li class="item-li i-courses "><a href="courses.html">دوره ها</a></li>
-        <li class="item-li i-users  @if(Request::is('dashboard/RolePermission/*') || Request::is('dashboard/RolePermission')) ? is-active @endif"><a href="{{route('RolePermission.index')}}"> نقش کاربران</a></li>
+        <li class="item-li i-role-permissions  @if(Request::is('dashboard/RolePermission/*') || Request::is('dashboard/RolePermission')) ? is-active @endif"><a href="{{route('RolePermission.index')}}"> نقش کاربران</a></li>
         <li class="item-li i-categories @if(Request::is('dashboard/category/*') || Request::is('dashboard/category')) ?  is-active  @endif  "><a href="{{route('category.index')}}">دسته بندی ها</a></li>
         <li class="item-li i-slideshow"><a href="slideshow.html">اسلایدشو</a></li>
         <li class="item-li i-banners"><a href="banners.html">بنر ها</a></li>
@@ -28,6 +28,8 @@
         <li class="item-li i-my__purchases"><a href="mypurchases.html">خرید های من</a></li>
         <li class="item-li i-my__peyments"><a href="mypeyments.html">پرداخت های من</a></li>
         <li class="item-li i-notification__management"><a href="notification-management.html">مدیریت اطلاع رسانی</a>
+            {{-- <li class="item-li i-users  @if(Request::is('dashboard/RolePermission/*') || Request::is('dashboard/RolePermission')) ? is-active @endif"><a href="{{route('RolePermission.index')}}"> نقش کاربران</a></li> --}}
+
         </li>
         <li class="item-li i-user__inforamtion"><a href="user-information.html">اطلاعات کاربری</a></li>
     </ul>

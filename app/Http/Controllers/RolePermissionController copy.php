@@ -12,11 +12,11 @@ class RolePermissionController extends Controller
 
 
     public $repo;
-    
-    public function __construct(RoleRepoInterface $roleRepo)
+    public $userRepo;
+    public function __construct(RoleRepoInterface $roleRepo, UserRepoInterface $userRepo)
     {
         $this->repo = $roleRepo;
-     
+        $this->userRepo = $userRepo;
     }
   
 
@@ -24,8 +24,8 @@ class RolePermissionController extends Controller
     {
         $roles = $this->repo->roleAll();
         $Permissions =$this->repo->permissionAll() ;
-
-        return view('Dashboard.RolePermission.index', compact(['roles', 'Permissions']));
+        $userRepo = $this->userRepo->userAll();
+        return view('Dashboard.RolePermission.index', compact(['roles', 'Permissions', 'userRepo']));
     }
 
     public function store(RoleRequest $request)
