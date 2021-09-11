@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Repositories;
 
+namespace App\Repositories;
 use Spatie\Permission\Models\Role;
 use App\Repositories\RoleRepoInterface;
 use Spatie\Permission\Models\Permission;
@@ -11,22 +11,20 @@ class RoleRepo implements RoleRepoInterface{
         return Role::all();
     }
 
-    public function permissionAll(){
-       return Permission::all();
-    }
-
     public function rolePermssion($request){
    
         return Role::create(['name'=> $request->name])->syncPermissions($request->permissions);
     }
 
 
-public function permissionCreate($request){
-   return Permission::create([
-        'name' => $request->name,
-    ]);
+
+public function roleFindById($id){
+  return  Role::where('id', $id)->first();
 }
 
+public function updateRolePermission($request, $id){
+$role=$this->roleFindById($id);
+return $role->syncPermissions($request['permissions'])->update(['name' => $request->name]);
+}
 
 }
-?>

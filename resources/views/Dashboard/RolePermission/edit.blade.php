@@ -1,34 +1,43 @@
 @extends('Dashboard.layout.master');
 @section('contentDashboard')
     @include('Dashboard.layout.header')
-    <div class="col-12 bg-white">
-        <p class="box__title">ویرایش</p>
-        <form action="{{ route('categories.update', $categoryInfo['id']) }}" method="post" class="padding-30">
-            @csrf
+    <br>
+    <div class="row no-gutters  ">
+        <div class="col-12 bg-white">
+            <p class="box__title">بروزرسانی نقش کاربری</p>
+            <form action="{{ route('updatePermissionRole', $role->id) }}" method="post" class="padding-30">
+                @csrf
+ 
+                <input type="hidden" name="id" value="{{ $role->id}}">
+              
+                <input type="text" name="name" required placeholder="نام نقش کاربری" class="text"
+                       value="{{ $role->name}}">
+                @error("name")
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
 
-            <input type="text" name="name" placeholder="نام دسته بندی" class="text"
-                value="{{ $categoryInfo['name'] }}">
-
-
-            <input type="text" name="slug" placeholder="نام انگلیسی دسته بندی" class="text"
-                value="{{ $categoryInfo['slug'] }}">
-
-            <p class="box__title margin-bottom-15">انتخاب دسته پدر</p>
-            <select name="parent_id" id="parent_id">
-                <option value="">ندارد</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category['id']}}" @if ( $category['id'] == $categoryInfo['parent_id']  ) selected   @endif >{{ $category['name'] }}</option>
-
+                <p class="box__title margin-bottom-15">انتخاب مجوزها</p>
+                @foreach($permissions as $permission)
+                    <label class="ui-checkbox pt-1">
+                        <input type="checkbox" name="permissions[{{ $permission->name }}]" class="sub-checkbox"
+                               data-id="2"
+                               value="{{ $permission->name }}"
+                               @if($role->hasPermissionTo($permission->name)) checked @endif>
+                        <span class="checkmark"></span>
+                        @lang($permission->name)
+                    </label>
                 @endforeach
-            </select>
+                @error("permissions")
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+                <hr>
 
-            @if(Session::has('message'))
-            <p>{{ Session::get('message') }}</p>
-            @endif
-
-            <button class="btn btn-webamooz_net">ویرایش کردن </button>
-        </form>
+                <button class="btn btn-webamooz_net mt-2">بروزرسانی</button>
+            </form>
+        </div>
     </div>
-
-
 @endsection

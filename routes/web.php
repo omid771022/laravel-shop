@@ -49,4 +49,6 @@ Route::group(['prefix' =>'dashboard/RolePermission', 'middleware'=>['auth', 'ver
 Route::get('/','RolePermissionController@index')->name('RolePermission.index');
 Route::post('/store', 'RolePermissionController@store')->name('RolePermission.store');
 Route::post('/storePermissions', 'RolePermissionController@storePermissions')->name('storePermissions');
+Route::get('/editPermissionRole/{id}', 'RolePermissionController@editPermissionRole')->name('editPermissionRole');
+Route::post('/updatePermissionRole/{id}', 'RolePermissionController@updatePermissionRole')->name('updatePermissionRole');
 });
