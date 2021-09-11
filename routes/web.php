@@ -51,4 +51,5 @@ Route::post('/store', 'RolePermissionController@store')->name('RolePermission.st
 Route::post('/storePermissions', 'RolePermissionController@storePermissions')->name('storePermissions');
 Route::get('/editPermissionRole/{id}', 'RolePermissionController@editPermissionRole')->name('editPermissionRole');
 Route::post('/updatePermissionRole/{id}', 'RolePermissionController@updatePermissionRole')->name('updatePermissionRole');
+Route::get('/delete/{id}', 'RolePermissionController@delete')->name('PermissionRole.delete');
 });

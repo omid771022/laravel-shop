@@ -17,5 +17,8 @@ public function permissionCreate($request){
    return Permission::create([
         'name' => $request->name,
     ]);
+
 }
+
+
 }

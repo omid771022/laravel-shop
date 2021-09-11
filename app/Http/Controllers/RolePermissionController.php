@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
-use Spatie\Permission\Models\Role;
-use App\Repositories\PermissionRepo;
 use App\Repositories\RoleRepoInterface;
-use App\Repositories\UserRepoInterface;
 use App\Http\Requests\RoleUpdateRequest;
 use App\Repositories\PermissionRepoInterface;
 
@@ -16,7 +13,7 @@ class RolePermissionController extends Controller
 
 
     public $repoRole;
-    public $repoPermission; 
+    public $repoPermission;
     public function __construct(RoleRepoInterface $roleRepo, PermissionRepoInterface $repoPermission)
     {
         $this->repoRole = $roleRepo;
@@ -59,5 +56,11 @@ class RolePermissionController extends Controller
     {
         $this->repoRole->updateRolePermission($request, $id);
         return redirect()->route('RolePermission.index');
+    }
+
+    public function delete($id)
+    {
+        $this->repoRole->delete($id);
+        return back();
     }
 }

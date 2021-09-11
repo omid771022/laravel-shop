@@ -34,7 +34,7 @@
                         </td>
       
                             <td>
-                                <a href="{{route('categories.delete', $role['id'])}}" class="item-delete mlg-15" title="حذف" onclick="myFunction()" ></a>
+                                <a href="{{route('PermissionRole.delete', $role['id'])}}" class="item-delete mlg-15" title="حذف" onclick="myFunction()" ></a>
                                 <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                                 <a href="{{route('editPermissionRole', $role['id'])}}" class="item-edit " title="ویرایش"></a>
                             </td>

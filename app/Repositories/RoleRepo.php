@@ -4,7 +4,7 @@
 namespace App\Repositories;
 use Spatie\Permission\Models\Role;
 use App\Repositories\RoleRepoInterface;
-use Spatie\Permission\Models\Permission;
+
 
 class RoleRepo implements RoleRepoInterface{
     public function roleAll(){
@@ -26,5 +26,9 @@ public function updateRolePermission($request, $id){
 $role=$this->roleFindById($id);
 return $role->syncPermissions($request['permissions'])->update(['name' => $request->name]);
 }
+
+public function delete($id){
+    return  Role::where('id', $id)->delete();
+  }
 
 }
