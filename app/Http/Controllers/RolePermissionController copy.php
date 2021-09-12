@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
 
-use Spatie\Permission\Models\Role;
+use App\Repositories\PermissionRepoInterface;
+use App\Repositories\PermissionRepo;
 use App\Repositories\RoleRepoInterface;
 use App\Repositories\UserRepoInterface;
 

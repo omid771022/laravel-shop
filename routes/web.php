@@ -53,3 +53,10 @@ Route::get('/editPermissionRole/{id}', 'RolePermissionController@editPermissionR
 Route::post('/updatePermissionRole/{id}', 'RolePermissionController@updatePermissionRole')->name('updatePermissionRole');
 Route::get('/delete/{id}', 'RolePermissionController@delete')->name('PermissionRole.delete');
 });
+
+
+
+Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth','verified']],function() {
+Route::get('/' , 'CourseController@index')->name('course.index');
+Route::post('/store' , 'CourseController@store')->name('courses.store');
+});
