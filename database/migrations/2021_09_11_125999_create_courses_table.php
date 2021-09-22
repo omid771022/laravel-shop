@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCourcesTable extends Migration
+class CreateCoursesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,17 @@ class CreateCourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cources', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('courses', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('teacher_id')->unsigned();
-            $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('category_id')->nullable()->unsigned();
             $table->string('title');
             $table->string('slug');
             $table->float('proiority')->nullable();
-            $table->bigInteger('price', 10);
-            $table->enum('type', ['free', 'cash']);
-            $table->enum('enum', ['comp;eted','not-completed', 'lock']);
+            $table->bigInteger('price');
+            $table->enum('type', array_keys(\App\Course::$types));
+            $table->enum('enum', array_keys(\App\Course::$enums));
             $table->timestamps();
-
-
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('SET NULL');
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('CASCADE');
         });
@@ -38,6 +36,6 @@ class CreateCourcesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cources');
+        Schema::dropIfExists('courses');
     }
 }

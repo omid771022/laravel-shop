@@ -44,14 +44,17 @@
                     </table>
 
 
-
                 </div>
             </div>
-            @include('Dashboard.RolePermission.create');
+            @include('Dashboard.RolePermission.create')
         </div>
+
     </div>
     </div>
 
+
+
+    
     <script>
         function myFunction() {
             confirm("ایا مطمن هستید که می خواهید حذف کنید ");

@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
+use Spatie\Permission\Models\Role;
+use App\Http\Requests\RoleUserRequest;
 use App\Repositories\RoleRepoInterface;
+use App\Repositories\UserRepoInterface;
 use App\Http\Requests\RoleUpdateRequest;
 use App\Repositories\PermissionRepoInterface;
+use Spatie\Permission\Models\Role as ModelsRole;
 
 class RolePermissionController extends Controller
 {
@@ -14,10 +19,12 @@ class RolePermissionController extends Controller
 
     public $repoRole;
     public $repoPermission;
-    public function __construct(RoleRepoInterface $roleRepo, PermissionRepoInterface $repoPermission)
+    public  $userRepo;
+    public function __construct(RoleRepoInterface $roleRepo, PermissionRepoInterface $repoPermission , UserRepoInterface $userRepo)
     {
         $this->repoRole = $roleRepo;
         $this->repoPermission = $repoPermission;
+        $this->userRepo = $userRepo;
     }
 
 
@@ -25,13 +32,12 @@ class RolePermissionController extends Controller
     {
         $roles = $this->repoRole->roleAll();
         $Permissions = $this->repoPermission->permissionAll();
-
+    
         return view('Dashboard.RolePermission.index', compact(['roles', 'Permissions']));
     }
 
     public function store(RoleRequest $request)
     {
-
         $this->repoRole->rolePermssion($request);
         return back();
     }
@@ -63,4 +69,22 @@ class RolePermissionController extends Controller
         $this->repoRole->delete($id);
         return back();
     }
+
+    public function addPermiison(){
+        $users = $this->userRepo->userAll();
+        $Roles = $this->repoRole->roleAll();
+        // $allUserRole =  User::role('teach')->get();
+        // dd($allUserRole);
+        return view('Dashboard.RolePermission.user', compact(['Roles', 'users', 'allUserRole']));
+    }
+
+    public function adduser(RoleUserRequest $request){
+     $role=$request['Role'];
+     $user_id=$request['user_id'];
+       $user = User::where('id', $user_id)->first();
+       $user->syncRoles($role);
+        return back();
+
+    }
+
 }

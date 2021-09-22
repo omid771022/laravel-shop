@@ -12,8 +12,8 @@ class UserRepo implements UserRepoInterface {
 public function UserAll(){
     return User::all();
 }
-public function get_teacher(){
-    
+public function getTeacher(){
+    return User::permission('teach')->get();
 }
 
 }

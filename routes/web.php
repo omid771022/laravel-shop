@@ -21,6 +21,14 @@ Route::get('/', function () {
     return view('home');
 });
 
+
+// Route::get('/test', function () {
+//     \Spatie\Permission\Models\Permission::create(['name' => 'manage role_permissions']);
+//     auth()->user()->givePermissionTo('manage role_permissions');
+//     return auth()->user()->permissions;
+// });
+
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -52,10 +60,9 @@ Route::post('/storePermissions', 'RolePermissionController@storePermissions')->n
 Route::get('/editPermissionRole/{id}', 'RolePermissionController@editPermissionRole')->name('editPermissionRole');
 Route::post('/updatePermissionRole/{id}', 'RolePermissionController@updatePermissionRole')->name('updatePermissionRole');
 Route::get('/delete/{id}', 'RolePermissionController@delete')->name('PermissionRole.delete');
+Route::get('/addPermiison', 'RolePermissionController@addPermiison')->name('addPermiison');
+Route::post('RolePermissionadduser', 'RolePermissionController@adduser')->name('RolePermission.adduser');
 });
-
-
-
 Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth','verified']],function() {
 Route::get('/' , 'CourseController@index')->name('course.index');
 Route::post('/store' , 'CourseController@store')->name('courses.store');
