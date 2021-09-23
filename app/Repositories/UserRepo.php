@@ -15,6 +15,9 @@ public function UserAll(){
 public function getTeacher(){
     return User::permission('teach')->get();
 }
+public function findByUserId($id){
+return User::where('id', $id)->first();
+}
 
 }
 

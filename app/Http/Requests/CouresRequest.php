@@ -2,11 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Course;
+use App\Rules\validTeacherRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Course;
 
-class CouresRequest extends FormRequest
+class CouresRequest extends FormRequest 
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,9 +32,9 @@ class CouresRequest extends FormRequest
             "priority" => 'nullable|numeric',
             "price" => 'required|numeric|min:0|max:10000000',
             "percent" => 'required|numeric|min:0|max:100',
-            "teacher_id" => ['required','exists:users,id', new ValidTeacher()],
+            "teacher_id" => ['required','exists:users,id', new validTeacherRule()],
             "type" => ["required", Rule::in(Course::$types)],
-            "status" => ["required", Rule::in(Course::$statuses)],
+            "status" => ["required", Rule::in(Course::$enums)],
             "category_id" => "required|exists:categories,id",
             "image" => "required|mimes:jpg,png,jpeg",
         ];

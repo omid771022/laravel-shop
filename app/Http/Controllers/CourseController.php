@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CouresRequest;
 use App\Repositories\UserRepoInterface;
 use App\Repositories\CategoryRepoInterface;
 
@@ -30,8 +31,8 @@ class CourseController extends Controller
 return view('Dashboard.Course.index', compact(['techers','categories']));
     }
 
-    public function store(){
-
+    public function store(CouresRequest $request){
+dd($request);
 
 
     }
