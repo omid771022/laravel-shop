@@ -3,7 +3,7 @@
 namespace App\Rules;
 
 
-use App\Repositories\UserRepoInterface;
+
 
 use App\Repositories\UserRepo;
 use Illuminate\Contracts\Validation\Rule;

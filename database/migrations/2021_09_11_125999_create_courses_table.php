@@ -24,9 +24,12 @@ class CreateCoursesTable extends Migration
             $table->enum('type', array_keys(\App\Course::$types));
             $table->enum('enum', array_keys(\App\Course::$enums));
             $table->longText('body')->nullable();
+            $table->integer('banner_id')->nullable()->unsigned();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('SET NULL');
             $table->foreign('teacher_id')->references('id')->on('users')->onDelete('CASCADE');
+            $table->foreign('teacher_id')->references('id')->on('media')->onDelete('CASCADE');
+            
         });
     }
 

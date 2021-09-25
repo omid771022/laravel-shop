@@ -37,18 +37,18 @@
                
          
                 </select>
-               <x-validation-error field="status_enum" />
-                <select name="status_enum">
+               <x-validation-error field="statusEnum" />
+                <select name="statusEnum">
                     <option value="">وضعیت دوره</option>
                     @foreach (\App\Course::$enums as $key=>$enum )
-                    <option value="{{$key}}" >{{$enum}}</option>
+                    <option value="{{$key}}"  @if($key == old('statusEnum')) selected @endif    >{{$enum}}</option>
                     @endforeach
                 </select>
                 <x-validation-error field="category_id" />
                 <select name="category_id" >
                     <option value="">دسته بندی</option>
                     @foreach ($categories as $category)
-                    {{-- @if($techer->id == old('teacher_id')) selected @endif --}}
+                  
                         <option value="{{ $category['id'] }}" @if($category['id']  == old('category_id')) selected @endif >{{ $category['name'] }}</option>
                     @endforeach
 
@@ -58,7 +58,7 @@
                 <div class="file-upload">
                     <div class="i-file-upload">
                         <span>آپلود بنر دوره</span>
-                        <input type="file" class="file-upload" id="files" name="image" {{old('category_id')}} />
+                        <input type="file" class="file-upload" id="files" name="image" {{old('image')}} />
                     </div>
                     <span class="filesize"></span>
                     <span class="selectedFiles">فایلی انتخاب نشده است</span>

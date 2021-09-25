@@ -33,10 +33,11 @@ class CouresRequest extends FormRequest
             "price" => 'required|numeric|min:0|max:10000000',
             "percent" => 'required|numeric|min:0|max:100',
             "teacher_id" => ['required','exists:users,id', new validTeacherRule()],
-            "type" => ["required", Rule::in(Course::$types)],
-            "status" => ["required", Rule::in(Course::$enums)],
+            "typeBuy" => ["required", Rule::in(array_keys(Course::$types))],
+            "statusEnum" => ["required", Rule::in(array_keys(Course::$enums))],
             "category_id" => "required|exists:categories,id",
             "image" => "required|mimes:jpg,png,jpeg",
         ];
     }
+
 }
