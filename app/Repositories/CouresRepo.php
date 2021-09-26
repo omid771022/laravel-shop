@@ -48,7 +48,7 @@ class CouresRepo implements CouresRepoInterface
     {
         return Course::paginate();
     }
-    public function findById($id)
+    public function delete($id)
     {
         $course = Course::where('id', $id)->firstOrFail();
         if ($course->media) {
@@ -56,5 +56,10 @@ class CouresRepo implements CouresRepoInterface
             $course->media->delete();
             $course->delete();
         }
+        return back();
     }
-}
+        public function findById($id){
+           return Course::where('id', $id)->first();
+        }
+    }
+

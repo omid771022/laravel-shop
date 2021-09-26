@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Media;
+use App\Course;
+use Illuminate\Http\Request;
 use App\Http\Requests\CouresRequest;
-use App\Services\MediaUploadService;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 use App\Repositories\UserRepoInterface;
 use App\Repositories\CouresRepoInterface;
-use Symfony\Component\Console\Input\Input;
 use App\Repositories\CategoryRepoInterface;
-
 
 class CourseController extends Controller
 {
@@ -27,10 +26,11 @@ class CourseController extends Controller
         $this->categoryRepo = $categoryRepo;
         $this->repo = $userRepo;
     }
-public function create(){
-    $courses=$this->courseRepo->paginate();
-    return view('Dashboard.Course.create', compact('courses'));
-}
+    public function create()
+    {
+        $courses = $this->courseRepo->paginate();
+        return view('Dashboard.Course.create', compact('courses'));
+    }
 
     public function index()
     {
@@ -44,14 +44,76 @@ public function create(){
 
     public function store(CouresRequest $request)
     {
-    $this->courseRepo->storeCoures($request);
-   return back();
+        $this->courseRepo->storeCoures($request);
+        return back();
     }
-    public function delete($id){
+    public function delete($id)
+    {
 
-        $this->courseRepo->findById($id);
-      return back() ;
-  
+        $this->courseRepo->delete($id);
+        return back();
     }
+    public function edit($id)
+    {
+        $teachers = $this->repo->getTeacher();
+        $categories = $this->categoryRepo->all();
+        $course = $this->courseRepo->findById($id);
+        return view('Dashboard.Course.edit', compact(['teachers', 'categories', 'course']));
+    }
+    public function update(Request $request, $id)
+    {
+        $course = Course::find($id);
+        if ($request->has('image')) {
+            $file = $request->file('image');
+            $imagePath = public_path('uploads/course/' . $course->media->files);
+            if (File::exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $imageName = uniqid();
+            $extention = $file->extension();
+            $fullnameFile = $imageName . '.' . $extention;
+            $file->move(public_path("/uploads/course/"), $fullnameFile);
+            Media::where('id', $course->media->id)->update([
+                'files' => $fullnameFile,
+                'type' => "image",
+                "user_id" => auth()->id(),
+                "filename" => $imageName,
+            ]);
 
+            Course::where('id', $id)->update([
+                'teacher_id' => $request->teacher_id,
+                'category_id' => $request->category_id,
+                'title' => $request->title,
+                'slug' => $request->slug,
+                'banner_id' => $course->media->id,
+                'proiority' => $request->priority,
+                'price' => $request->price,
+                'percent' => $request->percent,
+                'type' => $request->typeBuy,
+                'enum' => $request->statusEnum,
+                'body' => $request->body,
+            ]);
+        }
+else{
+    Course::where('id', $id)->update([
+        'teacher_id' => $request->teacher_id,
+        'category_id' => $request->category_id,
+        'title' => $request->title,
+        'slug' => $request->slug,
+        'banner_id' => $course->media->id,
+        'proiority' => $request->priority,
+        'price' => $request->price,
+        'percent' => $request->percent,
+        'type' => $request->typeBuy,
+        'enum' => $request->statusEnum,
+        'body' => $request->body,
+    ]);
+
+return redirect()->route('course.create');
+
+}
+
+
+
+    }
 }

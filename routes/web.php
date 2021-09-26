@@ -59,4 +59,6 @@ Route::get('/' , 'CourseController@index')->name('course.index');
 Route::get('/create', 'CourseController@create')->name('course.create');
 Route::post('/store' , 'CourseController@store')->name('courses.store');
 Route::get('/destroy/{id}', 'CourseController@delete')->name('courses.destroy');
+Route::get('/edit/{id}', 'CourseController@edit')->name('courses.edit');
+Route::post('/update/{id}' ,'CourseController@update')->name('course.update');
 });

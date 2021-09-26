@@ -21,11 +21,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($courses as $key=> $course)
+                    @foreach($courses as $key => $course)
                     <tr role="row" class="">
+
                         <td>{{$key+1}}</td>
                         <td><a href="">{{ $course->id }}</a></td>
-                        <td width="80"><img width="150" src="/uploads/course/{{ $course->media->files}} " /></td>
+                        <td width="80"><img width="150" src="/uploads/course/{{$course->media->files}}"/></td>
                         <td><a href="">{{ $course->title }}</a></td>
                         <td><a href="">{{ $course->teacher->name }}</a></td>
                         <td>{{ $course->price }}</td>
@@ -35,7 +36,7 @@
                         <td>
                             <a href="{{ route('courses.destroy', $course->id) }}" class="item-delete mlg-15" title="حذف"></a>
                             <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                            {{-- <a href="{{ route('courses.edit',  $course->id) }}" class="item-edit " title="ویرایش"></a> --}}
+                            <a href="{{ route('courses.edit',  $course->id) }}" class="item-edit " title="ویرایش"></a>
                         </td>
                     </tr>
                     @endforeach
