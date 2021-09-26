@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Services\MediaUploadService;
 use Illuminate\Database\Eloquent\Model;
 
 class Media extends Model
@@ -10,4 +11,10 @@ class Media extends Model
     protected $casts = [
         'files' => 'json'
     ];
+    public function course()
+    {
+        return $this->hasOne(Course::class, 'banner_id', 'id');
+    }
+
+
 }

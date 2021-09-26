@@ -21,6 +21,7 @@ class CreateCoursesTable extends Migration
             $table->string('slug');
             $table->float('proiority')->nullable();
             $table->bigInteger('price');
+            $table->string('percent',5);
             $table->enum('type', array_keys(\App\Course::$types));
             $table->enum('enum', array_keys(\App\Course::$enums));
             $table->longText('body')->nullable();

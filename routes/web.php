@@ -20,14 +20,6 @@ Route::get('/dashboard', 'DashboardController@dashboard')->name('dashboard');
 Route::get('/', function () {
     return view('home');
 });
-
-
-// Route::get('/test', function () {
-//     \Spatie\Permission\Models\Permission::create(['name' => 'manage role_permissions']);
-//     auth()->user()->givePermissionTo('manage role_permissions');
-//     return auth()->user()->permissions;
-// });
-
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -64,5 +56,7 @@ Route::post('RolePermissionadduser', 'RolePermissionController@adduser')->name('
 });
 Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth','verified']],function() {
 Route::get('/' , 'CourseController@index')->name('course.index');
+Route::get('/create', 'CourseController@create')->name('course.create');
 Route::post('/store' , 'CourseController@store')->name('courses.store');
+Route::get('/destroy/{id}', 'CourseController@delete')->name('courses.destroy');
 });

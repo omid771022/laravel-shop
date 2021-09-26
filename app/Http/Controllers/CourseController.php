@@ -27,6 +27,10 @@ class CourseController extends Controller
         $this->categoryRepo = $categoryRepo;
         $this->repo = $userRepo;
     }
+public function create(){
+    $courses=$this->courseRepo->paginate();
+    return view('Dashboard.Course.create', compact('courses'));
+}
 
     public function index()
     {
@@ -40,14 +44,14 @@ class CourseController extends Controller
 
     public function store(CouresRequest $request)
     {
-
-
-      
-
-
-   $course = $this->courseRepo->storeCoures($request);
-   return $course;
-
-
+    $this->courseRepo->storeCoures($request);
+   return back();
     }
+    public function delete($id){
+
+        $this->courseRepo->findById($id);
+      return back() ;
+  
+    }
+
 }
