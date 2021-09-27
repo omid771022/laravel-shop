@@ -93,27 +93,29 @@ class CourseController extends Controller
                 'enum' => $request->statusEnum,
                 'body' => $request->body,
             ]);
+        } else {
+            Course::where('id', $id)->update([
+                'teacher_id' => $request->teacher_id,
+                'category_id' => $request->category_id,
+                'title' => $request->title,
+                'slug' => $request->slug,
+                'banner_id' => $course->media->id,
+                'proiority' => $request->priority,
+                'price' => $request->price,
+                'percent' => $request->percent,
+                'type' => $request->typeBuy,
+                'enum' => $request->statusEnum,
+                'body' => $request->body,
+            ]);
+
+            return redirect()->route('course.create');
         }
-else{
-    Course::where('id', $id)->update([
-        'teacher_id' => $request->teacher_id,
-        'category_id' => $request->category_id,
-        'title' => $request->title,
-        'slug' => $request->slug,
-        'banner_id' => $course->media->id,
-        'proiority' => $request->priority,
-        'price' => $request->price,
-        'percent' => $request->percent,
-        'type' => $request->typeBuy,
-        'enum' => $request->statusEnum,
-        'body' => $request->body,
-    ]);
+    }
 
-return redirect()->route('course.create');
-
-}
+    public function accept($id){
 
 
-
+    
+           $course = $this->courseRepo->updateStatus($id);
     }
 }

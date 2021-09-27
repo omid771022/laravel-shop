@@ -50,7 +50,8 @@ class CouresRepo implements CouresRepoInterface
     }
     public function delete($id)
     {
-        $course = Course::where('id', $id)->firstOrFail();
+        $course = Course::where('id', $id)->first();
+        
         if ($course->media) {
             @unlink(public_path('/uploads/course/') . $course->media->files);
             $course->media->delete();
@@ -61,5 +62,11 @@ class CouresRepo implements CouresRepoInterface
         public function findById($id){
            return Course::where('id', $id)->first();
         }
+         public function updateStatus($id){
+             return Course::where('id', $id)->update([
+                 'confirmationStatus' =>'accepted',
+             ]);
+
+         }
     }
 

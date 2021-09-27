@@ -17,6 +17,7 @@
                         <th>قیمت</th>
                         <th>درصد مدرس</th>
                         <th>وضعیت</th>
+                        <th>تایید دوره </th>
                         <th>عملیات</th>
                     </tr>
                     </thead>
@@ -31,12 +32,33 @@
                         <td><a href="">{{ $course->teacher->name }}</a></td>
                         <td>{{ $course->price }}</td>
                         <td>{{ $course->percent }}%</td>
-                        <td>{{$course->enum}}</td>
-                      
+                        <td>
+                            @if($course['enum'] == 'completed')
+                            {{"کامل شد"}}
+                            @elseif($course['enum'] == 'not-completed')
+                            {{'درحال برگزاری'}}
+                            @elseif($course['enum'] == "lock")
+                            {{"قفل شده"}}
+                            @endif
+
+                  
+                        </td>
+                      <td>
+                        @if($course['confirmationStatus'] == 'accepted')
+                        {{"تایید"}}
+                        @elseif($course['confirmationStatus'] == 'rejected')
+                        {{'رد کردن'}}
+                        @elseif($course['confirmationStatus'] == "pending")
+                        {{"انتظار شده"}}
+                        @endif
+
+                      </td>
+
                         <td>
                             <a href="{{ route('courses.destroy', $course->id) }}" class="item-delete mlg-15" title="حذف"></a>
                             <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                             <a href="{{ route('courses.edit',  $course->id) }}" class="item-edit " title="ویرایش"></a>
+                            <a href=" {{route('course.accept' , $course->id)}}" onclick="return confirm('آیا مطمن هستید که میخواهید دور را تایید کنید')" class="item-confirm mlg-15" title="تایید شد"></a>
                         </td>
                     </tr>
                     @endforeach
@@ -46,7 +68,6 @@
             </div>
         </div>
     </div>
-
     @section('js')
     <script src="/panel/js/tagsInput.js?v=12"></script>
 @endsection

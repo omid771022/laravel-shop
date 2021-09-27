@@ -44,21 +44,22 @@ Route::group(['prefix' => 'dashboard/category', 'middleware' => ['auth', 'verifi
     Route::post('/update/{id}', 'CategoryController@update')->name('categories.update');
     Route::get('/delete/{id}', 'CategoryController@delete')->name('categories.delete');
 });
-Route::group(['prefix' =>'dashboard/RolePermission', 'middleware'=>['auth', 'verified']],function(){
-Route::get('/','RolePermissionController@index')->name('RolePermission.index');
-Route::post('/store', 'RolePermissionController@store')->name('RolePermission.store');
-Route::post('/storePermissions', 'RolePermissionController@storePermissions')->name('storePermissions');
-Route::get('/editPermissionRole/{id}', 'RolePermissionController@editPermissionRole')->name('editPermissionRole');
-Route::post('/updatePermissionRole/{id}', 'RolePermissionController@updatePermissionRole')->name('updatePermissionRole');
-Route::get('/delete/{id}', 'RolePermissionController@delete')->name('PermissionRole.delete');
-Route::get('/addPermiison', 'RolePermissionController@addPermiison')->name('addPermiison');
-Route::post('RolePermissionadduser', 'RolePermissionController@adduser')->name('RolePermission.adduser');
+Route::group(['prefix' => 'dashboard/RolePermission', 'middleware' => ['auth', 'verified']], function () {
+    Route::get('/', 'RolePermissionController@index')->name('RolePermission.index');
+    Route::post('/store', 'RolePermissionController@store')->name('RolePermission.store');
+    Route::post('/storePermissions', 'RolePermissionController@storePermissions')->name('storePermissions');
+    Route::get('/editPermissionRole/{id}', 'RolePermissionController@editPermissionRole')->name('editPermissionRole');
+    Route::post('/updatePermissionRole/{id}', 'RolePermissionController@updatePermissionRole')->name('updatePermissionRole');
+    Route::get('/delete/{id}', 'RolePermissionController@delete')->name('PermissionRole.delete');
+    Route::get('/addPermiison', 'RolePermissionController@addPermiison')->name('addPermiison');
+    Route::post('RolePermissionadduser', 'RolePermissionController@adduser')->name('RolePermission.adduser');
 });
-Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth','verified']],function() {
-Route::get('/' , 'CourseController@index')->name('course.index');
-Route::get('/create', 'CourseController@create')->name('course.create');
-Route::post('/store' , 'CourseController@store')->name('courses.store');
-Route::get('/destroy/{id}', 'CourseController@delete')->name('courses.destroy');
-Route::get('/edit/{id}', 'CourseController@edit')->name('courses.edit');
-Route::post('/update/{id}' ,'CourseController@update')->name('course.update');
+Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth', 'verified']], function () {
+    Route::get('/', 'CourseController@index')->name('course.index');
+    Route::get('/create', 'CourseController@create')->name('course.create');
+    Route::post('/store', 'CourseController@store')->name('courses.store');
+    Route::get('/destroy/{id}', 'CourseController@delete')->name('courses.destroy');
+    Route::get('/edit/{id}', 'CourseController@edit')->name('courses.edit');
+    Route::post('/update/{id}', 'CourseController@update')->name('course.update');
+    Route::get('/accept/{id}', 'CourseController@accept')->name('course.accept');
 });

@@ -197,3 +197,4 @@ $('.study-mode').click(function () {
     $('.sidebar-right').toggleClass('d-none');
     $('.content-left').toggleClass('on');
 })
+

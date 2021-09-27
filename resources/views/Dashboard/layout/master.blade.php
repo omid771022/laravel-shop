@@ -12,7 +12,7 @@
 <body>
     @include('Dashboard.layout.sidebar');
 
-@yield('contentDashboard');
+@yield('contentDashboard')
 </body>
 <script src="/dashboards/js/jquery-3.4.1.min.js"></script>
 <script src="/dashboards/js/js.js"></script>
