@@ -2,6 +2,7 @@
 
 
 namespace App\Repositories;
+use App\User;
 use Spatie\Permission\Models\Role;
 use App\Repositories\RoleRepoInterface;
 
@@ -23,12 +24,19 @@ public function roleFindById($id){
 }
 
 public function updateRolePermission($request, $id){
-$role=$this->roleFindById($id);
-return $role->syncPermissions($request['permissions'])->update(['name' => $request->name]);
+
+$user=User::find($id);
+
+$user->syncRoles($request['permissions']);
+
 }
 
 public function delete($id){
-    return  Role::where('id', $id)->delete();
+ $user= User::where('id', $id)->first();
+ $user->removeRole($user->roles->first());
+return back();
+
+    // return  Role::where('id', $id)->delete();
   }
 
 }

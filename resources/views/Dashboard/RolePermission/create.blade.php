@@ -30,10 +30,10 @@
 
 
 
-    <p class="box__title">ایجاد نقش   جدید</p>
+    <p class="box__title">ایجاد دسترسی جدید</p>
     <form action="{{route('storePermissions')}}" method="post" class="padding-30">
         @csrf
-        <input type="text" name="name" placeholder="نام نقش کاربری " class="text" required>
+        <input type="text" name="name" placeholder="نام دسترسی  " class="text" required>
         @error('name')
         <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>

@@ -11,6 +11,12 @@ use App\Repositories\CouresRepoInterface;
 class CouresRepo implements CouresRepoInterface
 {
 
+
+    public static function keyCourse()
+    {
+        return array_keys(\App\Course::$confirmationStatus);
+    }
+
     public function storeCoures($request)
     {
 
@@ -51,7 +57,7 @@ class CouresRepo implements CouresRepoInterface
     public function delete($id)
     {
         $course = Course::where('id', $id)->first();
-        
+
         if ($course->media) {
             @unlink(public_path('/uploads/course/') . $course->media->files);
             $course->media->delete();
@@ -59,14 +65,33 @@ class CouresRepo implements CouresRepoInterface
         }
         return back();
     }
-        public function findById($id){
-           return Course::where('id', $id)->first();
-        }
-         public function updateStatus($id){
-             return Course::where('id', $id)->update([
-                 'confirmationStatus' =>'accepted',
-             ]);
-
-         }
+    public function findById($id)
+    {
+        return Course::where('id', $id)->first();
     }
 
+    public function updateStatus($id)
+    {
+        $key = $this->keyCourse();
+        return Course::where('id', $id)->update([
+            'confirmationStatus' => $key[0],
+        ]);
+    }
+    public function updateStatusPending($id)
+    {
+        $key = $this->keyCourse();
+
+        return Course::where('id', $id)->update([
+            'confirmationStatus' => $key[2],
+        ]);
+    }
+    public function updateStatusRejected($id)
+    {
+        $key = $this->keyCourse();
+        return Course::where('id', $id)->update([
+            'confirmationStatus' => $key[1],
+        ]);
+    }
+
+    
+}

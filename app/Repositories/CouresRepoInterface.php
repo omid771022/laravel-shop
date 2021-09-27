@@ -7,6 +7,8 @@ public function paginate();
 public function findById($id);
 public function delete($id);
 public function updateStatus($id);
+public function updateStatusPending($id);
+public function updateStatusRejected($id);
 }
 
 

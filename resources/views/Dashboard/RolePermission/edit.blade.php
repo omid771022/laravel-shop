@@ -5,13 +5,15 @@
     <div class="row no-gutters  ">
         <div class="col-12 bg-white">
             <p class="box__title">بروزرسانی نقش کاربری</p>
-            <form action="{{ route('updatePermissionRole', $role->id) }}" method="post" class="padding-30">
+
+
+            <form action="{{ route('updatePermissionRole', $user->id ) }}" method="post" class="padding-30">
                 @csrf
  
-                <input type="hidden" name="id" value="{{ $role->id}}">
+                <input type="hidden" name="id" value="{{ $user->id}}">
               
                 <input type="text" name="name" required placeholder="نام نقش کاربری" class="text"
-                       value="{{ $role->name}}">
+                       value="{{ $user->name}}">
                 @error("name")
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -19,14 +21,15 @@
                 @enderror
 
                 <p class="box__title margin-bottom-15">انتخاب مجوزها</p>
-                @foreach($permissions as $permission)
+                @foreach($roles as $role)
+            
                     <label class="ui-checkbox pt-1">
-                        <input type="checkbox" name="permissions[{{ $permission->name }}]" class="sub-checkbox"
+                        <input type="checkbox" name="permissions[{{ $role->name }}]" class="sub-checkbox"
                                data-id="2"
-                               value="{{ $permission->name }}"
-                               @if($role->hasPermissionTo($permission->name)) checked @endif>
+                               value="{{$role->name}}" @if ($user->hasRole($role->name) == $role->name ) checked @endif>
+                         
                         <span class="checkmark"></span>
-                        @lang($permission->name)
+                        @lang($role->name)
                     </label>
                 @endforeach
                 @error("permissions")

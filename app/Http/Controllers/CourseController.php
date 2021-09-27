@@ -112,10 +112,19 @@ class CourseController extends Controller
         }
     }
 
-    public function accept($id){
-
-
-    
-           $course = $this->courseRepo->updateStatus($id);
+    public function accept($id)
+    {
+        $this->courseRepo->updateStatus($id);
+        return back();
+    }
+    public function pending($id)
+    {
+        $this->courseRepo->updateStatusPending($id);
+        return back();
+    }
+    public function reject($id)
+    {
+        $this->courseRepo->updateStatusRejected($id);
+        return back();
     }
 }

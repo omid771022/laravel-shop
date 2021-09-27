@@ -21,6 +21,7 @@
                     </thead>
                     <tbody>
                         @foreach($allUserRole as $role)
+
                 <tr role="row" class="">
                     <td><a href="">{{ $role->id }}</a></td>
                     <td>{{ $role->name}}</td>
@@ -32,7 +33,7 @@
                     </td>
   
                         <td>
-                            <a href="{{route('PermissionRole.delete', $role['id'])}}" class="item-delete mlg-15" title="حذف" onclick="myFunction()" ></a>
+                            <a href="{{route('PermissionRole.delete', $role['id'])}}" class="item-delete mlg-15" title="حذف"  ></a>
                             <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                             <a href="{{route('editPermissionRole', $role['id'])}}" class="item-edit " title="ویرایش"></a>
                         </td>

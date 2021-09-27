@@ -62,4 +62,6 @@ Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth', 'verified
     Route::get('/edit/{id}', 'CourseController@edit')->name('courses.edit');
     Route::post('/update/{id}', 'CourseController@update')->name('course.update');
     Route::get('/accept/{id}', 'CourseController@accept')->name('course.accept');
+    Route::get('/pending/{id}', 'CourseController@pending')->name('course.pending');
+    Route::get('/reject/{id}', 'CourseController@reject')->name('course.reject');
 });

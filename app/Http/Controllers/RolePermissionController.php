@@ -51,15 +51,14 @@ class RolePermissionController extends Controller
 
     public function editPermissionRole($id)
     {
+         $user=User::find($id);
+        $roles = $this->repoRole->roleAll();
 
-
-        $role = $this->repoRole->roleFindById($id);
-
-        $permissions = $this->repoPermission->permissionAll();
-        return view('Dashboard.RolePermission.edit', compact(['permissions', 'role']));
+        return view('Dashboard.RolePermission.edit', compact(['roles', 'user']));
     }
-    public function  updatePermissionRole(RoleUpdateRequest $request, $id)
+    public function  updatePermissionRole(Request $request, $id)
     {
+  
         $this->repoRole->updateRolePermission($request, $id);
         return redirect()->route('RolePermission.index');
     }
@@ -73,8 +72,9 @@ class RolePermissionController extends Controller
     public function addPermiison(){
         $users = $this->userRepo->userAll();
         $Roles = $this->repoRole->roleAll();
-        // $allUserRole =  User::role('teach')->get();
-        // dd($allUserRole);
+        $roles = \Spatie\Permission\Models\Role::all();
+        $allUserRole =  User::role($roles)->get();
+
         return view('Dashboard.RolePermission.user', compact(['Roles', 'users', 'allUserRole']));
     }
 
