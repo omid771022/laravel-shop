@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Category;
 use App\Policies\CoursePolicy;
 use App\Policies\CategoryPolicy;
+use App\Policies\RolePolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -29,6 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         Gate::policy(Course::class, CoursePolicy::class);
         Gate::policy(Category::class , CategoryPolicy::class);
+        Gate::policy(Role::class, RolePolicy::class);
 
         Gate::before(function ($user) {
             return $user->hasPermissionTo('super admin') ? true : null;

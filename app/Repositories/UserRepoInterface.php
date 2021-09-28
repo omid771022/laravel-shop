@@ -6,5 +6,6 @@ interface UserRepoInterface{
     public function userAll();
     public function getTeacher();
     public function findByUserId($id);
+    public function paginate();
 }
 ?>

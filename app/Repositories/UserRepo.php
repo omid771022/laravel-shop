@@ -19,6 +19,14 @@ public function findByUserId($id){
 return User::where('id', $id)->first();
 }
 
+
+public function paginate()
+{
+    return User::paginate();
+}
+
+
+
 }
 
 ?>

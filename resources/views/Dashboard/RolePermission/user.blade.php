@@ -23,9 +23,11 @@
                             @foreach ($allUserRole as $user)
 
                                 <tr role="row" class="">
+
                     <td><a href="">{{ $user->id }}</a></td>
                         <td>{{  $user->name }}</td>
                         <td></td>
+                        @can('super admin')
                             <td>
                                 <a href=" {{route('PermissionRole.delete', $user['id'])}}" class="item-delete mlg-15"
                                     title="حذف"></a>
@@ -33,6 +35,7 @@
                                     <a href="{{route('editPermissionRole', $user['id'])}}" class="item-edit "
                                         title="ویرایش"></a>
                                     </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>
@@ -42,6 +45,8 @@
                 </div>
             </div>
 
+
+            @can('super admin')
             <div class="col-4 bg-white">
                 <p class="box__title">انتصاب نقش به کاربر </p>
                 <form action="{{ route('RolePermission.adduser') }}" method="post" class="padding-30">
@@ -81,7 +86,7 @@
                 </form>
             </div>
 
-
+            @endcan
 
 
         </div>

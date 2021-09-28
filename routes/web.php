@@ -65,3 +65,8 @@ Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth', 'verified
     Route::get('/pending/{id}', 'CourseController@pending')->name('course.pending');
     Route::get('/reject/{id}', 'CourseController@reject')->name('course.reject');
 });
+
+Route::group(['prefix' => 'dashboard/user' , 'middleware' => ['auth' ,'verified']] , function () {
+    Route::get('/', 'UserController@index')->name('user.index');
+    
+});

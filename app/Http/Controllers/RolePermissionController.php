@@ -51,6 +51,7 @@ class RolePermissionController extends Controller
 
     public function editPermissionRole($id)
     {
+
          $user=User::find($id);
         $roles = $this->repoRole->roleAll();
 
@@ -70,6 +71,7 @@ class RolePermissionController extends Controller
     }
 
     public function addPermiison(){
+        $this->authorize('admin');
         $users = $this->userRepo->userAll();
         $Roles = $this->repoRole->roleAll();
         $roles = \Spatie\Permission\Models\Role::all();
