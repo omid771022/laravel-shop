@@ -13,14 +13,11 @@ use App\Repositories\CategoryRepoInterface;
 
 class CourseController extends Controller
 {
-
-
     public $repo;
     public $userRepo;
     public $categoryRepo;
     public $courseRepo;
     public function __construct(UserRepoInterface $userRepo, CategoryRepoInterface $categoryRepo, CouresRepoInterface $courseRepo)
-
     {
         $this->courseRepo = $courseRepo;
         $this->categoryRepo = $categoryRepo;
@@ -28,6 +25,7 @@ class CourseController extends Controller
     }
     public function create()
     {
+        $this->authorize('view', Course::class);
         $courses = $this->courseRepo->paginate();
         return view('Dashboard.Course.create', compact('courses'));
     }

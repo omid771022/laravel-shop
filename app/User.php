@@ -23,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','mobile'
+        'name', 'email', 'password', 'mobile'
     ];
 
     /**
@@ -45,16 +45,21 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
-    public function sendEmailVerificationNotification(){
+    public function sendEmailVerificationNotification()
+    {
 
-$this->notify(new VerifyMail());
+        $this->notify(new VerifyMail());
     }
 
 
-    public function sendResetPasswordRequestNotification(){
+    public function sendResetPasswordRequestNotification()
+    {
 
-        $this->notify(new ResatPasswordNotification()); 
-            }
+        $this->notify(new ResatPasswordNotification());
+    }
+
+
+
 
 
 }

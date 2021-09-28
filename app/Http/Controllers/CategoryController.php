@@ -18,7 +18,8 @@ class CategoryController extends Controller
     }
     public function index()
     {
-        //todo Category repository
+        // $this->authorize('view', Course::class);
+        $this->authorize('view_category', Category::class);
         $categories = $this->repo->all();
         return view('Dashboard.Category.index', compact('categories'));
     }
