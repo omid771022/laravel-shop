@@ -24,9 +24,37 @@ public function paginate()
 {
     return User::paginate();
 }
+public function update($id , $request){
 
+   
+    $update = [
+      
+    ];
+    if (! is_null($request->password)) {
+        $update['password'] = bcrypt($request->password);
+    }
+    return User::where('id', $id)->update([
 
-
+        'name' => $request->name,
+        'email' => $request->email,
+        'mobile' => $request->mobile,
+        'username' => $request->username,
+        'headline' => $request->headline,
+        'website' => $request->website,
+        'instagram' => $request->instagram,
+        'linkedin' => $request->linkedin,
+        'twitter' => $request->twitter,
+        'facebook' => $request->facebook,
+        'youtube' => $request->youtube,
+        'status' => $request->status,
+        'password' => $request->password,
+        'bio' => $request->bio,
+        'image_id' => $request->image_id
+    ]);
 }
+}
+
+
+
 
 ?>

@@ -16,14 +16,14 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use HasRoles;
 
-
+    static $statues =['active' => 'فعال','inactive'=>'غیر فعال' ,'ban'=>'بلاک' ];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'mobile'
+        'name', 'email', 'password', 'mobile', 'image', 'username', 'headline', 'bio', 'website', 'linkedin', 'tiwitter', 'telgram', 'status'
     ];
 
     /**
@@ -58,7 +58,9 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new ResatPasswordNotification());
     }
 
-
+public function  image(){
+    return $this->belongsTo(Media::class, 'image_id');
+}
 
 
 

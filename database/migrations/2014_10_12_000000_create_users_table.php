@@ -27,9 +27,11 @@ class CreateUsersTable extends Migration
             $table->string('mobile',11 )->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('status',['active','inactive','ban' ])->default('active');
+            $table->enum('status', array_keys(\App\User::$statues))->default('active');
+            $table->bigInteger('image_id')->unsigned->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->foreign('image_id')->references('id')->on('media')->onDelete('SET NULL');
         });
     }
 

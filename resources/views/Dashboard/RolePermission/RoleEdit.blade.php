@@ -7,10 +7,10 @@
             <p class="box__title">بروزرسانی نقش کاربری</p>
 
 
-            <form action="{{ route('updatePermissionRole', $user->id) }}" method="post" class="padding-30">
+            <form action="{{ route('updateRole', $user) }}" method="post" class="padding-30">
                 @csrf
 
-                <input type="hidden" name="id" value="{{ $user->id }}">
+              
 
                 <input type="text" name="name" required placeholder="نام نقش کاربری" class="text"
                     value="{{ $user->name }}">
@@ -24,7 +24,12 @@
                 @foreach ($roles as $role)
 
                     <label class="ui-checkbox pt-1">
-                        <input type="checkbox" name="permissions[{{ $role->name }}]" class="sub-checkbox" data-id="2"
+                        <input type="checkbox" name="permissions[{{ $role->name }}]"
+                      @if ($role->name == $user->hasRole($role->name))
+                          checked
+                      @endif
+                     
+                        class="sub-checkbox" data-id="2"
                             value="{{ $role->name }}"  >
 
                         <span class="checkmark"></span>

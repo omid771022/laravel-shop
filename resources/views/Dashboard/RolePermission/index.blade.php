@@ -2,9 +2,11 @@
 @section('contentDashboard')
     @include('Dashboard.layout.header')
 
-    @if (Session::has('message'))
-        <p>{{ Session::get('message') }}</p>
-    @endif
+
+    @if(Session::has('delete_Permssion'))
+{{Session::get('delete_Permssion')}}
+
+@endif
 
     <div class="main-content padding-0 categories">
         <div class="row no-gutters  ">
@@ -28,13 +30,13 @@
                         <td>
                             <ul>
                                 @foreach($role->Permissions as $permission)
-                                    <li>@lang($permission->name)</li>
+                                    <li>@lang($permission->name)  <a href="{{route('Permission.delete', [$role , $permission] )}}" class="item-delete mlg-15" title="حذف" onclick="  return confirm('ایا مطمن هستید که می خواهید حذف کنید');" ></a></li>
                                 @endforeach
                             </ul>
                         </td>
       
                             <td>
-                                <a href="{{route('PermissionRole.delete', $role['id'])}}" class="item-delete mlg-15" title="حذف" onclick="myFunction()" ></a>
+                               
                                 <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
                                 <a href="{{route('editPermissionRole', $role['id'])}}" class="item-edit " title="ویرایش"></a>
                             </td>
@@ -55,10 +57,5 @@
 
 
     
-    <script>
-        function myFunction() {
-            confirm("ایا مطمن هستید که می خواهید حذف کنید ");
-        }
-    </script>
 
 @endsection

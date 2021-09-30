@@ -36,6 +36,11 @@
         }
     },
     "autoload": {
+
+        "files": [
+            "app/Helper/feedback.php"
+        ],
+
         "psr-4": {
             "App\\": "app/"
         },

@@ -49,8 +49,11 @@ Route::group(['prefix' => 'dashboard/RolePermission', 'middleware' => ['auth', '
     Route::post('/store', 'RolePermissionController@store')->name('RolePermission.store');
     Route::post('/storePermissions', 'RolePermissionController@storePermissions')->name('storePermissions');
     Route::get('/editPermissionRole/{id}', 'RolePermissionController@editPermissionRole')->name('editPermissionRole');
+    Route::get('/editRole/{userRole}/{user}', 'RolePermissionController@editRole')->name('editRole');
+    Route::post('/updateRole/{id}', 'RolePermissionController@updateRole')->name('updateRole');
     Route::post('/updatePermissionRole/{id}', 'RolePermissionController@updatePermissionRole')->name('updatePermissionRole');
-    Route::get('/delete/{id}', 'RolePermissionController@delete')->name('PermissionRole.delete');
+    Route::get('/delete/{user}/role/{role}', 'RolePermissionController@delete')->name('PermissionRole.delete');
+    Route::get('/deletePermission/{role}/role/{permission}', 'RolePermissionController@permissionDelete')->name('Permission.delete');
     Route::get('/addPermiison', 'RolePermissionController@addPermiison')->name('addPermiison');
     Route::post('RolePermissionadduser', 'RolePermissionController@adduser')->name('RolePermission.adduser');
 });
@@ -68,5 +71,10 @@ Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth', 'verified
 
 Route::group(['prefix' => 'dashboard/user' , 'middleware' => ['auth' ,'verified']] , function () {
     Route::get('/', 'UserController@index')->name('user.index');
+    Route::get('users/{id}', 'UserController@edit')->name('users.edit');
+    Route::post('update/{id}', 'UserController@update')->name('users.update');
+    Route::get('/users/destroy/{id}', 'UserController@destroy')->name('users.destroy');
+    Route::get('user/manualVerify/{id}', 'UserController@manualVerify')->name('user.manualVerify');
+
     
 });

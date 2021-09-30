@@ -4,11 +4,19 @@
     <br>
     <br>
 
+    @if(Session::has('feedback'))
+        {{Session::get('feedback')['title']}}
+        {{Session::get('feedback')['body']}}
+@endif
 
+@if(Session::has('delete'))
+{{Session::get('delete')}}
+
+@endif
     <div class="main-content padding-0 categories">
         <div class="row no-gutters  ">
             <div class="col-8 margin-left-10 margin-bottom-15 border-radius-3">
-                <p class="box__title">دسته بندی ها</p>
+                <p class="box__title">انتصاب نقش </p>
                 <div class="table__box">
                     <table class="table">
                         <thead role="rowgroup">
@@ -26,13 +34,16 @@
 
                     <td><a href="">{{ $user->id }}</a></td>
                         <td>{{  $user->name }}</td>
-                        <td></td>
+                        <td>      <ul>
+                            @foreach($user->roles as $userRole)
+                                <li>{{ $userRole->name }}  <a href=" {{route('PermissionRole.delete',[$user, $userRole] )}}" class="item-delete mlg-15" title="حذف"></a></li>
+                            @endforeach
+                        </ul></td>
                         @can('super admin')
                             <td>
-                                <a href=" {{route('PermissionRole.delete', $user['id'])}}" class="item-delete mlg-15"
-                                    title="حذف"></a>
+                     
                                     <a href="" target="_blank" class="item-eye mlg-15" title="مشاهده"></a>
-                                    <a href="{{route('editPermissionRole', $user['id'])}}" class="item-edit "
+                                    <a href="{{route('editRole', [$userRole , $user])}}" class="item-edit "
                                         title="ویرایش"></a>
                                     </td>
                                     @endcan
@@ -46,7 +57,7 @@
             </div>
 
 
-            @can('super admin')
+         
             <div class="col-4 bg-white">
                 <p class="box__title">انتصاب نقش به کاربر </p>
                 <form action="{{ route('RolePermission.adduser') }}" method="post" class="padding-30">
@@ -86,7 +97,7 @@
                 </form>
             </div>
 
-            @endcan
+   
 
 
         </div>
