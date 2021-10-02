@@ -69,10 +69,14 @@ Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth', 'verified
     Route::get('/reject/{id}', 'CourseController@reject')->name('course.reject');
 });
 
-Route::group(['prefix' => 'dashboard/user' , 'middleware' => ['auth' ,'verified']] , function () {
+Route::group(['prefix' => 'dashboard/user' , 'middleware' => ['auth', 'verified', 'permission:admin']] , function () {
     Route::get('/', 'UserController@index')->name('user.index');
     Route::get('users/{id}', 'UserController@edit')->name('users.edit');
     Route::post('update/{id}', 'UserController@update')->name('users.update');
     Route::get('/users/destroy/{id}', 'UserController@destroy')->name('users.destroy');
     Route::get('user/manualVerify/{id}', 'UserController@manualVerify')->name('user.manualVerify');
+    Route::post('user/photo' ,'UserController@Userphoto')->name('user.photo');
+    Route::get('/profile' , 'UserController@userProfile')->name('user.profile');
+    Route::post('users/profile/update', 'UserController@usersProfileUpdate')->name('user.profile.update');
+    Route::get('tutors/{username}', 'UserController@viewProfile')->name('viewProfile');
 });

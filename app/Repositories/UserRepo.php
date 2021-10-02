@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Repositories;
-use App\Repositories\UserRepoInterface;
+use auth;
 use App\User;
+use App\Repositories\UserRepoInterface;
 
 
 class UserRepo implements UserRepoInterface {
@@ -52,6 +53,33 @@ public function update($id , $request){
         'image_id' => $request->image_id
     ]);
 }
+
+
+
+public function usersProfileUpdate($request){
+
+    \Auth()->user()->name = $request->name;
+    if( \Auth()->user()->email != $request->email){
+        \Auth()->user()->email = $request->email;
+        \Auth()->user()->email_verified_at = null;
+    } 
+
+    if (auth()->user()->hasPermissionTo('teach')) {
+        auth()->user()->card_number = $request->card_number;
+        auth()->user()->shaba = $request->shaba;
+        auth()->user()->headline = $request->headline;
+        auth()->user()->bio = $request->bio;
+        auth()->user()->username = $request->username;
+    }
+
+    if ($request->password) {
+        auth()->user()->password = bcrypt($request->password);
+    }
+
+
+    \Auth()->user()->save();
+}
+
 }
 
 

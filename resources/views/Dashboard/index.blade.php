@@ -2,6 +2,10 @@
 
 @section('contentDashboard')
 @include('Dashboard.layout.header')
+@if (Session::has('message'))
+{{ Session::get('delete') }}
+@endif
+
 
     <div class="main-content">
         <div class="row no-gutters font-size-13 margin-bottom-10">

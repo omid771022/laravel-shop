@@ -8,5 +8,6 @@ interface UserRepoInterface{
     public function findByUserId($id);
     public function paginate();
     public function update($request , $id);
+    public function usersProfileUpdate($request);
 }
 ?>

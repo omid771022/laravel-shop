@@ -23,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'mobile', 'image', 'username', 'headline', 'bio', 'website', 'linkedin', 'tiwitter', 'telgram', 'status'
+      'shaba' , 'card_number' , 'name', 'email', 'password', 'mobile', 'image', 'username', 'headline', 'bio', 'website', 'linkedin', 'tiwitter', 'telgram', 'status'
     ];
 
     /**
@@ -62,6 +62,8 @@ public function  image(){
     return $this->belongsTo(Media::class, 'image_id');
 }
 
-
+public function profilePath(){
+ return $this->username ? route('viewProfile', $this->username) : route('viewProfile' , 'username');
+}
 
 }

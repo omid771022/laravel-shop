@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <a href="" class="logout" title="خروج"></a>
+            <a href="{{route('logout')}}"  onclick="return confirm(' ایا مطمن هستید از خروج خود ')"class="logout" title="خروج"></a>
         </div>
     </div>
     <div class="breadcrumb">

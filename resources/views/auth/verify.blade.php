@@ -11,7 +11,7 @@
                 <img src="img/weblogo.png" alt="">
             </a>
             <div class="card-header">
-                <p class="activation-code-title">کد فرستاده شده به ایمیل  <span>Mohammadniko3@gmail.com</span> را وارد کنید</p>
+                <p class="activation-code-title">کد فرستاده شده به ایمیل  <span>{{auth()->user()->email}}</span></p> را وارد کنید</p>
             </div>
 
 
@@ -28,11 +28,12 @@
                 <a href="{{route('register')}}">صفحه ثبت نام</a>
             </div>
         </form>
-        <br>
         <form action="{{route('verification.resend')}}" method="post">
             @csrf
               <button type="submit" class="btn btn-primary">ارسال مجدد</button>
           </form>
+        <br>
+       
     </div>
 </main>
 

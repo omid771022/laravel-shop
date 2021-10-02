@@ -1,14 +1,9 @@
 <div class="sidebar__nav border-top border-left  ">
     <span class="bars d-none padding-0-18"></span>
     <a class="header__logo  d-none" href="https://webamooz.net"></a>
-    <div class="profile__info border cursor-pointer text-center">
-        <div class="avatar__img"><img src="img/pro.jpg" class="avatar___img">
-            <input type="file" accept="image/*" class="hidden avatar-img__input">
-            <div class="v-dialog__container" style="display: block;"></div>
-            <div class="box__camera default__avatar"></div>
-        </div>
-        <span class="profile__name">کاربر : محمد نیکو</span>
-    </div>
+   
+
+   <x-user-photo/>
 
     <ul>
         <li class="item-li i-dashboard "><a href="index.html">پیشخوان</a></li>
@@ -18,6 +13,7 @@
         <li class="item-li i-role-permissions  @if(Request::is('dashboard/addPermiison/*') || Request::is('dashboard/addPermiison')) ? is-active @endif"><a href="{{route('addPermiison')}}">انتصاب نقش به کاربر </a></li>
         <li class="item-li i-categories @if(Request::is('dashboard/category/*') || Request::is('dashboard/category')) ?  is-active  @endif  "><a href="{{route('category.index')}}">دسته بندی ها</a></li>
         <li class="item-li i-users  @if(Request::is('dashboard/user/*') || Request::is('dashboard/user')) ? is-active @endif"><a href="{{route('user.index')}}">  کاربران</a></li>
+        <li class="item-li i-users  @if(Request::is('dashboard/user/profile/*') || Request::is('dashboard/user/profile')) ? is-active @endif"><a href="{{route('user.profile')}}">  ویرایش کاربر </a></li>
         <li class="item-li i-slideshow"><a href="slideshow.html">اسلایدشو</a></li>
         <li class="item-li i-banners"><a href="banners.html">بنر ها</a></li>
         <li class="item-li i-articles"><a href="articles.html">مقالات</a></li>

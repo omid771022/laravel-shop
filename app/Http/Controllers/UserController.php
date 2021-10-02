@@ -6,11 +6,13 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\RoleRepoInterface;
 use App\Repositories\UserRepoInterface;
 use App\Http\Requests\UpdateUserRequest;
-use Illuminate\Support\Facades\File;
+
+use App\Http\Requests\UpdateProfileInformationRequest;
 
 class UserController extends Controller
 {
@@ -58,7 +60,7 @@ class UserController extends Controller
             $imageName = uniqid();
             $extention = $file->extension();
             $fullnameFile = $imageName . '.' . $extention;
-            $file->move(public_path("/uploads/upload/"), $fullnameFile);
+            $file->move(public_path("/uploads/user/"), $fullnameFile);
         } else {
             $user = User::find($id);
             $fullnameFile = $user->image;
@@ -88,13 +90,47 @@ class UserController extends Controller
         session()->flash('delete', 'کار بر با موفقیت حذف شد ');
         return redirect()->back();
     }
-    public function manualVerify($id){
+    public function manualVerify($id)
+    {
         $this->authorize('admin');
         $user = $this->userRepo->findByUserId($id);
         $user->markEmailAsVerified();
         newFeedback(" با موفقیت تایید شد {$user->name} ایمیل کاربر", "success");
-       
-        
+
+
         return redirect()->back();
+    }
+    public function Userphoto(UpdateuserRequest $request)
+    {
+
+        $id = auth()->user()->id;
+        $user = $this->userRepo->findByUserId($id);
+        if ($request->has('userphoto')) {
+            $file = $request->file('userphoto');
+            $imagePath = public_path('/uploads/upload/' . $user->image);
+            if (File::exists($imagePath)) {
+                unlink($imagePath);
+            } else {
+            }
+            $imageName = uniqid();
+            $extention = $file->extension();
+            $fullnameFile = $imageName . '.' . $extention;
+            $file->move(public_path("/uploads/upload/"), $fullnameFile);
+        }
+        User::where('id', $id)->update([
+            'image' => $fullnameFile,
+        ]);
+        newFeedback('message', 'کاربر با موفقیت عکس پروفایلش تغییر کرد ');
+        return back();
+    }
+
+    public function  userProfile(){
+        $this->authorize('admin');
+        return view('Dashboard.User.Admin.profile');
+    }
+    public function usersProfileUpdate(UpdateProfileInformationRequest $request){
+     $this->userRepo->usersProfileUpdate($request);
+     newFeedback('feedbacks', ' با موفقیت اپدیت شد ');
+     return back();
     }
 }
