@@ -75,6 +75,4 @@ Route::group(['prefix' => 'dashboard/user' , 'middleware' => ['auth' ,'verified'
     Route::post('update/{id}', 'UserController@update')->name('users.update');
     Route::get('/users/destroy/{id}', 'UserController@destroy')->name('users.destroy');
     Route::get('user/manualVerify/{id}', 'UserController@manualVerify')->name('user.manualVerify');
-
-    
 });
