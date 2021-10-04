@@ -83,9 +83,14 @@ Route::group(['prefix' => 'dashboard/user' , 'middleware' => ['auth', 'verified'
 });
 Route::group(['prefix' => 'dashboard/seasons', 'middleware' => ['auth', 'verified', 'web']], function(){
 Route::post('/store/{id}',  'SeasonController@store')->name('seasons.store'); 
-Route::get('/accept/{id}', 'SeasonController@accept')->name('course.accept');
-Route::get('/pending/{id}', 'SeasonController@pending')->name('course.pending');
-Route::get('/reject/{id}',   'SeasonController@reject')->name('course.reject');
+Route::get('/accept/{id}', 'SeasonController@accept')->name('seasons.accept');
+Route::get('/pending/{id}', 'SeasonController@pending')->name('seasons.pending');
+Route::get('/reject/{id}',   'SeasonController@reject')->name('seasons.reject');
+Route::patch('/update/{id}', 'SeasonController@update')->name('season.update');
+Route::get('/edit/{id}',    'SeasonController@edit')->name('seasons.edit');
+Route::get('/delete/{id}', 'SeasonController@delete')->name('seasons.delete');
+Route::get('/lock/{id}',   'SeasonController@lock')->name('seasons.lock');
+Route::get('/open/{id}',  'SeasonController@open')->name('seasons.open');
 
  
 });

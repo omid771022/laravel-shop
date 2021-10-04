@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Season extends Model
 {
-    static $confirmationStatus = ['accepted' => 'تایید', 'rejected' => 'رد کردن', 'pending' => 'انتظار'];
+    static $confirmationStatus = ['accepted' => 'تایید', 'rejected' => 'رد کردن'];
+    static $statuses = [ 'open' => 'باز است ','lock' => 'فقل است'];
     protected $guarded = [];
     public function course()
     {

@@ -15,6 +15,8 @@
             <tr role="row" class="title-row">
                 <th class="p-r-90">شناسه</th>
                 <th>عنوان فصل</th>
+                <th>وضعیت </th>
+                <th>وضعیت تایید</th>
                 <th>عملیات</th>
             </tr>
             </thead>
@@ -25,10 +27,42 @@
                 <td><a href="">{{ $season->number }}</a></td>
                 <td><a href="">{{ $season->title }}</a></td>
                 <td>
-                    <a href="" class="item-delete mlg-15" title="حذف"></a>
-                    <a href="" class="item-reject mlg-15" title="رد"></a>
-                    <a href="" class="item-confirm mlg-15" title="تایید"></a>
-                    <a href="" class="item-edit " title="ویرایش"></a>
+                    @foreach (\App\Season::$confirmationStatus as $key => $value)
+                    @if ($key == $season->confirmation_status)
+                        {{ $value }}
+                    @endif
+                @endforeach
+                </td>
+                <td>
+                    
+                    @foreach (\App\Season::$statuses as $key => $value)
+                    @if ($key == $season['status'])
+                        {{ $value }}
+                    @endif
+                @endforeach
+                   </td>
+              
+                 
+
+
+                               <td>
+                 
+                    <a href="{{route('seasons.delete', $season['id'] )}}" onclick="return confirm(' ایا مطمن هستید که میخواهید  این قسمت را حذف کنید')" class="item-delete mlg-15" title="حذف"></a>
+                    <a href="{{route('seasons.reject', $season['id'])}}" class="item-reject mlg-15" title="رد"></a>
+                    <a href="{{route('seasons.accept', $season['id'])}}" class="item-confirm mlg-15" title="تایید"></a>
+                    <a href="{{route('seasons.edit' , $season->id)}}" class="item-edit " title="ویرایش"></a>
+                @if ($season['status'] == 'open'  )
+                <a href="{{ route('seasons.lock',$season->id) }}"
+                    onclick="return confirm('آیا منطمن هستید که می خواهید دوره را در حالت قفل قرار دهید')"
+                    class="item-lock mlg-15 text-success"></a>
+                @else
+                <a href="{{ route('seasons.open',$season->id) }}" 
+                    onclick="return confirm('آیا منطمن هستید که می خواهید دوره را در حالت باز قرار دهید')"
+                   
+                    class="item-lock mlg-15 text-error"></a>
+                @endif
+                
+                  
                 </td>
             </tr>
             @endforeach

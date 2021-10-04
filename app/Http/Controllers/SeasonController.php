@@ -16,7 +16,6 @@ class SeasonController extends Controller
         $this->courseRepo = $courseRepo;
         $this->sasonrepo = $sasonrepo;
     }
-
     public function  store(seasonRequest $request, $id)
     {
         $this->sasonrepo->store($request, $id);
@@ -24,22 +23,52 @@ class SeasonController extends Controller
         return back();
         
     }
-
-
-
     public function accept($id)
     {
-        $this->courseRepo->updateStatus($id);
+        $this->sasonrepo->updateStatus($id);
+        newFeedback("جلسه با موفقیت تایید شد ","feedbacks");
         return back();
     }
     public function pending($id)
     {
-        $this->courseRepo->updateStatusPending($id);
+        $this->sasonrepo->updateStatusPending($id);
         return back();
     }
     public function reject($id)
     {
-        $this->courseRepo->updateStatusRejected($id);
+        $this->sasonrepo->updateStatusRejected($id);
+        newFeedback("جلسه با موفقیت رد شد","feedbacks");
         return back();
     }
+    public function edit($id){
+        $season = $this->sasonrepo->findByIdSeasons($id);
+        return view('Dashboard.Course.seasons.edit', compact('season'));        
+
+    }
+    public function  update(seasonRequest $request, $id){
+        $this->sasonrepo->update($request, $id);
+        newFeedback("جلسه با موفقیت اپدیت  گردید","feedbacks");
+        return back();
+    }
+
+    public function delete($id){
+        $this->sasonrepo->delete($id);
+        newFeedback("جلسه با موفقیت حذف  گردید","feedbacks");
+        return back();
+    }
+
+    public function lock($id){
+        $this->sasonrepo->lock($id);
+        newFeedback("جلسه با موفقیت قفل  گردید","feedbacks");
+        return back();
+
+    }
+
+public function open($id){
+    $this->sasonrepo->open($id);
+    newFeedback("جلسه با موفقیت باز  گردید","feedbacks");
+    return back();
+
+}
+
 }

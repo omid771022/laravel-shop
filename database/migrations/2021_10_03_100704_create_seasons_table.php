@@ -19,6 +19,7 @@ class CreateSeasonsTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->Integer('number')->unsigned();
             $table->enum('confirmation_status', array_keys(\App\Season::$confirmationStatus))->default('pending');
+            $table->enum('status', array_keys(\App\Season::$statuses))->default('lock');
             $table->string('title');
             $table->timestamps();
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('CASCADE');
