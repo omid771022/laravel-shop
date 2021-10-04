@@ -66,4 +66,7 @@ public function profilePath(){
  return $this->username ? route('viewProfile', $this->username) : route('viewProfile' , 'username');
 }
 
+public function seasons(){
+    return $this->hasMany(Season::class);
+}
 }

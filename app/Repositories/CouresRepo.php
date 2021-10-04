@@ -67,7 +67,7 @@ class CouresRepo implements CouresRepoInterface
     }
     public function findById($id)
     {
-        return Course::where('id', $id)->first();
+        return Course::find($id);
     }
 
     public function updateStatus($id)

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Repositories;
-use auth;
 use App\User;
 use App\Repositories\UserRepoInterface;
 

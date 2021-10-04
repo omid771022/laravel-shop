@@ -125,4 +125,9 @@ class CourseController extends Controller
         $this->courseRepo->updateStatusRejected($id);
         return back();
     }
+public function details($id){
+  $course =  $this->courseRepo->findById($id);
+    return  view('Dashboard.Course.details', compact('course'));
+}
+    
 }

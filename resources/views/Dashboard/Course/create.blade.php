@@ -15,6 +15,7 @@
                             <th>عنوان</th>
                             <th>مدرس</th>
                             <th>قیمت</th>
+                            <th>جزییات</th>
                             <th>درصد مدرس</th>
                             <th>وضعیت</th>
                             <th>تایید دوره </th>
@@ -33,6 +34,7 @@
                                 <td><a href="">{{ $course->title }}</a></td>
                                 <td><a href="">{{ $course->teacher->name }}</a></td>
                                 <td>{{ $course->price }}</td>
+                                <td> <a href="{{route('course.details', $course->id) }}"> مشاهده</a></td>
                                 <td>{{ $course->percent }}%</td>
                                 <td>
                                     @foreach (\App\Course::$enums as $key => $value)

@@ -133,4 +133,9 @@ class UserController extends Controller
      newFeedback('feedbacks', ' با موفقیت اپدیت شد ');
      return back();
     }
+
+    public function details($id){
+        dd($id);
+
+    }
 }

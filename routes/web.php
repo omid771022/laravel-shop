@@ -1,6 +1,5 @@
 <?php
 
-use App\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,7 +65,8 @@ Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth', 'verified
     Route::post('/update/{id}', 'CourseController@update')->name('course.update');
     Route::get('/accept/{id}', 'CourseController@accept')->name('course.accept');
     Route::get('/pending/{id}', 'CourseController@pending')->name('course.pending');
-    Route::get('/reject/{id}', 'CourseController@reject')->name('course.reject');
+    Route::get('/reject/{id}',   'CourseController@reject')->name('course.reject');
+    Route::get('/details/{id}','CourseController@details')->name('course.details');
 });
 
 Route::group(['prefix' => 'dashboard/user' , 'middleware' => ['auth', 'verified', 'permission:admin']] , function () {
@@ -79,4 +79,13 @@ Route::group(['prefix' => 'dashboard/user' , 'middleware' => ['auth', 'verified'
     Route::get('/profile' , 'UserController@userProfile')->name('user.profile');
     Route::post('users/profile/update', 'UserController@usersProfileUpdate')->name('user.profile.update');
     Route::get('tutors/{username}', 'UserController@viewProfile')->name('viewProfile');
+
+});
+Route::group(['prefix' => 'dashboard/seasons', 'middleware' => ['auth', 'verified', 'web']], function(){
+Route::post('/store/{id}',  'SeasonController@store')->name('seasons.store'); 
+Route::get('/accept/{id}', 'SeasonController@accept')->name('course.accept');
+Route::get('/pending/{id}', 'SeasonController@pending')->name('course.pending');
+Route::get('/reject/{id}',   'SeasonController@reject')->name('course.reject');
+
+ 
 });
