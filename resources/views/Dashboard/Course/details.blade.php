@@ -1,6 +1,7 @@
 @extends('Dashboard.layout.master');
 @section('contentDashboard')
     @include('Dashboard.layout.header')
+    @include('Dashboard.commen.feedback')
     <div class="row no-gutters  ">
         <div class="col-8 bg-white padding-30 margin-left-10 margin-bottom-15 border-radius-3">
             <div class="margin-bottom-20 flex-wrap font-size-14 d-flex bg-white padding-0">
@@ -43,7 +44,7 @@
                                 <span class="checkmark"></span>
                             </label>
                         </td>
-                        <td><a href="">{{ $lesson->proiority }}</a></td>
+                        <td><a href="">{{ $lesson->id }}</a></td>
                         <td><a href="">{{ $lesson->title}}</a></td>
                         <td>{{ $lesson->season->title }}</td>
                         <td>{{ $lesson->time }} دقیقه </td>
@@ -56,7 +57,7 @@
                         </td>
                         <td>{{ $lesson->free ? 'همه'  : 'شرکت کنندگان'}}</td>
                         <td>
-                            <a href="" class="item-delete mlg-15" data-id="1" title="حذف"></a>
+                            <a href="{{route('lesson.delete', $lesson->id)}}" onclick="return confirm('آیا از حذف مطمن هستید')" class="item-delete mlg-15" title="حذف"></a>
                             <a href="" class="item-reject mlg-15" title="رد"></a>
                             <a href="" class="item-lock mlg-15" title="قفل "></a>
                             <a href="" class="item-confirm mlg-15" title="تایید"></a>
@@ -112,7 +113,7 @@
                             <td><a href="">40000</a></td>
                             <td><a href="">20000</a></td>
                             <td>
-                                <a href="" class="item-delete mlg-15" title="حذف"></a>
+                                <a href="" onclick="" class="item-delete mlg-15" title="حذف"></a>
                                 <a href="" class="item-edit " title="ویرایش"></a>
                             </td>
                         </tr>
