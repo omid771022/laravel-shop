@@ -8,9 +8,11 @@ use App\Season;
 class SeasonRepo implements SeasonRepoInterface
 {
     public function findByIdSeasons($id)
+
     {
         return Season::find($id);
     }
+
     public function store($request, $id)
     {
         $course = Course::find($id);
@@ -80,5 +82,9 @@ class SeasonRepo implements SeasonRepoInterface
         return Season::where('id', $id)->update([
             'status' => 'open',
         ]);
+    }
+
+    public function allSeason($id){
+        return Season::where('course_id', $id)->where('confirmation_status' , 'accepted')->orderBy('number', 'desc')->get();
     }
 }

@@ -91,6 +91,10 @@ Route::get('/edit/{id}',    'SeasonController@edit')->name('seasons.edit');
 Route::get('/delete/{id}', 'SeasonController@delete')->name('seasons.delete');
 Route::get('/lock/{id}',   'SeasonController@lock')->name('seasons.lock');
 Route::get('/open/{id}',  'SeasonController@open')->name('seasons.open');
+Route::get('/upload/{id}', 'SeasonController@upload')->name('season.upload');
 
  
+});
+Route::group(['prefix' => 'dashboard/lesson', 'middleware' => ['auth', 'verified', 'web']], function(){
+    Route::post('/store/{id}',  'LessonController@store')->name('lesson.store'); 
 });

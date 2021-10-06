@@ -11,4 +11,6 @@ interface SeasonRepoInterface {
     public function delete($id);
     public function lock($id);
     public function open($id);
+    public function allSeason($id);
+
 }

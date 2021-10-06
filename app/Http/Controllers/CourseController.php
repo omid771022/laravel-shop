@@ -9,6 +9,7 @@ use App\Http\Requests\CouresRequest;
 use Illuminate\Support\Facades\File;
 use App\Repositories\UserRepoInterface;
 use App\Repositories\CouresRepoInterface;
+use App\Repositories\LessonRepoInterface;
 use App\Repositories\CategoryRepoInterface;
 
 class CourseController extends Controller
@@ -17,11 +18,13 @@ class CourseController extends Controller
     public $userRepo;
     public $categoryRepo;
     public $courseRepo;
-    public function __construct(UserRepoInterface $userRepo, CategoryRepoInterface $categoryRepo, CouresRepoInterface $courseRepo)
+    public $lessonrepo;
+    public function __construct(UserRepoInterface $userRepo, CategoryRepoInterface $categoryRepo, CouresRepoInterface $courseRepo , LessonRepoInterface $lessonrepo)
     {
         $this->courseRepo = $courseRepo;
         $this->categoryRepo = $categoryRepo;
         $this->repo = $userRepo;
+        $this->lessonRepo =$lessonrepo;
     }
     public function create()
     {
@@ -126,8 +129,11 @@ class CourseController extends Controller
         return back();
     }
 public function details($id){
+
+
+    $lessons =$this->lessonRepo->paginate();
   $course =  $this->courseRepo->findById($id);
-    return  view('Dashboard.Course.details', compact('course'));
+    return  view('Dashboard.Course.details', compact(['course','lessons']));
 }
     
 }
