@@ -98,5 +98,5 @@ Route::get('/upload/{id}', 'SeasonController@upload')->name('season.upload');
 Route::group(['prefix' => 'dashboard/lesson', 'middleware' => ['auth', 'verified', 'web']], function(){
     Route::post('/store/{id}',  'LessonController@store')->name('lesson.store');
     Route::get('/delete/{id}',  'LessonController@delete')->name('lesson.delete');
-    
+    Route::get('/deleteMultiple/{id}', 'LessonController@deleteMultiple')->name('lessons.destroyMultiple');
 });

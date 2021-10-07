@@ -37,7 +37,9 @@ class LessonRepo implements LessonRepoInterface
         $extention = $img->extension();
         $fullnameFile = $imageName . '.' . $extention;
         $img->move(storage_path("/uploads/lesson/"), $fullnameFile);
-
+if($extention == "mp4" || "mp3"){
+    $extention = "video";
+}
 
         $media = Media::create([
             'files' => $fullnameFile,
@@ -82,5 +84,20 @@ class LessonRepo implements LessonRepoInterface
 
 
 
+    }
+
+
+
+    public function deleteMultiple($request){
+        $ids = explode(',', $request->ids);
+         foreach ($ids as $id) {
+             $lessons = Lesson::find($id);
+             $medias = $lessons->media->files;
+             if ($lessons->media->files) {
+                 @unlink(storage_path('/uploads/lesson/') . $medias);
+             }
+             $lessons->media->delete();
+             $lessons->delete();
+        }
     }
 }

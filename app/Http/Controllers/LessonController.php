@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Media;
 use App\Lesson;
 use Illuminate\Http\Request;
 use App\Http\Requests\LessonRequest;
@@ -25,8 +26,19 @@ class LessonController extends Controller
         newFeedback("جلسه با موفقیت ثبت گردید", "feedbacks");
         return back();
     }
-    public function delete($id){
+    public function delete($id)
+    {
         $this->lessonrepo->delete($id);
+        newFeedback("جلسه با موفقیت حذف گردید", "feedbacks");
+        return back();
+    }
+
+
+//delete mutiple lesson
+    public function deleteMultiple(Request $request, $id)
+    {
+        $this->lessonrepo->deleteMultiple($request);
+        //send message to 
         newFeedback("جلسه با موفقیت حذف گردید", "feedbacks");
         return back();
     }

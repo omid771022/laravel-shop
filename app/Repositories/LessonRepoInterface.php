@@ -6,5 +6,6 @@ interface LessonRepoInterface {
     public function paginate();
     public function delete($id);
     public function findById($id);
+    public function deleteMultiple($request);
 
 }

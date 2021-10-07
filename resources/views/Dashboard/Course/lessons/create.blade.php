@@ -14,14 +14,14 @@
                 <input name="time" placeholder="شماره جلسه " type="number" class="text-left text text mlg-15" />
                 <input type="text" name="slug" placeholder="نام انگلیسی درس اختیاری" class="text-left text text mlg-15"
                     required />
-                @if (count($seasons))
+         
                     <select name="season_id" required>
                         <option value="">انتخاب سرفصل درس</option>
                         @foreach ($seasons as $season)
                             <option value="{{ $season->id }}" @if ($season->id == old('season_id')) selected @endif>{{ $season->title }}</option>
                         @endforeach
                     </select>
-                @endif
+        
                 <div class="w-50">
                     <p class="box__title">ایا این درس رایگان است ؟ </p>
                     <div class="notificationGroup">
