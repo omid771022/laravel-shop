@@ -1,269 +1,199 @@
-$('.bars').click(function () {
-    $('.sidebar__nav').toggleClass('is-active');
-    $('.content').toggleClass('is-active');
-})
-$('.notification__icon').on('click', function () {
-    $('.dropdown__notification').toggleClass('is-active');
-})
-$(document).on('click', function (event) {
-    if (!$(event.target).closest('.dropdown__notification').length && !$(event.target).closest('.notification').length) {
-        $('.dropdown__notification').removeClass('is-active');
-    }
-})
-$('.avatar-img__input').on('change', function () {
-    var input = $(this);
-    if (input[0] && input[0].files && input[0].files[0]) {
-        if (!input[0].files[0].type.includes("image")) {
-            // $('.avatar--img').attr('src', '../img/pr3o.png');
-            return false;
-        }
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('.avatar___img')
-                .attr('src', e.target.result);
-        };
+var offset = 120;
 
-        reader.readAsDataURL(input[0].files[0]);
-    }
-});
-$('input:file').change(
-    function (e) {
-        // console.log(e.currentTarget.files);
-        // var numFiles = e.currentTarget.files.length;
-        var fileSize = parseInt(e.currentTarget.files[0].size, 10) / 1024;
-        filesize = Math.round(fileSize);
-        $('.filesize').addClass('filesize').text('(' + filesize + 'kb)');
-        $('.selectedFiles').text(e.currentTarget.files[0].name).appendTo($('.selectedFiles'));
-
-    });
-
-function create_custom_dropdowns() {
-    $('select').each(function (i, select) {
-        if (!$(this).next().hasClass('dropdown-select')) {
-            $(this).after('<div class="dropdown-select wide ' + ($(this).attr('class') || '') + '" tabindex="0"><span class="current"></span><div class="list"><ul></ul></div></div>');
-            var dropdown = $(this).next();
-            var options = $(select).find('option');
-            var selected = $(this).find('option:selected');
-            dropdown.find('.current').html(selected.data('display-text') || selected.text());
-            options.each(function (j, o) {
-                var display = $(o).data('display-text') || '';
-                dropdown.find('ul').append('<li class="option ' + ($(o).is(':selected') ? 'selected' : '') + '" data-value="' + $(o).val() + '" data-display-text="' + display + '">' + $(o).text() + '</li>');
-            });
-        }
-    });
-
-    $('.dropdown-select ul').before('<div class="dd-search"><input id="txtSearchValue" autocomplete="off" onkeyup="filter()" class="dd-searchbox" type="text"></div>');
+function checkCampagin() {
+    $(window).width() <= 991 ? "block" == $(".campaign").css("display") ? ($(".article").removeClass("mr-202"),
+        $(".article").removeClass("mr-107"), $(".article").addClass("mr-152")) : ($(".article").removeClass("mr-202"),
+        $(".article").removeClass("mr-152"), $(".article").addClass("mr-107")) : "block" == $(".campaign").css("display") ? ($(".article").removeClass("mr-152"),
+        $(".article").removeClass("mr-107"), $(".article").addClass("mr-202"), $(".sidebar-sticky").css("top", "155px")) : ($(".article").removeClass("mr-202"),
+        $(".article").removeClass("mr-107"), $(".article").addClass("mr-152"), $(".sidebar-sticky").css("top", "104px"));
 }
 
-$(document).on('click', '.dropdown-select', function (event) {
-    if ($(event.target).hasClass('dd-searchbox')) {
-        return;
-    }
-    $('.dropdown-select').not($(this)).removeClass('open');
-    $(this).toggleClass('open');
-    if ($(this).hasClass('open')) {
-        $(this).find('.option').attr('tabindex', 0);
-        $(this).find('.selected').focus();
+
+$(window).scroll(function () {
+    $(this).scrollTop() >= offset ? ($("#navigation").addClass("sticky"), $(".scrollToTop").fadeIn()) : ($("#navigation").removeClass("sticky"),
+        $(".scrollToTop").fadeOut());
+}), window.addEventListener("resize", function () {
+    checkCampagin();
+}), checkCampagin(), $(".scrollToTop").on("click", function () {
+    $("html,body").animate({
+        scrollTop: 0
+    }, 800);
+}), $(".search-icon").on("click", function () {
+    $(this).toggleClass("is-active"), $(".t-header-search").toggleClass("is-active");
+}), $(".menu-icon").on("click", function () {
+    $(this).toggleClass("is-active"), $("#navigation").toggleClass("is-active"), $(".overlay").toggleClass("is-active"),
+        $("body").toggleClass("overflow-hidden");
+}), $(document).on("click", function (s) {
+    $(s.target).closest("#navigation").length || $(s.target).closest(".menu-icon").length || ($(".menu-icon").removeClass("is-active"),
+        $("#navigation").removeClass("is-active"), $(".overlay").removeClass("is-active"),
+        $("body").removeClass("overflow-hidden"));
+}), $(".episodes-list-group-head").on("click", function () {
+    var s = $(this).find(".head-left");
+    s.hasClass("open") ? (s.removeClass("open"), $(this).parent().find(".episodes-list-group-body").slideUp(200)) : (s.addClass("open"),
+        $(this).parent().find(".episodes-list-group-body").slideDown(200));
+}),
+
+
+    $(".like").on("click", function () {
+        $(this).toggleClass("is-active");
+    }), $(".course-description-title").on("click", function () {
+    $(this).parent().toggleClass("is-active");
+}), $(".cancel").on("click", function () {
+    $(".answer-form").removeClass("is-active");
+}), $(".moon").on("click tochstart", function () {
+    $("body").addClass("dark-mode"), $(this).hide(), $(".sun").show();
+}), $(".sun").on("click tochstart", function () {
+    $("body").removeClass("dark-mode"), $(this).hide(), $(".moon").show();
+});
+
+$(".bt-accrdion-li").on("click", function () {
+    if ($(this).hasClass("open")) {
+        $(this).removeClass("open");
+        $(this).find(".bt-accrdion-div").slideUp(200);
     } else {
-        $(this).find('.option').removeAttr('tabindex');
-        $(this).focus();
+        $(this).addClass("open");
+        $(this).find(".bt-accrdion-div").slideDown(200);
+        $(this).siblings("li").children(".bt-accrdion-div").slideUp(200);
+        $(this).siblings("li").removeClass("open");
     }
 });
+$('.main-menu.has-sub').hover(function (e) {
+    $(this).parent().find('.main-menu.has-sub > a').removeAttr('href');
+    var sh = $(this).find('.sub-menu').prop('scrollHeight');
+    $(this).find('.sub-menu').css({'height': sh + 'px', 'transition': 'all 200ms ease'});
+}, function () {
+    sh = $(this).find('.sub-menu').prop('scrollHeight');
+    $(this).find('.sub-menu').css({'height': 0, 'transition': 'all 200ms ease'});
+})
+var slideIndex = 1;
+var pt;
+var items;
+slideShow(slideIndex);
 
-$(document).on('click', function (event) {
-    if ($(event.target).closest('.dropdown-select').length === 0) {
-        $('.dropdown-select').removeClass('open');
-        $('.dropdown-select .option').removeAttr('tabindex');
+function slideShow(n) {
+    console.log('n = ' + n);
+    var slides = $('.slide').toArray();
+    if (n > slides.length) {
+        slideIndex = 1;
     }
-    event.stopPropagation();
-});
-
-function filter() {
-    var valThis = $('#txtSearchValue').val();
-    $('.dropdown-select ul > li').each(function () {
-        var text = $(this).text();
-        (text.toLowerCase().indexOf(valThis.toLowerCase()) > -1) ? $(this).show() : $(this).hide();
-    });
-};
-
-$(document).on('click', '.dropdown-select .option', function (event) {
-    $(this).closest('.list').find('.selected').removeClass('selected');
-    $(this).addClass('selected');
-    var text = $(this).data('display-text') || $(this).text();
-    $(this).closest('.dropdown-select').find('.current').text(text);
-    $(this).closest('.dropdown-select').prev('select').val($(this).data('value')).trigger('change');
-});
-
-$(document).on('keydown', '.dropdown-select', function (event) {
-    var focused_option = $($(this).find('.list .option:focus')[0] || $(this).find('.list .option.selected')[0]);
-    if (event.keyCode == 13) {
-        if ($(this).hasClass('open')) {
-            focused_option.trigger('click');
-        } else {
-            $(this).trigger('click');
-        }
-        return false;
-        // Down
-    } else if (event.keyCode == 40) {
-        if (!$(this).hasClass('open')) {
-            $(this).trigger('click');
-        } else {
-            focused_option.next().focus();
-        }
-        return false;
-        // Up
-    } else if (event.keyCode == 38) {
-        if (!$(this).hasClass('open')) {
-            $(this).trigger('click');
-        } else {
-            var focused_option = $($(this).find('.list .option:focus')[0] || $(this).find('.list .option.selected')[0]);
-            focused_option.prev().focus();
-        }
-        return false;
-        // Esc
-    } else if (event.keyCode == 27) {
-        if ($(this).hasClass('open')) {
-            $(this).trigger('click');
-        }
-        return false;
+    if (n < 1) {
+        slideIndex = slides.length;
     }
-});
+    console.log('slideIndex  = ' + slideIndex);
+    $('.slide').css('display', 'none');
+    $(slides[slideIndex - 1]).css('display', 'flex');
+    progressbar(slideIndex - 1);
+    return slideIndex
 
-$(document).ready(function () {
-    create_custom_dropdowns();
-});
-$('.checkedAll').on('click', function (e) {
-    if ($(this).is(':checked', true)) {
-        $(".sub-checkbox").prop('checked', true);
-    } else {
-        $(".sub-checkbox").prop('checked', false);
-    }
-});
-
-function deleteMultiple(route) {
-    var allVals = [];
-    $(".sub-checkbox:checked").each(function () {
-        allVals.push($(this).attr('data-id'));
-    });
-    //alert(allVals.length); return false;
-    if (allVals.length <= 0) {
-        alert("یک سطر انتخاب کنید");
-    } else {
-        alert("Please");
-        //$("#loading").show();
-        WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را حذف کنید؟";
-        var check = confirm(WRN_PROFILE_DELETE);
-        if (check == true) {
-            //for server side
-
-            // $("<form action='"+ route +"' method='post'>" +
-            //     "<input type='hidden' name='_token' value='"+ $('meta[name="_token"]').attr('content') +"' /> "+
-            //     "<input type='hidden' name='_method' value='delete'> " +
-            //     "<input type='hidden' name='ids' value='" + allVals + "'>" +
-            //     "</form>").appendTo('body').submit();
-
-            $.ajax({
-                type: "GET",
-                url: "/deleteMultiple/id",
-                cache:false,
-                data: {ids: allVals},
-                success: function(response)
-                {
-                    $("#loading").hide();
-                    $("#msgdiv").html(response);
-                    //referesh table
-                }
-            });
-            //for client side
-            $.each(allVals, function (index, value) {
-                $('table tr').filter("[data-row-id='" + value + "']").remove();
-            });
-
-
-        }
-    }
 }
 
-$('.course__detial .item-delete').on('click', function (e) {
-    WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را حذف کنید؟";
-    var check = confirm(WRN_PROFILE_DELETE);
-    if (check == true) {
-        $('table tr').filter("[data-row-id='" + $(this).attr('data-id') + "']").remove();
+function move(n) {
+    clearInterval(pt);
+    items[slideIndex - 1].style.width = '0%';
+    slideIndex = slideIndex + n;
+    slideShow(slideIndex);
+
+}
+
+function progressbar(slideId) {
+    items = document.getElementsByClassName('item-inner');
+    var width = 0;
+    pt = setInterval(frame, 30);
+
+    function frame() {
+        if (width >= 100) {
+            clearInterval(pt);
+            items[slideId].style.width = '0%';
+            slideIndex++;
+            slideIndex = slideShow(slideIndex);
+        } else {
+            width++;
+            items[slideId].style.width = width + '%';
+        }
     }
-});
+
+
+}
+
 $(document).on('click touchstart', function (e) {
-    var serach__box = $('.t-header-search');
-    var input = $('.search-input__box');
-    if ($(e.target).is(serach__box) || serach__box.has(e.target).length == 1) {
+    var headerSearchBox = $('.t-header-search');
+    var input = $('.t-header-searchbox input');
+    if ($(e.target).is(headerSearchBox) || headerSearchBox.has(e.target).length == 1) {
+        input.addClass('bg-white')
         $('.t-header-search-content').show();
-        $('.t-header-searchbox').addClass('open')
+
     } else {
+        input.removeClass('bg-white');
         $('.t-header-search-content').hide();
-        $('.t-header-searchbox').removeClass('open')
 
     }
 })
-$('.create-ads .ads-field-pn').on('click', function (e) {
-    $('.file-upload').hide()
-});
-$('.create-ads .ads-field-banner').on('click', function (e) {
-    $('.file-upload').show()
-});
-$('.discounts #discounts-field-2').on('click', function (e) {
-    $('.discounts .dropdown-select').addClass('is-active')
-});
-$('.discounts #discounts-field-1').on('click', function (e) {
-    $('.discounts .dropdown-select').removeClass('is-active')
-});
-function updateConfirmationStatus(event, route, message, status, field = 'confirmation_status') {
-    event.preventDefault();
-    if(confirm(message)){
-        $.post(route, { _method: "PATCH", _token: $('meta[name="_token"]').attr('content') })
-            .done(function (response) {
-                $(event.target).closest('tr').find('td.' + field).text(status);
-                if (status == "تایید شده") {
-                    $(event.target).closest('tr').find('td.' + field).html("<span class='text-success'>" + status + "</span>");
-                }else{
-                    $(event.target).closest('tr').find('td.' + field).html("<span class='text-error'>" + status + "</span>");
-                }
+$('.t-header-search-filter-item').on('click', function () {
+    $('.t-header-search-filter-item').removeClass('active')
+    $(this).addClass('active');
+})
 
-                $.toast({
-                    heading: 'عملیات موفق',
-                    text: response.message,
-                    showHideTransition: 'slide',
-                    icon: 'success'
-                })
-            })
-            .fail(function (response) {
-                $.toast({
-                    heading: 'عملیات ناموفق',
-                    text: response.message,
-                    showHideTransition: 'slide',
-                    icon: 'error'
-                })
-            })
-    }
+//bg bg-toast-info | bg-toast-success | bg-toast-alert
+// icon toast-info | toast-success | toast-alert
+function toastNotifi(message, bg, icon, delay = 3000) {
+    $('.toast__message').text(message);
+    $('.toast').removeClass('bg-toast-info bg-toast-success bg-toast-alert');
+    $('.toast').addClass(bg)
+    $('.toast__icon').removeClass('toast-info toast-success toast-alert')
+    $('.toast__icon').addClass(icon)
+    $('.toast').fadeIn(200).delay(delay).fadeOut(400);
 }
-function deleteItem(event, route, element = 'tr') {
-    event.preventDefault();
-    if(confirm('آیا از حذف این آیتم اطمینان دارید؟')){
-        $.post(route, { _method: "delete", _token: $('meta[name="_token"]').attr('content') })
-            .done(function (response) {
-                event.target.closest(element).remove();
-                $.toast({
-                    heading: 'عملیات موفق',
-                    text: response.message,
-                    showHideTransition: 'slide',
-                    icon: 'success'
-                })
-            })
-            .fail(function (response) {
-                $.toast({
-                    heading: 'عملیات ناموفق',
-                    text: response.message,
-                    showHideTransition: 'slide',
-                    icon: 'error'
-                })
-            })
-    }
+
+$(".episodes-list-item.lock").click(function (e) {
+    e.preventDefault();
+    toastNotifi('برای مشاهده دوره باید ابتدا آن را خریداری کنید', 'bg-toast-info', 'toast-info', 2000)
+});
+
+function toast__close() {
+    $('.toast').css('display', 'none')
 }
+
+$('.short-link-a').on('click', function (e) {
+    e.preventDefault();
+    var url = $('.short--link');
+    var copyLink = url.select();
+    document.execCommand('copy');
+    $('.short-link-a').removeClass('is-active');
+    $(this).addClass('is-active');
+    setTimeout(function () {
+        $('.short-link-a').removeClass('is-active');
+    }, 1000)
+});
+
+function rating_star() {
+    var steps = $('.slider-rating-span');
+    var ratingStarWidth = $('.rating-stars').width();
+    var slider__rating = $('.slider-rating');
+    steps.each(function () {
+        var self = $(this);
+        console.log(self)
+        var step_title = self.attr('data-title')
+        var ctitle;
+        self.hover(function () {
+            ctitle = slider__rating.attr('data-title');
+            console.log(ctitle)
+            slider__rating.attr('data-title', step_title);
+        }, function () {
+            slider__rating.attr('data-title', ctitle);
+        })
+        self.on('click', function () {
+            slider__rating.attr('data-title', step_title);
+            ctitle = slider__rating.attr('data-title');
+            var move = parseInt(self.attr('data-value'));
+            slider__rating.find('.star-fill').css({'width': move + '%'});
+            toastNotifi('با موفقیت ثبت شد', 'bg-toast-success', 'toast-success', 2000)
+
+        })
+    })
+}
+
+rating_star()
+$('.study-mode').click(function () {
+    $('.sidebar-right').toggleClass('d-none');
+    $('.content-left').toggleClass('on');
+})

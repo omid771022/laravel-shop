@@ -20,7 +20,6 @@ Route::get('/', function () {
     return view('home');
 });
 Auth::routes(['verify' => true]);
-
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/email/verify', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('/password/reset', 'Auth\ForgotPasswordController@showVerifyCodeRequestForm')->name('password.request');
@@ -29,10 +28,6 @@ Route::post('/password/rest/check-veryify-code', 'Auth\ForgotPasswordController@
 Route::get('/password/rest/checkcode', 'Auth\ForgotPasswordController@checkcode')->middleware('throttle:5,1')->name('checkcode');
 Route::get("/password/rest/showFormPassword", 'Auth\ForgotPasswordController@showFormPassword')->name('passwords.showFormPassword');
 Route::post('password/update', 'Auth\ForgotPasswordController@passwordUpdate')->name('password.update');
-
-
-
-
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'DashboardController@index')->name('Dashboard.index');
 });
