@@ -139,7 +139,7 @@ $('.checkedAll').on('click', function (e) {
         $(".sub-checkbox").prop('checked', false);
     }
 });
-
+// 
 function deleteMultiple(route) {
     var allVals = [];
     $(".sub-checkbox:checked").each(function () {
@@ -170,6 +170,68 @@ function deleteMultiple(route) {
         }
     }
 }
+
+
+// reject lesson
+
+
+
+function rejectMultiple(route) {
+    var allVals = [];
+    $(".sub-checkbox:checked").each(function () {
+        allVals.push($(this).attr('data-id'));
+    });
+    //alert(allVals.length); return false;
+    if (allVals.length <= 0) {
+        alert("یک سطر انتخاب کنید");
+    } else {
+     
+        //$("#loading").show();
+        WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را تایید کنید؟";
+        var check = confirm(WRN_PROFILE_DELETE);
+        if (check == true) {
+            //for server side
+
+            $("<form action='"+ route +"' >" +
+            "<input type='hidden' name='_method' value='get' > " +
+            "<input type='hidden' name='ids' value='" + allVals + "' >" +
+            "</form>").appendTo('body').submit();
+        }
+    }
+}
+
+
+
+
+
+
+function confirmMultiple(route) {
+    var allVals = [];
+    $(".sub-checkbox:checked").each(function () {
+        allVals.push($(this).attr('data-id'));
+    });
+    //alert(allVals.length); return false;
+    if (allVals.length <= 0) {
+        alert("یک سطر انتخاب کنید");
+    } else {
+     
+        //$("#loading").show();
+        WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را رد  کنید؟";
+        var check = confirm(WRN_PROFILE_DELETE);
+        if (check == true) {
+            //for server side
+
+            $("<form action='"+ route +"' >" +
+            "<input type='hidden' name='_method' value='get' > " +
+            "<input type='hidden' name='ids' value='" + allVals + "' >" +
+            "</form>").appendTo('body').submit();
+        }
+    }
+}
+
+
+
+
 
 $('.course__detial .item-delete').on('click', function (e) {
     WRN_PROFILE_DELETE = "آیا مطمئن هستید که می خواهید این سطر را حذف کنید؟";

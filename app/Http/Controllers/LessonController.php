@@ -42,4 +42,51 @@ class LessonController extends Controller
         newFeedback("جلسه با موفقیت حذف گردید", "feedbacks");
         return back();
     }
+
+ public function rjectMultiple(request $request){
+
+    $this->lessonrepo->rjectMultiple($request);
+    newFeedback("جلسات با موفقیت رد  گردید", "feedbacks");
+    return back();
+ }
+
+
+    public function accept($id)
+    {
+        $this->lessonrepo->accept($id);
+        newFeedback("جلسه با موفقیت تایید شد ", "feedbacks");
+        return back();
+    }
+    public function pending($id)
+    {
+        $this->lessonrepo->pending($id);
+        return back();
+    }
+    public function reject($id)
+    {
+        $this->lessonrepo->reject($id);
+        newFeedback("جلسه با موفقیت رد شد", "feedbacks");
+        return back();
+    }
+
+
+    public function lock($id)
+    {
+        $this->lessonrepo->lock($id);
+        newFeedback("جلسه با موفقیت قفل  گردید", "feedbacks");
+        return back();
+    }
+
+    public function open($id)
+    {
+        $this->lessonrepo->open($id);
+        newFeedback("جلسه با موفقیت باز  گردید", "feedbacks");
+        return back();
+    }
+    
+    public function confirmMultiple(Request $request){
+        $this->lessonrepo->confirmMultiple($request);
+        newFeedback("جلسه با موفقیت باز  گردید", "feedbacks");
+        return back();
+    }
 }

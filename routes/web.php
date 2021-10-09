@@ -66,37 +66,42 @@ Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth', 'verified
     Route::get('/accept/{id}', 'CourseController@accept')->name('course.accept');
     Route::get('/pending/{id}', 'CourseController@pending')->name('course.pending');
     Route::get('/reject/{id}',   'CourseController@reject')->name('course.reject');
-    Route::get('/details/{id}','CourseController@details')->name('course.details');
+    Route::get('/details/{id}', 'CourseController@details')->name('course.details');
 });
 
-Route::group(['prefix' => 'dashboard/user' , 'middleware' => ['auth', 'verified', 'permission:admin']] , function () {
+Route::group(['prefix' => 'dashboard/user', 'middleware' => ['auth', 'verified', 'permission:admin']], function () {
     Route::get('/', 'UserController@index')->name('user.index');
     Route::get('users/{id}', 'UserController@edit')->name('users.edit');
     Route::post('update/{id}', 'UserController@update')->name('users.update');
     Route::get('/users/destroy/{id}', 'UserController@destroy')->name('users.destroy');
     Route::get('user/manualVerify/{id}', 'UserController@manualVerify')->name('user.manualVerify');
-    Route::post('user/photo' ,'UserController@Userphoto')->name('user.photo');
-    Route::get('/profile' , 'UserController@userProfile')->name('user.profile');
+    Route::post('user/photo', 'UserController@Userphoto')->name('user.photo');
+    Route::get('/profile', 'UserController@userProfile')->name('user.profile');
     Route::post('users/profile/update', 'UserController@usersProfileUpdate')->name('user.profile.update');
     Route::get('tutors/{username}', 'UserController@viewProfile')->name('viewProfile');
-
 });
-Route::group(['prefix' => 'dashboard/seasons', 'middleware' => ['auth', 'verified', 'web']], function(){
-Route::post('/store/{id}',  'SeasonController@store')->name('seasons.store'); 
-Route::get('/accept/{id}', 'SeasonController@accept')->name('seasons.accept');
-Route::get('/pending/{id}', 'SeasonController@pending')->name('seasons.pending');
-Route::get('/reject/{id}',   'SeasonController@reject')->name('seasons.reject');
-Route::patch('/update/{id}', 'SeasonController@update')->name('season.update');
-Route::get('/edit/{id}',    'SeasonController@edit')->name('seasons.edit');
-Route::get('/delete/{id}', 'SeasonController@delete')->name('seasons.delete');
-Route::get('/lock/{id}',   'SeasonController@lock')->name('seasons.lock');
-Route::get('/open/{id}',  'SeasonController@open')->name('seasons.open');
-Route::get('/upload/{id}', 'SeasonController@upload')->name('season.upload');
-
- 
+Route::group(['prefix' => 'dashboard/seasons', 'middleware' => ['auth', 'verified', 'web']], function () {
+    Route::post('/store/{id}',  'SeasonController@store')->name('seasons.store');
+    Route::get('/accept/{id}', 'SeasonController@accept')->name('seasons.accept');
+    Route::get('/pending/{id}', 'SeasonController@pending')->name('seasons.pending');
+    Route::get('/reject/{id}',   'SeasonController@reject')->name('seasons.reject');
+    Route::patch('/update/{id}', 'SeasonController@update')->name('season.update');
+    Route::get('/edit/{id}',    'SeasonController@edit')->name('seasons.edit');
+    Route::get('/delete/{id}', 'SeasonController@delete')->name('seasons.delete');
+    Route::get('/lock/{id}',   'SeasonController@lock')->name('seasons.lock');
+    Route::get('/open/{id}',  'SeasonController@open')->name('seasons.open');
+    Route::get('/upload/{id}', 'SeasonController@upload')->name('season.upload');
 });
-Route::group(['prefix' => 'dashboard/lesson', 'middleware' => ['auth', 'verified', 'web']], function(){
+Route::group(['prefix' => 'dashboard/lesson', 'middleware' => ['auth', 'verified', 'web']], function () {
     Route::post('/store/{id}',  'LessonController@store')->name('lesson.store');
     Route::get('/delete/{id}',  'LessonController@delete')->name('lesson.delete');
     Route::get('/deleteMultiple/{id}', 'LessonController@deleteMultiple')->name('lessons.destroyMultiple');
+    Route::get('/accept/{id}', 'LessonController@accept')->name('lesson.accept');
+    Route::get('/pending/{id}', 'LessonController@pending')->name('lesson.pending');
+    Route::get('/reject/{id}',   'LessonController@reject')->name('lesson.reject');
+    Route::get('/lock/{id}',   'LessonController@lock')->name('lesson.lock');
+    Route::get('/open/{id}',  'LessonController@open')->name('lesson.open');
+    Route::get('/rjectMultiple', 'LessonController@rjectMultiple')->name('lessons.rjectMultiple');
+    Route::get('/acceptMultiple', 'LessonController@confirmMultiple')->name('lessons.confirmMultiple');
+    
 });

@@ -11,8 +11,8 @@
             </div>
             <div class="d-flex item-center flex-wrap margin-bottom-15 operations__btns">
                 <button class="btn all-confirm-btn">تایید همه جلسات</button>
-                <button class="btn confirm-btn">تایید جلسات</button>
-                <button class="btn reject-btn">رد جلسات</button>
+                <button class="btn confirm-btn" onclick="confirmMultiple('{{route('lessons.confirmMultiple')}}')">تایید جلسات</button>
+                <button class="btn reject-btn" onclick="rejectMultiple('{{route('lessons.rjectMultiple')}}')">رد جلسات</button>
                 <button class="btn delete-btn" onclick="deleteMultiple('{{ route('lessons.destroyMultiple', $course->id) }}')">حذف جلسات</button>
 
             </div> 
@@ -31,7 +31,9 @@
                         <th>عنوان فصل</th>
                         <th>مدت زمان جلسه</th>
                         <th>وضعیت تایید</th>
+                        <th>وضعیت</th>
                         <th>سطح دسترسی</th>
+                       
                         <th>عملیات</th>
                     </tr>
                     </thead>
@@ -55,12 +57,29 @@
                             @endif
                         @endforeach
                         </td>
+                        <td>
+                            @foreach (\App\Lesson::$statuses as $key => $value)
+                            @if ($key == $lesson->status)
+                                {{ $value }}
+                            @endif
+                        @endforeach
+                        </td>
                         <td>{{ $lesson->free ? 'همه'  : 'شرکت کنندگان'}}</td>
                         <td>
                             <a href="{{route('lesson.delete', $lesson->id)}}" onclick="return confirm('آیا از حذف مطمن هستید')" class="item-delete mlg-15" title="حذف"></a>
-                            <a href="" class="item-reject mlg-15" title="رد"></a>
-                            <a href="" class="item-lock mlg-15" title="قفل "></a>
-                            <a href="" class="item-confirm mlg-15" title="تایید"></a>
+                            <a href="{{route('lesson.reject', $lesson->id)}}" class="item-reject mlg-15" title="رد"></a>
+                            @if ($lesson['status'] == 'open')
+                            <a href="{{ route('lesson.lock',$lesson->id) }}"
+                                onclick="return confirm('آیا منطمن هستید که می خواهید دوره را در حالت قفل قرار دهید')"
+                                class="item-lock mlg-15 text-success"></a>
+                            @else
+                            <a href="{{ route('seasons.open',$lesson->id) }}" 
+                                onclick="return confirm('آیا منطمن هستید که می خواهید دوره را در حالت باز قرار دهید')"
+                               
+                                class="item-lock mlg-15 text-error"></a>
+                            @endif
+
+                            <a href="{{route('lesson.accept', $lesson->id)}}" class="item-confirm mlg-15" title="تایید"></a>
                             <a href="" class="item-edit " title="ویرایش"></a>
                         </td>
                     </tr>
