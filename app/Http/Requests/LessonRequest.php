@@ -34,7 +34,9 @@ class LessonRequest extends FormRequest
                 "lesson_file" => "required|file|mimes:avi,mkv,mp4,zip,rar",
          
         ];
-
+        if (request()->method === 'PATCH') {
+            $rules['lesson_file'] = 'nullable|file|mimes:avi,mkv,mp4,zip,rar' ;
+        }
         return $rules;
     }
     public function attributes()

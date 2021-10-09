@@ -80,7 +80,7 @@
                             @endif
 
                             <a href="{{route('lesson.accept', $lesson->id)}}" class="item-confirm mlg-15" title="تایید"></a>
-                            <a href="" class="item-edit " title="ویرایش"></a>
+                            <a href="{{route('lessons.edit', [$lesson['id'], $course['id'] ])}}" class="item-edit " title="ویرایش"></a>
                         </td>
                     </tr>
                     @endforeach

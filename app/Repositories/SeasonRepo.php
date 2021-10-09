@@ -87,4 +87,6 @@ class SeasonRepo implements SeasonRepoInterface
     public function allSeason($id){
         return Season::where('course_id', $id)->where('confirmation_status' , 'accepted')->orderBy('number', 'desc')->get();
     }
+
+
 }
