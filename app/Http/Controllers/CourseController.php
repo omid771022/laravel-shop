@@ -131,7 +131,7 @@ class CourseController extends Controller
 public function details($id){
 
 
-    $lessons =$this->lessonRepo->paginate();
+    $lessons =$this->lessonRepo->paginate($id);
   $course =  $this->courseRepo->findById($id);
     return  view('Dashboard.Course.details', compact(['course','lessons']));
 }

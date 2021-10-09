@@ -66,9 +66,9 @@ class LessonRepo implements LessonRepoInterface
             "status" => 'open'
         ]);
     }
-    public function paginate()
+    public function paginate($id)
     {
-        return Lesson::orderBy('proiority')->paginate();
+        return Lesson::where('coures_id', $id)->orderBy('proiority')->paginate();
     }
 
     public function findById($id)
@@ -113,17 +113,23 @@ class LessonRepo implements LessonRepoInterface
         ));
     }
 
-
+    public function acceptAll($id)
+    {
+        $key = $this->keyCourse();
+         DB::table('lessons')->where('coures_id', $id)->update(array(
+            'confirmationStatus' => $key[0],
+        ));
+    }
 
 
     public function confirmMultiple($request)
     {
-    $key = $this->keyCourse();
-    $ids = explode(',', $request->ids);
-    DB::table('lessons')->whereIn('id', $ids)->update(array(
-        'confirmationStatus' => $key[0],
-    ));
-}
+        $key = $this->keyCourse();
+        $ids = explode(',', $request->ids);
+        DB::table('lessons')->whereIn('id', $ids)->update(array(
+            'confirmationStatus' => $key[0],
+        ));
+    }
 
     public function accept($id)
     {
@@ -143,7 +149,7 @@ class LessonRepo implements LessonRepoInterface
     {
         $key = $this->keyCourse();
         return Lesson::where('id', $id)->update([
-            'confirmationStatus'=> $key[1],
+            'confirmationStatus' => $key[1],
         ]);
     }
 

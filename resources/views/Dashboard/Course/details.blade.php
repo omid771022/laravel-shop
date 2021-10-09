@@ -10,7 +10,7 @@
         
             </div>
             <div class="d-flex item-center flex-wrap margin-bottom-15 operations__btns">
-                <button class="btn all-confirm-btn">تایید همه جلسات</button>
+                <a onclick="return confirm ('ایا مطمن هستید که میخواهید همه را تایید کنید')" href="{{route('lessons.acceptAll', $course->id)}}" class="btn all-confirm-btn" >تایید همه جلسات</a>
                 <button class="btn confirm-btn" onclick="confirmMultiple('{{route('lessons.confirmMultiple')}}')">تایید جلسات</button>
                 <button class="btn reject-btn" onclick="rejectMultiple('{{route('lessons.rjectMultiple')}}')">رد جلسات</button>
                 <button class="btn delete-btn" onclick="deleteMultiple('{{ route('lessons.destroyMultiple', $course->id) }}')">حذف جلسات</button>
@@ -73,7 +73,7 @@
                                 onclick="return confirm('آیا منطمن هستید که می خواهید دوره را در حالت قفل قرار دهید')"
                                 class="item-lock mlg-15 text-success"></a>
                             @else
-                            <a href="{{ route('seasons.open',$lesson->id) }}" 
+                            <a href="{{ route('lesson.open',$lesson->id) }}" 
                                 onclick="return confirm('آیا منطمن هستید که می خواهید دوره را در حالت باز قرار دهید')"
                                
                                 class="item-lock mlg-15 text-error"></a>

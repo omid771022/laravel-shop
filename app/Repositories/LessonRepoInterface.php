@@ -3,7 +3,7 @@ namespace App\Repositories;
 
 interface LessonRepoInterface {
     public function store($request,$id);
-    public function paginate();
+    public function paginate($id);
     public function delete($id);
     public function findById($id);
     public function deleteMultiple($request);
@@ -14,5 +14,6 @@ interface LessonRepoInterface {
     public function pending($id);
     public function lock($id);
     public function open($id);
+    public function acceptAll($id);
 
 }

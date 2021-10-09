@@ -110,30 +110,29 @@ class LessonController extends Controller
     public function update($courseId, $lessonId, LessonRequest $request)
     {
 
-        
+
         $Files = "";
         $file = "";
         $extention = "";
         $lesson = $this->lessonrepo->findById($lessonId);
         $lesseon_files = $lesson->media->files;
-    
+
         if ($request->file('lesson_file')) {
             $Files = $request->file('lesson_file');
-     
+
             $imagePath = storage_path('uploads/lesson/' . $lesseon_files);
             if (File::exists($imagePath)) {
                 unlink($imagePath);
             }
             $imageName = uniqid();
             $extention = $Files->getClientOriginalExtension();
-          
+
             $file = $imageName . '.' . $extention;
             $Files->move(storage_path("/uploads/lesson/"), $file);
-      
         } else {
             $file = $lesseon_files;
-       
-            $imageName=$lesson->media->filename;;
+
+            $imageName = $lesson->media->filename;;
         }
 
         if ($extention == "mp4" || "mp3") {
@@ -142,7 +141,7 @@ class LessonController extends Controller
 
         Media::where('id', $lesson->media->id)->update([
             'files' => $file,
-            'type' =>$extention,
+            'type' => $extention,
 
             "user_id" => auth()->id(),
             "filename" => $imageName,
@@ -157,59 +156,12 @@ class LessonController extends Controller
             'body' => $request->body,
 
         ]);
-return back();
-
-
-
-
-
-        // 615f091e8fabc.mp4
-        // if ($request->has('lesson_file')) {
-        //     $file = $request->file('image');
-        //     $imagePath = public_path('uploads/course/' . $course->media->files);
-        //     if (File::exists($imagePath)) {
-        //         unlink($imagePath);
-        //     }
-        //     $imageName = uniqid();
-        //     $extention = $file->extension();
-        //     $fullnameFile = $imageName . '.' . $extention;
-        //     $file->move(public_path("/uploads/course/"), $fullnameFile);
-
-        //     Media::where('id', $course->media->id)->update([
-        //         'files' => $fullnameFile,
-        //         'type' => "image",
-        //         "user_id" => auth()->id(),
-        //         "filename" => $imageName,
-        //     ]);
-        //     Course::where('id', $id)->update([
-        //         'teacher_id' => $request->teacher_id,
-        //         'category_id' => $request->category_id,
-        //         'title' => $request->title,
-        //         'slug' => $request->slug,
-        //         'banner_id' => $course->media->id,
-        //         'proiority' => $request->priority,
-        //         'price' => $request->price,
-        //         'percent' => $request->percent,
-        //         'type' => $request->typeBuy,
-        //         'enum' => $request->statusEnum,
-        //         'body' => $request->body,
-        //     ]);
-        // } else {
-        //     Course::where('id', $id)->update([
-        //         'teacher_id' => $request->teacher_id,
-        //         'category_id' => $request->category_id,
-        //         'title' => $request->title,
-        //         'slug' => $request->slug,
-        //         'banner_id' => $course->media->id,
-        //         'proiority' => $request->priority,
-        //         'price' => $request->price,
-        //         'percent' => $request->percent,
-        //         'type' => $request->typeBuy,
-        //         'enum' => $request->statusEnum,
-        //         'body' => $request->body,
-        //     ]);
-
-        //     return redirect()->route('course.create');
-
+        return back();
+    }
+    public function acceptAll($id)
+    {
+        $this->lessonrepo->acceptAll($id);
+        newFeedback("جلسات با موفقیت مورد تایید  گردید ", "feedbacks");
+        return back();
     }
 }

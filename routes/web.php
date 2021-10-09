@@ -105,5 +105,7 @@ Route::group(['prefix' => 'dashboard/lesson', 'middleware' => ['auth', 'verified
     Route::get('/acceptMultiple', 'LessonController@confirmMultiple')->name('lessons.confirmMultiple');
     Route::get('/leeson/edit/{lessonId}/course/{courseId}', 'LessonController@edit')->name('lessons.edit');
     Route::patch('/leeson/update/{lessonId}/course/{courseId}', 'LessonController@update')->name('lessons.update');
+    Route::get('/acceptAll/{id}', 'LessonController@acceptAll')->name('lessons.acceptAll');
+    
     
 });
