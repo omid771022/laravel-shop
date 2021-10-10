@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Media;
 use App\Course;
+use App\Lesson;
 use Illuminate\Support\Str;
 use App\Repositories\CouresRepoInterface;
 
@@ -92,6 +93,15 @@ class CouresRepo implements CouresRepoInterface
             'confirmationStatus' => $key[1],
         ]);
     }
-
+    public function  latestCourses(){
+        $key = $this->keyCourse();
+        return Course::where('confirmationStatus', $key[0])->latest()->take(8)->get();
+    
+    
+    }
+ public function getDuration($id){
+    $key = $this->keyCourse();  
+    return Lesson::where('coures_id', $id)->where('confirmationStatus', $key[0])->sum('time');
+ }
 
 }

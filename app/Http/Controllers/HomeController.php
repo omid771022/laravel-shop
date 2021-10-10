@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use App\Repositories\CouresRepoInterface;
+use App\Repositories\CategoryRepoInterface;
 
 class HomeController extends Controller
 {
@@ -12,20 +14,24 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    public $categoryRepo;
+    public $courseRepo;
+
+    public function __construct( CategoryRepoInterface $categoryRepo, CouresRepoInterface $courseRepo)
     {
-     
+        $this->courseRepo = $courseRepo;
+        $this->categoryRepo = $categoryRepo;
+
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+
     public function index()
     {
         $categories = Category::where('parent_id', null)->get();
-        return view('index', compact('categories'));
+        $latestCourses=$this->courseRepo->latestCourses();
+      
+        return view('index', compact('categories','latestCourses'));
     }
 
     
