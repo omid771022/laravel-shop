@@ -37,6 +37,7 @@ Route::group(['prefix' => 'dashboard/category', 'middleware' => ['auth', 'verifi
     Route::get('/edit/{id}', 'CategoryController@edit')->name('categories.edit');
     Route::post('/update/{id}', 'CategoryController@update')->name('categories.update');
     Route::get('/delete/{id}', 'CategoryController@delete')->name('categories.delete');
+    Route::get('/show', 'CategoryController@show')->name('categories.show');
 });
 Route::group(['prefix' => 'dashboard/RolePermission', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'RolePermissionController@index')->name('RolePermission.index');
@@ -73,6 +74,7 @@ Route::group(['prefix' => 'dashboard/user', 'middleware' => ['auth', 'verified',
     Route::post('user/photo', 'UserController@Userphoto')->name('user.photo');
     Route::get('/profile', 'UserController@userProfile')->name('user.profile');
     Route::post('users/profile/update', 'UserController@usersProfileUpdate')->name('user.profile.update');
+    Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('tutors/{username}', 'UserController@viewProfile')->name('viewProfile');
 });
 Route::group(['prefix' => 'dashboard/seasons', 'middleware' => ['auth', 'verified', 'web']], function () {
@@ -101,6 +103,4 @@ Route::group(['prefix' => 'dashboard/lesson', 'middleware' => ['auth', 'verified
     Route::get('/leeson/edit/{lessonId}/course/{courseId}', 'LessonController@edit')->name('lessons.edit');
     Route::patch('/leeson/update/{lessonId}/course/{courseId}', 'LessonController@update')->name('lessons.update');
     Route::get('/acceptAll/{id}', 'LessonController@acceptAll')->name('lessons.acceptAll');
-    
-    
 });

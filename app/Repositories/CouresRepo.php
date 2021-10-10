@@ -93,5 +93,5 @@ class CouresRepo implements CouresRepoInterface
         ]);
     }
 
-    
+
 }
