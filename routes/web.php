@@ -22,6 +22,11 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/email/verify', 'Auth\VerificationController@verify')->name('verification.verify');
+Route::get('/singel/course/c-{slug}', 'HomeController@singleCourse')->name('single.course');
+
+
+
+
 Route::get('/password/reset', 'Auth\ForgotPasswordController@showVerifyCodeRequestForm')->name('password.request');
 Route::post('/password/email/send', 'Auth\ForgotPasswordController@showPasswordEmail')->name('password.email');
 Route::post('/password/rest/check-veryify-code', 'Auth\ForgotPasswordController@checkveryifycode')->name('checkveryifycode');
@@ -37,7 +42,7 @@ Route::group(['prefix' => 'dashboard/category', 'middleware' => ['auth', 'verifi
     Route::get('/edit/{id}', 'CategoryController@edit')->name('categories.edit');
     Route::post('/update/{id}', 'CategoryController@update')->name('categories.update');
     Route::get('/delete/{id}', 'CategoryController@delete')->name('categories.delete');
-    Route::get('/show', 'CategoryController@show')->name('categories.show');
+    Route::get('/show/{id}', 'CategoryController@show')->name('categories.show');
 });
 Route::group(['prefix' => 'dashboard/RolePermission', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'RolePermissionController@index')->name('RolePermission.index');

@@ -17,14 +17,18 @@ class Lesson extends Model
 
 
     public function course(){
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class, 'coures_id');
 
     }
+
 public function user(){
     return $this->belongsTo(User::class);
 }
 public function media(){
     return $this->belongsTo(Media::class);
 }
-
+public function path()
+{
+    return $this->course->path() . '?lesson=l-' . $this->id . "-" . $this->slug;
+}
 }

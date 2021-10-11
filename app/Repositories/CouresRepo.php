@@ -104,4 +104,8 @@ class CouresRepo implements CouresRepoInterface
     return Lesson::where('coures_id', $id)->where('confirmationStatus', $key[0])->sum('time');
  }
 
+public function getLessonsCount($id){
+    return Lesson::where('coures_id', $id)->where('confirmationStatus', 'accepted')->count();
+
+}
 }

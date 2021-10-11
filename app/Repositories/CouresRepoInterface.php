@@ -11,6 +11,7 @@ public function updateStatusPending($id);
 public function updateStatusRejected($id);
 public function  latestCourses();
 public function  getDuration($id);
+public function  getLessonsCount($id);
 }
 
 

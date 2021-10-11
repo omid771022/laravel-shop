@@ -4,6 +4,7 @@ namespace App;
 
 use App\User;
 use App\Media;
+use App\Lesson;
 use App\Repositories\CouresRepo;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,9 +26,15 @@ class Course extends Model
     {
         return $this->hasMany(Season::class);
     }
-    public function lessons(){
-        return $this->hasMany(Lesson::class);
 
+
+    public function lessons(){
+        return $this->hasMany(Lesson::class,'coures_id');
+
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function getDuration()
@@ -46,4 +53,14 @@ class Course extends Model
     {
         return number_format($this->price);
     }
+
+
+    public function lessonsCount(){
+      return (new CouresRepo())->getLessonsCount($this->id);
+    }
+    public function path()
+    { 
+        return route('single.course', $this->id . '-' . $this->slug);
+    }
+
 }

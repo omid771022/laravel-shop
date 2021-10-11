@@ -116,7 +116,7 @@ class LessonRepo implements LessonRepoInterface
     public function acceptAll($id)
     {
         $key = $this->keyCourse();
-         DB::table('lessons')->where('coures_id', $id)->update(array(
+        DB::table('lessons')->where('coures_id', $id)->update(array(
             'confirmationStatus' => $key[0],
         ));
     }
@@ -164,5 +164,29 @@ class LessonRepo implements LessonRepoInterface
         return Lesson::where('id', $id)->update([
             'status' => 'open',
         ]);
+    }
+    public function getaceptedCourse($id)
+    {
+        $key = $this->keyCourse();
+        return Lesson::where('confirmationStatus', $key[0])->where('coures_id', $id)->get();
+    }
+    public function getFirstLesson($id)
+    {
+        $key = $this->keyCourse();
+        return Lesson::where('coures_id', $id)
+            ->where('confirmationStatus', $key[0])
+            ->orderBy('proiority', 'asc')->first();
+    }
+    public function getLesson( $courseId, $lessonId)
+    {
+        return Lesson::where('coures_id', $courseId)->where('id', $lessonId)->first();
+    }
+    public function getAcceptedLessons($courseId)
+    {
+
+        $key = $this->keyCourse();
+        return Lesson::where('coures_id', $courseId)
+            ->where('confirmationStatus', $key[0])
+            ->get();
     }
 }

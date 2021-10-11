@@ -15,5 +15,9 @@ interface LessonRepoInterface {
     public function lock($id);
     public function open($id);
     public function acceptAll($id);
+    public function getaceptedCourse($id);
+    public function getFirstLesson($id);
+    public function getLesson( $courseId, $lessonId);
+    public function getAcceptedLessons($courseId);
 
 }
