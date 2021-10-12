@@ -10,15 +10,15 @@
                     <div class="breadcrumb">
                         <ul>
                             <li><a href="/" title="خانه">خانه</a></li>
-                            @if($course->category->parentCategory)
+                            @if ($course->category->parentCategory)
                                 <li><a href="{{ $course->category->parentCategory->path() }}"
-                                       title="{{ $course->category->parentCategory->name }}">
+                                        title="{{ $course->category->parentCategory->name }}">
                                         {{ $course->category->parentCategory->name }}</a>
-                            
+
                                 </li>
                             @endif
                             <li><a href="{{ $course->category->path() }}"
-                                   title="{{ $course->category->name }}">{{ $course->category->name }}</a></li>
+                                    title="{{ $course->category->name }}">{{ $course->category->name }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -32,27 +32,38 @@
                             <p>45%</p>
                             تخفیف
                         </div>
-                        <div class="sell_course d-none">
-                            <strong>قیمت :</strong>
-                            <del class="discount-Price">900,000</del>
-                            <p class="price">
-                        <span class="woocommerce-Price-amount amount">495,000
-                            <span class="woocommerce-Price-currencySymbol">تومان</span>
-                        </span>
-                            </p>
-                        </div>
-@auth
 
-                        @if(auth()->id() == $course->teacher_id)
-                            <p class="mycourse ">شما مدرس این دوره هستید</p>
-                        @elseif(auth()->user()->hasAccessToCourse($course->id))
-                            <p class="mycourse">شما این دوره رو خریداری کرده اید</p>
+                        @auth
+                            @if (auth()->id() == $course->teacher_id)
+                                <p class="mycourse ">شما مدرس این دوره هستید</p>
+                            @elseif(auth()->user()->hasAccessToCourse($course->id))
+                                <p class="mycourse">شما این دوره رو خریداری کرده اید</p>
+                            @else
+                                <div class="sell_course">
+                                    <strong>قیمت :</strong>
+                                    <del class="discount-Price">{{ $course->getFormattedPrice() }}</del>
+                                    <p class="price">
+                                        <span class="woocommerce-Price-amount amount">{{ $course->getFormattedPrice() }}
+                                            <span class="woocommerce-Price-currencySymbol">تومان</span>
+                                        </span>
+                                    </p>
+                                </div>
+                                <button class="btn buy">خرید دوره</button>
+                            @endif
                         @else
+                            <div class="sell_course ">
+                                <strong>قیمت :</strong>
+                                <del class="discount-Price">{{ $course->price }}</del>
+                                <p class="price">
+                                    <span class="woocommerce-Price-amount amount">{{ $course->price }}
+                                        <span class="woocommerce-Price-currencySymbol">تومان</span>
+                                    </span>
+                                </p>
+                            </div>
                             <button class="btn buy">خرید دوره</button>
-                        @endif
-                        @else
-                        <button class="btn buy">خرید دوره</button>
                         @endauth
+
+
                         <div class="rating-star">
                             <div class="rating">
                                 <div class="star">
@@ -84,7 +95,7 @@
                                 تعداد دانشجو : <span>246</span>
                             </div>
                             <div class="meta-info-unit one">
-                                <span class="title">تعداد جلسات منتشر شده :  </span>
+                                <span class="title">تعداد جلسات منتشر شده : </span>
                                 <span class="vlaue">{{ $course->lessonsCount() }}</span>
                             </div>
                             <div class="meta-info-unit two">
@@ -102,14 +113,14 @@
                             <div class="meta-info-unit five">
                                 <span class="title">وضعیت دوره : </span>
                                 <span class="vlaue">
-                                    
-                                  @foreach (\App\Course::$enums as $key => $value)
-                                    @if ($key == $course->enum)
-                                    {{ $value }}
-                                    @endif
-                                @endforeach  
-                                    
-                                   </span>
+
+                                    @foreach (\App\Course::$enums as $key => $value)
+                                        @if ($key == $course->enum)
+                                            {{ $value }}
+                                        @endif
+                                    @endforeach
+
+                                </span>
                             </div>
                             <div class="meta-info-unit six">
                                 <span class="title">پشتیبانی : </span>
@@ -120,17 +131,19 @@
                     <div class="course-teacher-details">
                         <div class="top-part">
                             <a href="https://webamooz.net/tutor/mohammadnikoo/">
-                               @if ($course->teacher->image)
-                               <img alt="{{ $course->teacher->image}}" class="img-fluid lazyloaded"
-                               src="/uploads/upload/{{ $course->teacher->image}}" loading="lazy" class="img-fluid lazyloaded" >
-                               @else
-                               <img src="//no-image.jpg" alt="{{ auth()->user()->name }}">
+                                @if ($course->teacher->image)
+                                    <img alt="{{ $course->teacher->image }}" class="img-fluid lazyloaded"
+                                        src="/uploads/upload/{{ $course->teacher->image }}" loading="lazy"
+                                        class="img-fluid lazyloaded">
+                                @else
+                                    <img src="//no-image.jpg" alt="{{ auth()->user()->name }}">
 
-                               @endif
-                              
-                      
+                                @endif
+
+
                                 <noscript>
-                                    <img class="img-fluid" src="/uploads/upload/{{ $course->teacher->image }}" alt="{{ $course->teacher->name }}">
+                                    <img class="img-fluid" src="/uploads/upload/{{ $course->teacher->image }}"
+                                        alt="{{ $course->teacher->name }}">
                                 </noscript>
                             </a>
                             <div class="name">
@@ -141,37 +154,36 @@
                             </div>
                         </div>
                         <div class="job-content">
-                           <p>{{ $course->teacher->bio }}</p>
+                            <p>{{ $course->teacher->bio }}</p>
                         </div>
                     </div>
-                
+
                     @include('layouts.sidebar-banners')
 
                 </div>
             </div>
             <div class="content-left">
+                @if ($lesson->media['type'] == 'video')
+                    
+                
                 <div class="preview">
-                    <video width="100%" controls>
-                        <source src="intro.mp4" type="video/mp4">
+                    <video width="100%"  controls preload="auto">
+                        <source src="{{asset('/storage/lesson/'.$lesson->media['files'])}}" type="video/mp4">
+                            
+
                     </video>
                 </div>
-                <a href="#" class="episode-download">دانلود این قسمت ({{$lesson->proiority}})</a>
+                @endif 
+                
+                <a href="{{asset('/storage/lesson/'.$lesson->media['files'])}}" class="episode-download">دانلود این قسمت ({{ $lesson->proiority }})</a>
                 <div class="course-description">
                     <div class="course-description-title">توضیحات دوره</div>
                     <div>
-                        {!! $course->body !!}
+                   
                     </div>
-                    {{-- <div class="tags">
-                        <ul>
-                            <li><a href="">ری اکت</a></li>
-                            <li><a href="">reactjs</a></li>
-                            <li><a href="">جاوااسکریپت</a></li>
-                            <li><a href="">javascript</a></li>
-                            <li><a href="">reactjs چیست</a></li>
-                        </ul>
-                    </div> --}}
+                 {{$course->body }}
                 </div>
-         @include('layouts.episodes-list')
+                @include('layouts.episodes-list')
             </div>
         </div>
     </main>

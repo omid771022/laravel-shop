@@ -4,6 +4,7 @@ namespace App;
 
 use App\User;
 use App\Course;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
@@ -31,4 +32,8 @@ public function path()
 {
     return $this->course->path() . '?lesson=l-' . $this->id . "-" . $this->slug;
 }
+
+ public function downloadlink(){
+     return route('media.download',['media'=>$this->media_id]);
+ }
 }

@@ -39,12 +39,16 @@ class LessonRepo implements LessonRepoInterface
         $img = $request->file('lesson_file');
         $imageName = uniqid();
         $extention = $img->extension();
+   
         $fullnameFile = $imageName . '.' . $extention;
-        $img->move(storage_path("/uploads/lesson/"), $fullnameFile);
-        if ($extention == "mp4" || "mp3") {
+        $img->move(storage_path("app/public/lesson/"), $fullnameFile);
+        if ($extention == "mp4") {
             $extention = "video";
         }
-
+        else{
+            $extention = $extention;         
+        }
+      
         $media = Media::create([
             'files' => $fullnameFile,
             'type' => $extention,
@@ -63,7 +67,8 @@ class LessonRepo implements LessonRepoInterface
             'user_id' => auth()->user()->id,
             'body' => $request->body,
             'confirmationStatus' => 'pending',
-            "status" => 'open'
+            "status" => 'open',
+            "free"  => $request->free,
         ]);
     }
     public function paginate($id)
@@ -81,7 +86,7 @@ class LessonRepo implements LessonRepoInterface
 
         $media = Media::find($lesson['media_id']);
         if ($media['files']) {
-            @unlink(storage_path('/uploads/lesson/') . $media['files']);
+            @unlink(storage_path('app/public/lesson/') . $media['files']);
             $media->delete();
         }
         DB::table("media")->where('id', $lesson['media_id'])->delete();
@@ -97,7 +102,7 @@ class LessonRepo implements LessonRepoInterface
             $lessons = Lesson::find($id);
             $medias = $lessons->media->files;
             if ($lessons->media->files) {
-                @unlink(storage_path('/uploads/lesson/') . $medias);
+                @unlink(storage_path('app/public/lesson/') . $medias);
             }
             $lessons->media->delete();
             $lessons->delete();

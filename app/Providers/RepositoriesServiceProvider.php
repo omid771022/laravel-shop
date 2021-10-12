@@ -5,15 +5,17 @@ namespace App\Providers;
 
 use App\Repositories\RoleRepo;
 use App\Repositories\UserRepo;
+use App\Repositories\MediaRepo;
 use App\Repositories\CouresRepo;
 use App\Repositories\LessonRepo;
 use App\Repositories\SeasonRepo;
-use App\Repositories\CategoryRepo;
 
+use App\Repositories\CategoryRepo;
 use App\Repositories\PermissionRepo;
 use App\Repositories\RoleRepoInterface;
 use App\Repositories\UserRepoInterface;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\MediaRepoInterface;
 use App\Repositories\CouresRepoInterface;
 use App\Repositories\LessonRepoInterface;
 use App\Repositories\SeasonRepoInterface;
@@ -46,5 +48,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         app()->bind(CouresRepoInterface::class, CouresRepo::class);
         app()->bind(SeasonRepoInterface::class, SeasonRepo::class);
         app()->bind(LessonRepoInterface::class, LessonRepo::class);
+        app()->bind(MediaRepoInterface::class, MediaRepo::class);
     }
 }

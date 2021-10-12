@@ -120,7 +120,7 @@ class LessonController extends Controller
         if ($request->file('lesson_file')) {
             $Files = $request->file('lesson_file');
 
-            $imagePath = storage_path('uploads/lesson/' . $lesseon_files);
+            $imagePath = storage_path('/app/public/lesson/' . $lesseon_files);
             if (File::exists($imagePath)) {
                 unlink($imagePath);
             }
@@ -128,7 +128,7 @@ class LessonController extends Controller
             $extention = $Files->getClientOriginalExtension();
 
             $file = $imageName . '.' . $extention;
-            $Files->move(storage_path("/uploads/lesson/"), $file);
+            $Files->move(storage_path("/app/public/lesson/"), $file);
         } else {
             $file = $lesseon_files;
 

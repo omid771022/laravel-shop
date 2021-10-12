@@ -109,3 +109,7 @@ Route::group(['prefix' => 'dashboard/lesson', 'middleware' => ['auth', 'verified
     Route::patch('/leeson/update/{lessonId}/course/{courseId}', 'LessonController@update')->name('lessons.update');
     Route::get('/acceptAll/{id}', 'LessonController@acceptAll')->name('lessons.acceptAll');
 });
+Route::group(['prefix' =>'/media'] ,function() {
+
+    Route::get('/media/{media}/download', 'MediaController@download')->name('media.download');
+});
