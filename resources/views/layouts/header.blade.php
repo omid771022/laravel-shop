@@ -130,7 +130,7 @@
 
                             <img src="/uploads/upload/{{auth()->user()->image}}" alt="{{ auth()->user()->name }}">
                         @else
-                        <img src="//no-image.jpg" alt="{{ auth()->user()->name }}">
+                        <img src="/img/no-image.jpg" alt="{{ auth()->user()->name }}">
 
                         @endif
                         </div>

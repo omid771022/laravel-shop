@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Course;
 use App\Notifications\VerifyMail;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
@@ -10,6 +11,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\ResatPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\VerifyMail as NotificationsVerifyMail;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -73,11 +75,37 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Season::class);
     }
 
-    public function lessons(){
+    public function lessons()
+    {
         return $this->hasMany(Lesson::class);
     }
 
-    public function hasAccessToCourse($courseId){
-        return false;
+    public function purchases()
+    {
+        return $this->belongsToMany(Course::class, 'course_user', 'user_id', 'course_id');
     }
+
+
+
+    public function hasAccessToCourse($course)
+    {
+
+        $auth = Auth::user()->id;
+        if ($this->can('admin' || 'super admin' ||  $this->id == $course->teacher_id) || $course->students->contains($this->id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function courses()
+    {
+        return $this->hasMany(Course::class, 'teacher_id');
+    }
+
+    public function studentsCount()
+    {
+        //todo
+        return 0;
+    }
+    
 }

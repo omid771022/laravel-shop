@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 
+use App\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use App\Repositories\CouresRepoInterface;
 use App\Repositories\LessonRepoInterface;
 use App\Repositories\CategoryRepoInterface;
@@ -56,4 +59,15 @@ class HomeController extends Controller
         return Str::before(Str::after($slug, $key .'-'), '-');
     }
 
+
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect()->back();
+      }
+
+      public function singleTutor($username){
+          $tutor= User::permission('teach')->where('username', $username)->first();
+          return view('tutor', compact('tutor'));
+        
+      }
 }

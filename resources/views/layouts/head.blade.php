@@ -17,4 +17,5 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/font/font.css">
     <link rel="stylesheet" href="/css/responsive.css" media="(max-width:991px)">
+    <link rel="stylesheet" href="/css/modal.css" >
 </head>

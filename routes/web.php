@@ -33,6 +33,8 @@ Route::post('/password/rest/check-veryify-code', 'Auth\ForgotPasswordController@
 Route::get('/password/rest/checkcode', 'Auth\ForgotPasswordController@checkcode')->middleware('throttle:5,1')->name('checkcode');
 Route::get("/password/rest/showFormPassword", 'Auth\ForgotPasswordController@showFormPassword')->name('passwords.showFormPassword');
 Route::post('password/update', 'Auth\ForgotPasswordController@passwordUpdate')->name('password.update');
+Route::any('/logout', 'HomeController@logout')->name('logout');
+Route::get('/tutor/{username}', 'HomeController@singleTutor')->name('singleTutor');
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'DashboardController@index')->name('Dashboard.index');
 });
@@ -79,7 +81,7 @@ Route::group(['prefix' => 'dashboard/user', 'middleware' => ['auth', 'verified',
     Route::post('user/photo', 'UserController@Userphoto')->name('user.photo');
     Route::get('/profile', 'UserController@userProfile')->name('user.profile');
     Route::post('users/profile/update', 'UserController@usersProfileUpdate')->name('user.profile.update');
-    Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
+   
     Route::get('tutors/{username}', 'UserController@viewProfile')->name('viewProfile');
 });
 Route::group(['prefix' => 'dashboard/seasons', 'middleware' => ['auth', 'verified', 'web']], function () {

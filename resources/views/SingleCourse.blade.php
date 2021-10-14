@@ -36,7 +36,7 @@
                         @auth
                             @if (auth()->id() == $course->teacher_id)
                                 <p class="mycourse ">شما مدرس این دوره هستید</p>
-                            @elseif(auth()->user()->hasAccessToCourse($course->id))
+                            @elseif(auth()->user()->hasAccessToCourse($course))
                                 <p class="mycourse">شما این دوره رو خریداری کرده اید</p>
                             @else
                                 <div class="sell_course">
@@ -92,7 +92,7 @@
                     <div class="product-info-box">
                         <div class="product-meta-info-list">
                             <div class="total_sales">
-                                تعداد دانشجو : <span>246</span>
+                                تعداد دانشجو : <span>{{count($course->students)}}</span>
                             </div>
                             <div class="meta-info-unit one">
                                 <span class="title">تعداد جلسات منتشر شده : </span>
@@ -130,7 +130,7 @@
                     </div>
                     <div class="course-teacher-details">
                         <div class="top-part">
-                            <a href="https://webamooz.net/tutor/mohammadnikoo/">
+                            <a href="">
                                 @if ($course->teacher->image)
                                     <img alt="{{ $course->teacher->image }}" class="img-fluid lazyloaded"
                                         src="/uploads/upload/{{ $course->teacher->image }}" loading="lazy"
@@ -147,7 +147,7 @@
                                 </noscript>
                             </a>
                             <div class="name">
-                                <a href="https://webamooz.net/tutor/mohammadnikoo/" class="btn-link">
+                                <a href="{{route('singleTutor', $course->teacher->username)}}" class="btn-link">
                                     <h6>{{ $course->teacher->name }}</h6>
                                 </a>
                                 <span class="job-title">{{ $course->teacher->headline }}</span>

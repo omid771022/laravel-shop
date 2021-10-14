@@ -6,8 +6,13 @@
     </div>
     <div class="episodes-list-section">
    @foreach ($lessons as $key=> $lesson)
+   @auth
+   <div class="episodes-list-item  {{auth()->user()->hasAccessToCourse($lesson->course) ? '': 'lock' }} ">
+    @else
+    <div class="episodes-list-item lock">
+    @endauth
 
-   <div class="episodes-list-item ">
+    
     <div class="section-right">
         <span class="episodes-list-number">{{$lesson->proiority}}</span>
        

@@ -1,7 +1,13 @@
 <div class="col">
     <a href="{{$courseItem->path()}}">
         <div class="course-status">
-            @lang($courseItem->status)
+            @foreach (\App\Course::$enums as $key => $value)
+            @if ($key ==$courseItem->enum)
+                {{ $value }}
+            @endif
+        @endforeach
+            
+         
         </div>
         <div class="discountBadge">
             <p>45%</p>
