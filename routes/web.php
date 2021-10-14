@@ -37,6 +37,8 @@ Route::any('/logout', 'HomeController@logout')->name('logout');
 Route::get('/tutor/{username}', 'HomeController@singleTutor')->name('singleTutor');
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'DashboardController@index')->name('Dashboard.index');
+    //todo
+    Route::post('/courses/buy/{id}', 'CourseController@buyCourse')->name('courses.buy');
 });
 Route::group(['prefix' => 'dashboard/category', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'CategoryController@index')->name('category.index');
@@ -70,6 +72,7 @@ Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth', 'verified
     Route::get('/pending/{id}', 'CourseController@pending')->name('course.pending');
     Route::get('/reject/{id}',   'CourseController@reject')->name('course.reject');
     Route::get('/details/{id}', 'CourseController@details')->name('course.details');
+ 
 });
 
 Route::group(['prefix' => 'dashboard/user', 'middleware' => ['auth', 'verified', 'permission:admin']], function () {

@@ -9,8 +9,9 @@ use App\Repositories\MediaRepo;
 use App\Repositories\CouresRepo;
 use App\Repositories\LessonRepo;
 use App\Repositories\SeasonRepo;
-
+use App\Repositories\PaymentRepo;
 use App\Repositories\CategoryRepo;
+
 use App\Repositories\PermissionRepo;
 use App\Repositories\RoleRepoInterface;
 use App\Repositories\UserRepoInterface;
@@ -19,6 +20,7 @@ use App\Repositories\MediaRepoInterface;
 use App\Repositories\CouresRepoInterface;
 use App\Repositories\LessonRepoInterface;
 use App\Repositories\SeasonRepoInterface;
+use App\Repositories\PaymentRepoInterface;
 use App\Repositories\CategoryRepoInterface;
 use App\Repositories\PermissionRepoInterface;
 
@@ -49,5 +51,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         app()->bind(SeasonRepoInterface::class, SeasonRepo::class);
         app()->bind(LessonRepoInterface::class, LessonRepo::class);
         app()->bind(MediaRepoInterface::class, MediaRepo::class);
+        app()->bind(PaymentRepoInterface::class, PaymentRepo::class);
     }
 }

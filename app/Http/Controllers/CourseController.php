@@ -11,6 +11,7 @@ use App\Repositories\UserRepoInterface;
 use App\Repositories\CouresRepoInterface;
 use App\Repositories\LessonRepoInterface;
 use App\Repositories\CategoryRepoInterface;
+use App\Repositories\PaymentRepo;
 
 class CourseController extends Controller
 {
@@ -19,12 +20,12 @@ class CourseController extends Controller
     public $categoryRepo;
     public $courseRepo;
     public $lessonrepo;
-    public function __construct(UserRepoInterface $userRepo, CategoryRepoInterface $categoryRepo, CouresRepoInterface $courseRepo , LessonRepoInterface $lessonrepo)
+    public function __construct(UserRepoInterface $userRepo, CategoryRepoInterface $categoryRepo, CouresRepoInterface $courseRepo, LessonRepoInterface $lessonrepo)
     {
         $this->courseRepo = $courseRepo;
         $this->categoryRepo = $categoryRepo;
         $this->repo = $userRepo;
-        $this->lessonRepo =$lessonrepo;
+        $this->lessonRepo = $lessonrepo;
     }
     public function create()
     {
@@ -128,12 +129,58 @@ class CourseController extends Controller
         $this->courseRepo->updateStatusRejected($id);
         return back();
     }
-public function details($id){
+    public function details($id)
+    {
 
 
-    $lessons =$this->lessonRepo->paginate($id);
-  $course =  $this->courseRepo->findById($id);
-    return  view('Dashboard.Course.details', compact(['course','lessons']));
-}
-    
+        $lessons = $this->lessonRepo->paginate($id);
+        $course =  $this->courseRepo->findById($id);
+        return  view('Dashboard.Course.details', compact(['course', 'lessons']));
+    }
+
+
+
+    private function courseCanBePurchased(Course $course)
+    {
+        if ($course->type == 'free') {
+            newFeedback("دوره های رایگان قابل خریداری نیستن", "feedbacks");
+
+            return false;
+        }
+        if ($course->enum == 'lock') {
+            newFeedback("دوره های قفل قابل خریداری نیستن", "feedbacks");
+            return false;
+        }
+        if ($course->confirmationStatus !== 'accepted') {
+            newFeedback("دوره های که تایید نشده قابل خریداری نیستن", "feedbacks");
+            return false;
+        }
+        $amount = 0;
+        PaymentRepo::generate($amount, $course, auth()->user());
+
+
+
+        return true;
+    }
+
+    private function authUserCanBePurchaseCourse($course)
+    {
+        if (auth()->id() == $course->teacher_id) {
+            newFeedback("شما مدرس این دوره هستید ", "feedbacks");
+        }
+        //  if(auth()->user()->hasAccessToCourse($course)){
+        //      newFeedback("شما به دوره دسترسی دارید " , "feedbacks");
+        //  }
+
+    }
+    public function buyCourse($id)
+    {
+        $course =  $this->courseRepo->findById($id);
+        if (!$this->courseCanBePurchased($course)) {
+
+            return back();
+        }
+        if (!$this->authUserCanBePurchaseCourse($course)) {
+        }
+    }
 }

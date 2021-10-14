@@ -48,20 +48,29 @@
                                         </span>
                                     </p>
                                 </div>
-                                <button class="btn buy">خرید دوره</button>
+                                <button class="btn buy btn-buy">خرید دوره</button>
                             @endif
                         @else
                             <div class="sell_course ">
                                 <strong>قیمت :</strong>
-                                <del class="discount-Price">{{ $course->price }}</del>
+                                <del class="discount-Price">{{ $course->getFormattedPrice() }}</del>
                                 <p class="price">
-                                    <span class="woocommerce-Price-amount amount">{{ $course->price }}
+                                    <span class="woocommerce-Price-amount amount">{{ $course->getFormattedPrice() }}
                                         <span class="woocommerce-Price-currencySymbol">تومان</span>
                                     </span>
                                 </p>
                             </div>
-                            <button class="btn buy">خرید دوره</button>
+                            <a href="{{route('login')}}" class="btn buy ">ورود به سایت</a>
                         @endauth
+
+
+
+
+              
+
+
+
+
 
 
                         <div class="rating-star">
@@ -186,6 +195,67 @@
                 @include('layouts.episodes-list')
             </div>
         </div>
+    
+    
+    
+    
+    
+        <div id="Modal-buy" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p>کد تخفیف را وارد کنید</p>
+                    <div class="close">&times;</div>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{{ route("courses.buy", $course->id) }}">
+                        @csrf
+                        <div><input type="text" class="txt" placeholder="کد تخفیف را وارد کنید"></div>
+                        <button class="btn i-t ">اعمال</button>
+
+                        <table class="table text-center table-bordered table-striped" style="color:black ;">
+                            <tbody>
+                            <tr >
+                                <th style="color:black" >قیمت کل دوره:</th>
+                                <td style="color:black ;"> {{$course->getFormattedPrice()}} تومان</td>
+                            </tr>
+                            <tr>
+                                <th>درصد تخفیف:</th>
+                                <td>{{$course->getFormattedPrice()}}</td>
+                            </tr>
+                            <tr>
+                                <th> مبلغ تخفیف :</th>
+                                <td class="text-red"> {{$course->getDiscountAmount()}} تومان</td>
+                            </tr>
+                            <tr>
+                                <th> قابل پرداخت: </th>
+                                <td class="text-blue">{{$course->getFormattedFinalPrice() }}  تومان</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn i-t ">پرداخت آنلاین</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+
+    
+    
+    
+    
+    
+    
+    
     </main>
     <br>
+
+
+@endsection
+
+@section('js')
+    <script src="/js/modal.js"></script>
+@endsection
+@section('css')
+<link rel="stylesheet" href="/css/modal.css" />
 @endsection

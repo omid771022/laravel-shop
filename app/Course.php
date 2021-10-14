@@ -54,7 +54,21 @@ class Course extends Model
         return number_format($this->price);
     }
 
+    public function getDiscount(){
+        //todo
+        return 0;
+    }
+    public function getDiscountAmount(){
+        //todo
+        return 0;
+    }
+    public function getFinalPrice(){
+        return $this->price; - $this->getDiscountAmount();
+    }
 
+    public function getFormattedFinalPrice(){
+        return number_format($this->getFinalPrice());
+    }
     public function lessonsCount(){
       return (new CouresRepo())->getLessonsCount($this->id);
     }
