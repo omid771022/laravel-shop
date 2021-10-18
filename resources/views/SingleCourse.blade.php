@@ -145,7 +145,7 @@
                                         src="/uploads/upload/{{ $course->teacher->image }}" loading="lazy"
                                         class="img-fluid lazyloaded">
                                 @else
-                                    <img src="//no-image.jpg" alt="{{ auth()->user()->name }}">
+                                    <img src="/uploads/upload/no-image.jpg" alt="">
 
                                 @endif
 
@@ -182,7 +182,9 @@
 
                     </video>
                 </div>
+                @else
                 @endif 
+               
                 
                 <a href="{{asset('/storage/lesson/'.$lesson->media['files'])}}" class="episode-download">دانلود این قسمت ({{ $lesson->proiority }})</a>
                 <div class="course-description">
@@ -207,7 +209,7 @@
                     <div class="close">&times;</div>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route("courses.buy", $course->id) }}">
+                    <form method="post" action="{{ route("cart.addToCart", $course->id) }}">
                         @csrf
                         <div><input type="text" class="txt" placeholder="کد تخفیف را وارد کنید"></div>
                         <button class="btn i-t ">اعمال</button>

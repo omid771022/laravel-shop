@@ -1,5 +1,9 @@
 <?php
 
+use App\Helper\Cart\CartServiceProbider;
+
+
+
 return [
 
     /*
@@ -176,6 +180,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
+        App\Helper\Cart\CartServiceProivder::class,
 
     ],
 
@@ -230,6 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades::class,
         'Helper' => App\Helper\Helper::class,
+        'Cart'=>App\Helper\Cart\Cart::class,
 
     ],
 

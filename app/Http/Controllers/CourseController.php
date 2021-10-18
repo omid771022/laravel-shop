@@ -155,8 +155,7 @@ class CourseController extends Controller
             newFeedback("دوره های که تایید نشده قابل خریداری نیستن", "feedbacks");
             return false;
         }
-        $amount = 0;
-        PaymentRepo::generate($amount, $course, auth()->user());
+      
 
 
 
@@ -181,6 +180,10 @@ class CourseController extends Controller
             return back();
         }
         if (!$this->authUserCanBePurchaseCourse($course)) {
+
+            return back();
         }
+        $amount = $course->getFinalPrice();
+        PaymentRepo::generate($amount, $course, auth()->user());
     }
 }

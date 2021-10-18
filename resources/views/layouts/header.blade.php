@@ -139,6 +139,7 @@
                             <ul>
                                 <li><a href="{{ route('user.profile') }}">مشاهده پروفایل</a></li>
                                 <li><a href="">خرید های من</a></li>
+                                <li><a href="{{route('cart.show')}}"> سبد خرید </li>
                                 <li><a href="{{{ route('home') }}}">داشبورد</a></li>
                                 <li><a href="{{ route('logout')}}">خروج</a></li>
                             </ul>

@@ -25,8 +25,6 @@ Route::post('/email/verify', 'Auth\VerificationController@verify')->name('verifi
 Route::get('/singel/course/c-{slug}', 'HomeController@singleCourse')->name('single.course');
 
 
-
-
 Route::get('/password/reset', 'Auth\ForgotPasswordController@showVerifyCodeRequestForm')->name('password.request');
 Route::post('/password/email/send', 'Auth\ForgotPasswordController@showPasswordEmail')->name('password.email');
 Route::post('/password/rest/check-veryify-code', 'Auth\ForgotPasswordController@checkveryifycode')->name('checkveryifycode');
@@ -37,8 +35,7 @@ Route::any('/logout', 'HomeController@logout')->name('logout');
 Route::get('/tutor/{username}', 'HomeController@singleTutor')->name('singleTutor');
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'DashboardController@index')->name('Dashboard.index');
-    //todo
-    Route::post('/courses/buy/{id}', 'CourseController@buyCourse')->name('courses.buy');
+ 
 });
 Route::group(['prefix' => 'dashboard/category', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'CategoryController@index')->name('category.index');
@@ -118,3 +115,12 @@ Route::group(['prefix' =>'/media'] ,function() {
 
     Route::get('/media/{media}/download', 'MediaController@download')->name('media.download');
 });
+Route::group(['prefix' =>'/cart'] ,function() {
+Route::post('add/cart/{Course}', 'CartController@addToCart')->name('cart.addToCart');
+Route::get('/', 'CartController@cart')->name('cart.show');
+Route::delete('/delete/{course}', 'CartController@delete')->name('cart.delete');
+
+});
+
+   // //todo
+    // Route::post('/courses/buy/{id}', 'CourseController@buyCourse')->name('courses.buy');
