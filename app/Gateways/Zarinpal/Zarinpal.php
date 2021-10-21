@@ -1,6 +1,6 @@
 <?php
-
-class zarinpal
+namespace App\Gateways\zarinpal;
+class Zarinpal
 {
 	private function curl_check()
 	{

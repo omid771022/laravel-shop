@@ -2,16 +2,17 @@
 
 namespace App;
 
+use App\Order;
 use App\Course;
 use App\Notifications\VerifyMail;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Notifications\ResatPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\VerifyMail as NotificationsVerifyMail;
-use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -107,5 +108,7 @@ class User extends Authenticatable implements MustVerifyEmail
         //todo
         return 0;
     }
-    
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
 }

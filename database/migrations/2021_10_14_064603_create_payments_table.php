@@ -26,6 +26,8 @@ class CreatePaymentsTable extends Migration
             $table->tinyInteger('seller_p')->unsigned();
             $table->string('seller_share', 10);
             $table->string('site_share', 10);
+            $table->bigInteger('order_id')->unsigned();
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('CASCADE');
             
             $table->timestamps();
         });

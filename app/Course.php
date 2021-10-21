@@ -4,6 +4,7 @@ namespace App;
 
 use App\User;
 use App\Media;
+use App\Order;
 use App\Lesson;
 use App\Repositories\CouresRepo;
 use Illuminate\Database\Eloquent\Model;
@@ -81,5 +82,7 @@ class Course extends Model
     {
         return $this->belongsToMany(User::class, 'course_user', 'course_id', 'user_id');
     }
-
+public function orders(){
+    return $this->belongsToMany(Order::class , 'courses_orders', 'course_id', 'order_id');
+}
 }

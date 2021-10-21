@@ -55,7 +55,13 @@
 
 
                     </tr>
+                    <tr>
+                    <th><form action="{{route('payment.cart')}}" method="post" >
+                        @csrf
+                   <button type="submit" class="btn btn-primary">پرداخت </button>
+                    </form></th>
 
+                    </tr>
                 </tbody>
             </table>
         </div>

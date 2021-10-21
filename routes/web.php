@@ -35,7 +35,6 @@ Route::any('/logout', 'HomeController@logout')->name('logout');
 Route::get('/tutor/{username}', 'HomeController@singleTutor')->name('singleTutor');
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'DashboardController@index')->name('Dashboard.index');
- 
 });
 Route::group(['prefix' => 'dashboard/category', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'CategoryController@index')->name('category.index');
@@ -69,7 +68,6 @@ Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth', 'verified
     Route::get('/pending/{id}', 'CourseController@pending')->name('course.pending');
     Route::get('/reject/{id}',   'CourseController@reject')->name('course.reject');
     Route::get('/details/{id}', 'CourseController@details')->name('course.details');
- 
 });
 
 Route::group(['prefix' => 'dashboard/user', 'middleware' => ['auth', 'verified', 'permission:admin']], function () {
@@ -81,7 +79,7 @@ Route::group(['prefix' => 'dashboard/user', 'middleware' => ['auth', 'verified',
     Route::post('user/photo', 'UserController@Userphoto')->name('user.photo');
     Route::get('/profile', 'UserController@userProfile')->name('user.profile');
     Route::post('users/profile/update', 'UserController@usersProfileUpdate')->name('user.profile.update');
-   
+
     Route::get('tutors/{username}', 'UserController@viewProfile')->name('viewProfile');
 });
 Route::group(['prefix' => 'dashboard/seasons', 'middleware' => ['auth', 'verified', 'web']], function () {
@@ -111,16 +109,20 @@ Route::group(['prefix' => 'dashboard/lesson', 'middleware' => ['auth', 'verified
     Route::patch('/leeson/update/{lessonId}/course/{courseId}', 'LessonController@update')->name('lessons.update');
     Route::get('/acceptAll/{id}', 'LessonController@acceptAll')->name('lessons.acceptAll');
 });
-Route::group(['prefix' =>'/media'] ,function() {
+Route::group(['prefix' => '/media'], function () {
 
     Route::get('/media/{media}/download', 'MediaController@download')->name('media.download');
 });
-Route::group(['prefix' =>'/cart'] ,function() {
-Route::post('add/cart/{Course}', 'CartController@addToCart')->name('cart.addToCart');
-Route::get('/', 'CartController@cart')->name('cart.show');
-Route::delete('/delete/{course}', 'CartController@delete')->name('cart.delete');
-
+Route::group(['prefix' => '/cart'], function () {
+    Route::post('add/cart/{Course}', 'CartController@addToCart')->name('cart.addToCart');
+    Route::get('/', 'CartController@cart')->name('cart.show');
+    Route::delete('/delete/{course}', 'CartController@delete')->name('cart.delete');
 });
+
+Route::group(['prefix' => '/payment'], function () {
+    Route::post('/', 'PaymentController@payment')->name('payment.cart');
+});
+
 
    // //todo
     // Route::post('/courses/buy/{id}', 'CourseController@buyCourse')->name('courses.buy');
