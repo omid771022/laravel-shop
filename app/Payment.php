@@ -9,7 +9,7 @@ class Payment extends Model
 {
 
     static $statuses = ['success' => 'تایید', 'canceled' => 'کنسل', 'pending' => 'انتظار' , 'fail'=>' ناموفق' ];
-protected $garded = [];
+    protected $guarded = [];
 public function order(){
     return $this->belongsTo(Order::class);
 }

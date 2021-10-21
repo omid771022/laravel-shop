@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Category;
+
+
+use App\Gateways\zarinpal\ZarinpalAdaptor;
 use Illuminate\Support\ServiceProvider;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +18,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     /**
@@ -24,9 +27,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->singleton(Gateway::class, function ($app) {
+            return new ZarinpalAdaptor();
+        });
         
-view()->composer('layouts.header',function($view){
-    $view->with('categories', Category::where('parent_id', null)->get());
-});
+        view()->composer('layouts.header', function ($view) {
+            $view->with('categories', Category::where('parent_id', null)->get());
+        });
     }
 }

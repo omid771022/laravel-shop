@@ -56,8 +56,8 @@
 
                     </tr>
                     <tr>
-                    <th><form action="{{route('payment.cart')}}" method="post" >
-                        @csrf
+                    <th><form action="{{route('payment.cart')}}" method="GET" >
+                    
                    <button type="submit" class="btn btn-primary">پرداخت </button>
                     </form></th>
 

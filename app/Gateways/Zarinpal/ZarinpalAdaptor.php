@@ -1,27 +1,45 @@
 <?php
-namespace App\Gateways\zarinpal;
+
+
+
+namespace App\Gateways\Zarinpal;
 
 use App\Payment;
+use App\Gateways\Zarinpal\zarinpal;
+use Illuminate\Support\Facades\URL;
 use App\Repositories\GetwaysInterface;
 
-class ZarinpalAdapter  implements GetwaysInterface{
-public function request(Payment $payment){
-$zarinpal = new Zarinpal();
-$callback="";
-$result = $zarinpal->request("***", $payment->amount, $payment->paymentable->title,"","", $callback);
-if (isset($result["Status"]) && $result["Status"] == 100)
+class ZarinpalAdaptor  implements GetwaysInterface
 {
-	// Success and redirect to pay
-return $result['Authority'];
-} else {
-	// error
-	echo "خطا در ایجاد تراکنش";
-	echo "<br />کد خطا : ". $result["Status"];
-	echo "<br />تفسیر و علت خطا : ". $result["Message"];
-}
 
-}
-public function verify(Payment $payment){
+
+    private $url;
+    private $client;
+    public function request($amount)
+    {
+        $this->client = new zarinpal();
+        $callback = "http://127.0.0.1:8000//test/test";
+        $result =  $this->client->request("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", $amount, "test", "", "", $callback, true);
+        if (isset($result["Status"]) && $result["Status"] == 100) {
+       
     
-}
+             $this->url = $result['StartPay'];
+            return $result['Authority'];
+        } else {
+            return [
+                "status" => $result["Status"],
+                "message" => $result["Message"]
+            ];
+        }
+    }
+
+    public function verify(Payment $payment)
+    {
+        // TODO: Implement verify() method.
+    }
+
+    public function redirect()
+    {
+        $this->client->redirect($this->url);
+    }
 }

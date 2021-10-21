@@ -1,6 +1,10 @@
 <?php
-namespace App\Gateways\zarinpal;
-class Zarinpal
+
+namespace App\Gateways\Zarinpal;
+use SoapClient;
+
+
+class zarinpal
 {
 	private function curl_check()
 	{
@@ -129,7 +133,7 @@ class Zarinpal
 			$node 	= ($SandBox == true) ? "sandbox" : $this->zarinpal_node();
 			$upay 	= ($SandBox == true) ? "sandbox" : "www";
 
-			$client = new SoapClient("https://{$node}.zarinpal.com/pg/services/WebGate/wsdl", ['encoding' => 'UTF-8']);
+			$client = new \SoapClient("https://{$node}.zarinpal.com/pg/services/WebGate/wsdl", ['encoding' => 'UTF-8']);
 
 			$result = $client->PaymentRequest([
 				'MerchantID'     => $MerchantID,

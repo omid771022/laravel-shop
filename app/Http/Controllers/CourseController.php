@@ -184,6 +184,7 @@ class CourseController extends Controller
             return back();
         }
         $amount = $course->getFinalPrice();
-        PaymentRepo::generate($amount, $course, auth()->user());
+       $payment = PaymentRepo::generate($amount, $course, auth()->user());
+        resolve(Gateway::class)->redirect($payment->invoice_id);
     }
 }

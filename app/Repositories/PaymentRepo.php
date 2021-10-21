@@ -2,39 +2,46 @@
 
 namespace App\Repositories;
 
+use App\Order;
 use App\Payment;
+
+use App\Gateways\Zarinpal\zarinpal;
+use Illuminate\Support\Facades\Redirect;
+use App\Gateways\Zarinpal\ZarinpalAdaptor;
 
 class PaymentRepo implements PaymentRepoInterface
 {
-    public static function generate($amount, $paymentable, $buyer_id)
+
+    public  function generate($amount, $order_id)
     {
-        $gateway = "";
-        if ($amount <= 0 || is_null($paymentable->id) || is_null($buyer_id)) {
-            return false;
+        $seller_p = 0;
+        $seller_share = 0;
+        $site_share = 0;
+        $gateway = new ZarinpalAdaptor();
+        $invoiceid = $gateway->request($amount);
+        if (is_array($invoiceid)) {
         }
-        if (is_null($paymentable->percent)) {
-            $sller_p = $paymentable->percent;
-            $seller_share = ($amount / 100) * $sller_p;
-            $site_share = $amount - $seller_share;
-        } else {
-            $seller_p = 0;
-            $seller_share = 0;
-            $site_share = 0;
-        }
-
-
-        $invoiceid = 0;
-        return Payment::create([
-            'buyer_id' => $buyer_id->id,
-            'paymentable' => $paymentable->id,
-            'payment_type' => get_class($paymentable),
+          Payment::create([
             'amount' => $amount,
             "invoice_id" => $invoiceid,
-            "gateway" => $gateway,
+            "gateway" => "zarinpal",
             "status" => 'pending',
             "seller_p" => $seller_p,
             "seller_share" => $seller_share,
             "site_share" => $site_share,
+            "order_id" => $order_id->id,
         ]);
+        $client = new zarinpal();
+        $callback = "http://127.0.0.1:8000/test/test";
+        $result =  $client->request("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", $amount, "test", "", "", $callback, true);
+        if (isset($result["Status"]) && $result["Status"] == 100) {
+            $url = $result['StartPay'];
+            redirect()->to($url)->send();
+        } else {
+            return [
+                "status" => $result["Status"],
+                "message" => $result["Message"]
+            ];
+        }
     }
 }

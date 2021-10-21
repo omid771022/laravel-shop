@@ -70,4 +70,9 @@ class HomeController extends Controller
           return view('tutor', compact('tutor'));
         
       }
+
+
+      public function test(){
+          
+      }
 }
