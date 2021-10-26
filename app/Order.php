@@ -5,6 +5,7 @@ namespace App;
 use App\User;
 use App\Course;
 use App\Payment;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -22,4 +23,6 @@ class Order extends Model
     public function payments(){
         return $this->belongsToMany(Payment::class);
     }
+
+ 
 }

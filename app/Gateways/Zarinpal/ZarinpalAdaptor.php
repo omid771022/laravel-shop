@@ -18,7 +18,7 @@ class ZarinpalAdaptor  implements GetwaysInterface
     public function request($amount)
     {
         $this->client = new zarinpal();
-        $callback = "http://127.0.0.1:8000//test/test";
+        $callback = "http://127.0.0.1:8000/test/test";
         $result =  $this->client->request("xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", $amount, "test", "", "", $callback, true);
         if (isset($result["Status"]) && $result["Status"] == 100) {
        
@@ -32,7 +32,7 @@ class ZarinpalAdaptor  implements GetwaysInterface
             ];
         }
     }
-
+//jfsdfsdf
     public function verify(Payment $payment)
     {
         // TODO: Implement verify() method.

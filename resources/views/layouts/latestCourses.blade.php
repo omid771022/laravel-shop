@@ -1,3 +1,6 @@
+@if (Session::has('message'))
+<h2>{{ Session::get('message') }}</h2>
+@endif
 <div class="box-filter">
     <div class="b-head">
         <h2>جدید ترین دوره ها</h2>

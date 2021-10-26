@@ -21,13 +21,6 @@ public function permissionCreate($request){
 }
  
 public function addRolePremssion(){
-
-
-
-
-    
-
-
 }
 
 }

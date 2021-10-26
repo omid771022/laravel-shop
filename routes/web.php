@@ -1,6 +1,8 @@
 <?php
 
+use App\Helper\Cart\Cart;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Model;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +25,6 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/email/verify', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('/singel/course/c-{slug}', 'HomeController@singleCourse')->name('single.course');
-// Route::get('test/test-verify', 'HomeController@test');
 
 
 Route::get('/password/reset', 'Auth\ForgotPasswordController@showVerifyCodeRequestForm')->name('password.request');
@@ -120,8 +121,9 @@ Route::group(['prefix' => '/cart'], function () {
     Route::delete('/delete/{course}', 'CartController@delete')->name('cart.delete');
 });
 
-Route::group(['prefix' => '/payment'], function () {
+Route::group(['prefix' => '/payment', 'middleware' => ['auth', 'verified', 'web'] ], function () {
     Route::any('/', 'PaymentController@payment')->name('payment.cart');
+    Route::any('verfy/callback', 'PaymentController@verify')->name('payment.verfy');
 });
 
 

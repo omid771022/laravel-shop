@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Payment extends Model
 {
@@ -13,4 +14,7 @@ class Payment extends Model
 public function order(){
     return $this->belongsTo(Order::class);
 }
+
+
+
 }

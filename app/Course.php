@@ -8,6 +8,7 @@ use App\Order;
 use App\Lesson;
 use App\Repositories\CouresRepo;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Course extends Model
 {
@@ -85,4 +86,6 @@ class Course extends Model
 public function orders(){
     return $this->belongsToMany(Order::class , 'courses_orders', 'course_id', 'order_id');
 }
+
+
 }

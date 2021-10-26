@@ -88,4 +88,11 @@ class CartService
         }
         return false;
     }
+
+
+    public function flush(){
+        $this->cart=collect([]);
+        session()->put('cart', $this->cart);
+        return $this;
+    }
 }
