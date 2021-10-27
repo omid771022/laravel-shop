@@ -1,8 +1,10 @@
 <?php
 
 use App\Helper\Cart\Cart;
+use App\Events\PaymentSuccessEvent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\Model;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +128,8 @@ Route::group(['prefix' => '/payment', 'middleware' => ['auth', 'verified', 'web'
     Route::any('verfy/callback', 'PaymentController@verify')->name('payment.verfy');
 });
 
-
+Route::get('/test/test', function(){
+    event(new PaymentSuccessEvent());
+});
    // //todo
     // Route::post('/courses/buy/{id}', 'CourseController@buyCourse')->name('courses.buy');

@@ -146,7 +146,7 @@
                                         src="/uploads/upload/{{ $course->teacher->image }}" loading="lazy"
                                         class="img-fluid lazyloaded">
                                 @else
-                                    <img src="/uploads/upload/no-image.jpg" alt="">
+                                    <img src="/img/no-image.jpg" alt="">
 
                                 @endif
 

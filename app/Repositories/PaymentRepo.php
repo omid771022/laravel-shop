@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Repositories;
+
+use App\Events\PaymentSuccessEvent;
 use App\Order;
 use App\Payment;
 use App\Helper\Cart\Cart;
 use App\Gateways\Zarinpal\zarinpal;
 use Illuminate\Support\Facades\Auth;
+use App\Events\PaymentWasSuccessfull;
+
 
 
 class PaymentRepo implements PaymentRepoInterface
@@ -98,8 +102,11 @@ class PaymentRepo implements PaymentRepoInterface
         $order_id= $payment['order_id'];      
         $order= Order::find($order_id);
         foreach($order->courses as $value) {
-            $user->purchases()->attach($value['id']);
+        $user->purchases()->attach($value['id']);
         }
+
+         event(new PaymentSuccessEvent($user));
+
 
 }
         if ($status == "fail") {
