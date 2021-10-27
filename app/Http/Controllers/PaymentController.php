@@ -56,4 +56,13 @@ class PaymentController extends Controller
             return redirect("/home");
         }
     }
+
+
+
+    public function transaction(Request $request){
+
+
+        return view('Dashboard.Payment.transaction');
+
+    }
 }

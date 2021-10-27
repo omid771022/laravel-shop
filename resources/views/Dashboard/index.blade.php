@@ -1,10 +1,10 @@
 @extends('Dashboard.layout.master')
 
 @section('contentDashboard')
-@include('Dashboard.layout.header')
-@if (Session::has('message'))
-{{ Session::get('delete') }}
-@endif
+    @include('Dashboard.layout.header')
+    @if (Session::has('message'))
+        {{ Session::get('delete') }}
+    @endif
 
 
     <div class="main-content">
@@ -59,57 +59,64 @@
         </div>
         <div class="row bg-white no-gutters font-size-13">
             <div class="title__row">
-                <p>تراکنش های اخیر شما</p>
-                <a class="all-reconcile-text margin-left-20 color-2b4a83">نمایش همه تراکنش ها</a>
+
+
             </div>
             <div class="table__box">
                 <table width="100%" class="table">
                     <thead role="rowgroup">
-                    <tr role="row" class="title-row">
-                        <th>شناسه پرداخت</th>
-                        <th>ایمیل پرداخت کننده</th>
-                        <th>مبلغ (تومان)</th>
-                        <th>درامد شما</th>
-                        <th>درامد سایت</th>
-                        <th>نام دوره</th>
-                        <th>تاریخ و ساعت</th>
-                        <th>وضعیت</th>
-                        <th>عملیات</th>
-                    </tr>
+                        <tr role="row" class="title-row">
+                            <th>شناسه پرداخت</th>
+                            <th>ایمیل پرداخت کننده</th>
+                            <th>مبلغ (تومان)</th>
+                            <th>درامد مدرس</th>
+                            <th>درامد سایت</th>
+                            <th>نام دوره</th>
+                            <th>تاریخ و ساعت</th>
+                            <th>وضعیت</th>
+                            <th>عملیات</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr role="row">
-                        <td><a href=""> 1</a></td>
-                        <td><a href="">mohammadnio3@gmail.com</a></td>
-                        <td><a href="">600,000</a></td>
-                        <td><a href="">400,000</a></td>
-                        <td><a href="">400,000</a></td>
-                        <td><a href="">خرید دوره - دوره متخصص php سطح مقدماتی</a></td>
-                        <td><a href=""> 22:14:48 1399/02/23</a></td>
-                        <td><a href="" class="text-success">پرداخت موفق</a></td>
-                        <td class="i__oprations">
-                            <a href="" class="item-delete margin-left-10" title="حذف"></a>
-                            <a href="edit-transaction.html" class="item-edit" title='ویرایش'></a>
-                        </td>
-                    </tr>
-                    <tr role="row">
-                        <td><a href=""> 1</a></td>
-                        <td><a href="">mohammadniko3@gmail.com</a></td>
-                        <td><a href="">600,000</a></td>
-                        <td><a href="">400,000</a></td>
-                        <td><a href="">400,000</a></td>
-                        <td><a href="">خرید دوره - دوره متخصص php سطح مقدماتی</a></td>
-                        <td><a href=""> 22:14:48 1399/02/23</a></td>
-                        <td><a href="" class="text-error">پرداخت ناموفق</a></td>
-                        <td class="i__oprations">
-                            <a href="" class="item-delete margin-left-10" title="حذف"></a>
-                            <a href="edit-transaction.html" class="item-edit" title='ویرایش'></a>
-                        </td>
-                    </tr>
+                        @foreach ($payments as $key => $payment)
+                            <tr role="row">
+                                <td><a href=""> {{ $payment->id }}</a></td>
+                                <td><a href="">{{ $payment->order->user->email }}</a></td>
+                                <td><a href="">{{ $payment->amount }}</a></td>
+                                <td><a href="">{{ $payment->seller_share }}</a></td>
+                                <td><a href="">{{ $payment->site_share }}</a></td>
+                                <td><a href="">
+                                        @foreach ($payment->order->courses as $payment_course)
+                                        - {{$payment_course->title}} 
+                                        @endforeach
+                                    </a></td>
+                                <td><a
+                                        href="">{{ \Morilog\Jalali\Jalalian::forge($payment->created_at)->format('%B %d، %Y') }}</a>
+                                </td>
+                                <td>
+                                    @if ($payment['status'] == 'success')
+                                        <p style="color:green">پرداخت موفق</p>
+                                    @elseif ($payment['status'] == "fail")
+                                        <p style="color:red">پرداخت ناموفق</p>
+                                    @elseif ($payment['status'] == "pending")
+                                        <p style="color:red">در انتظار پرداخت </p>
+
+
+                                    @endif
+                                </td>
+                                <td class="i__oprations">
+                                    <a href="" class="item-delete margin-left-10" title="حذف"></a>
+                                    <a href="edit-transaction.html" class="item-edit" title='ویرایش'></a>
+                                </td>
+                            </tr>
+                        @endforeach
+
+
                     </tbody>
                 </table>
             </div>
+            {{ $payments->links() }}
         </div>
     </div>
-</div>
+    </div>
 @endsection

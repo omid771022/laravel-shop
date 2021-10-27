@@ -8,4 +8,5 @@ interface PaymentRepoInterface {
     public function findBYInvoiceId($invoiceid);
     public function verify($payment);
     public function changeStatus($payment, $status);
+    public function paymentAll();
 }

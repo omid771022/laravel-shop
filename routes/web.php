@@ -126,10 +126,12 @@ Route::group(['prefix' => '/cart'], function () {
 Route::group(['prefix' => '/payment', 'middleware' => ['auth', 'verified', 'web'] ], function () {
     Route::any('/', 'PaymentController@payment')->name('payment.cart');
     Route::any('verfy/callback', 'PaymentController@verify')->name('payment.verfy');
+ 
+});
+Route::group(['prefix' => 'dashboard/payment', 'middleware' => ['auth', 'verified', 'web'] ], function () {
+    Route::get('/transaction','PaymentController@transaction')->name('payment.transaction');
 });
 
-Route::get('/test/test', function(){
-    event(new PaymentSuccessEvent());
-});
+
    // //todo
     // Route::post('/courses/buy/{id}', 'CourseController@buyCourse')->name('courses.buy');
