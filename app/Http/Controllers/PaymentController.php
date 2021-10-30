@@ -61,8 +61,13 @@ class PaymentController extends Controller
 
     public function transaction(Request $request){
 
-
-        return view('Dashboard.Payment.transaction');
+        $payments = $this->paymentRepo->search($request->email ,$request->endDate, $request->startDate)->paginate(20);
+   
+        $getLastTotalDays = $this->paymentRepo->getLastTotalDays();
+        $getLastNetIncome =$this->paymentRepo->getLastNetIncome();
+        $getAllSeller = $this->paymentRepo->getAllSeller();
+        $getAllNetIncome = $this->paymentRepo->getAllNetIncome();
+        return view('Dashboard.Payment.transaction', compact(['payments','getLastTotalDays','getLastNetIncome','getAllSeller','getAllNetIncome']));
 
     }
 }

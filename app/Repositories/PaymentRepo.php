@@ -2,22 +2,64 @@
 
 namespace App\Repositories;
 
-use App\Events\PaymentSuccessEvent;
+use App\User;
 use App\Order;
 use App\Payment;
 use App\Helper\Cart\Cart;
+use App\Events\PaymentSuccessEvent;
 use App\Gateways\Zarinpal\zarinpal;
 use Illuminate\Support\Facades\Auth;
-
-
-
+use Morilog\Jalali\Jalalian;
 
 class PaymentRepo implements PaymentRepoInterface
 {
 
+private $query;
+public function __construct(){
+    $this->query = Payment::latest()->get();
+}
+
+    public function search($email ,$endDate, $startDate)
+    {
+     
+          if(!is_null($email) && is_null($endDate) && is_null($startDate)){
+              $users=User::where('email',"like", "%". $email ."%")->get();
+              if(!is_null($users)){
+               $payments=[];
+                foreach($users as $user){
+                   foreach($user->orders as $order){
+
+                    $payments[] = $order->payments;
+                   }
+                
+              }
+              return $payments;
+    }
+              else{
+       
+            }
+        //       dd($test);
+            // order->user->email
+            // $email->order->user->email
+            // $this->query->join(where('email',"like", "%",$email, "%");
+            // return Payment::all(); 
+        }
+elseif(is_null($email) && !is_null($endDate) && !is_null($startDate)){
+ 
+    $start= Jalalian::fromFormat('Y/m/d', $startDate)->toCarbon();
+    $end = Jalalian::fromFormat('Y/m/d', $endDate)->toCarbon();
+  
+   return  Payment::whereBetween('created_at', [$start, $end]);
+
+}
+          
+
+        return Payment::latest();
+        
+        }
     public function paymentAll()
     {
-        return Payment::latest()->paginate(15);
+        return Payment::latest();
     }
 
     public function findBYInvoiceId($invoiceid)
@@ -27,8 +69,8 @@ class PaymentRepo implements PaymentRepoInterface
 
     public  function generate($amount, $order_id)
     {
- $i=0; 
- $x=0;
+        $i = 0;
+        $x = 0;
         foreach ($order_id->courses as $payment_course) {
             $itemsTitle[]  =  $payment_course->title;
             $itemsPercent[]  = $i += ($payment_course->price / 100) * $payment_course->percent;
@@ -43,7 +85,6 @@ class PaymentRepo implements PaymentRepoInterface
         if (!is_null($percent)) {
             $seller_share  = $percent[0];
             $site_share = $percent[1];
-           
         } else {
             $percent = 0;
             $seller_share = 0;
@@ -134,5 +175,24 @@ class PaymentRepo implements PaymentRepoInterface
                 'status' => 'cancel',
             ]);
         }
+    }
+
+
+    public function getLastTotalDays()
+    {
+        return payment::where("created_at", ">=", now()->addDays(-30))->where('status', 'success')->sum('amount');
+    }
+
+    public function getLastNetIncome()
+    {
+        return payment::where("created_at", ">=", now()->addDays(-30))->where('status', 'success')->sum('site_share');
+    }
+    public function getAllSeller()
+    {
+        return payment::where("status", "success")->sum('amount');
+    }
+    public function getAllNetIncome()
+    {
+        return payment::where('status', 'success')->sum('site_share');
     }
 }

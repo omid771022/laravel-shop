@@ -74,7 +74,7 @@ Route::group(['prefix' => 'dashboard/cource', 'middleware' => ['auth', 'verified
     Route::get('/details/{id}', 'CourseController@details')->name('course.details');
 });
 
-Route::group(['prefix' => 'dashboard/user', 'middleware' => ['auth', 'verified', 'permission:admin']], function () {
+Route::group(['prefix' => 'dashboard/user', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'UserController@index')->name('user.index');
     Route::get('users/{id}', 'UserController@edit')->name('users.edit');
     Route::post('update/{id}', 'UserController@update')->name('users.update');

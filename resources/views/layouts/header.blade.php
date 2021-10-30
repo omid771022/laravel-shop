@@ -121,9 +121,7 @@
 
                 </div>
 
-                <div class="join-teachers">
-                    <a href="become-a-teacher.html">تدریس در وب آموز</a>
-                </div>
+          
                 @auth()
                     <div class="user-menu-account">
                         <div class="user-image">

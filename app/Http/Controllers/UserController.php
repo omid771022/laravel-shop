@@ -125,7 +125,7 @@ class UserController extends Controller
     }
 
     public function  userProfile(){
-        $this->authorize('admin');
+
         return view('Dashboard.User.Admin.profile');
     }
     public function usersProfileUpdate(UpdateProfileInformationRequest $request){

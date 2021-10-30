@@ -21,7 +21,7 @@ class Order extends Model
         return $this->belongsToMany(Course::class,'courses_orders', 'order_id', 'course_id');
     }
     public function payments(){
-        return $this->belongsToMany(Payment::class);
+        return $this->hasOne(Payment::class);
     }
 
  
