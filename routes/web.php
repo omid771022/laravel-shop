@@ -130,6 +130,7 @@ Route::group(['prefix' => '/payment', 'middleware' => ['auth', 'verified', 'web'
 });
 Route::group(['prefix' => 'dashboard/payment', 'middleware' => ['auth', 'verified', 'web'] ], function () {
     Route::get('/transaction','PaymentController@transaction')->name('payment.transaction');
+    Route::get('/purchase', 'PaymentController@purchase')->name('payment.purchase');
 });
 
 

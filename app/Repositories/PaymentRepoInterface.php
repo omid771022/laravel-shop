@@ -14,4 +14,5 @@ interface PaymentRepoInterface {
     public function getAllSeller();
     public function getAllNetIncome();
     public function search($email ,$endDate, $startDate);
+    public function purchase();
 }

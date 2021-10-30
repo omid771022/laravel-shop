@@ -7,6 +7,7 @@ use App\Payment;
 use App\Helper\Cart\Cart;
 use Illuminate\Http\Request;
 use App\Repositories\PaymentRepo;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
@@ -69,5 +70,15 @@ class PaymentController extends Controller
         $getAllNetIncome = $this->paymentRepo->getAllNetIncome();
         return view('Dashboard.Payment.transaction', compact(['payments','getLastTotalDays','getLastNetIncome','getAllSeller','getAllNetIncome']));
 
+    }
+
+
+    public function purchase(){
+          $user= Auth::user();
+          $orders=$user->orders;
+
+
+
+        return view('Dashboard.Payment.purchase', compact('orders'));
     }
 }

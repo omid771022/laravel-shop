@@ -38,11 +38,7 @@ public function __construct(){
               else{
        
             }
-        //       dd($test);
-            // order->user->email
-            // $email->order->user->email
-            // $this->query->join(where('email',"like", "%",$email, "%");
-            // return Payment::all(); 
+
         }
 elseif(is_null($email) && !is_null($endDate) && !is_null($startDate)){
  
@@ -59,7 +55,7 @@ elseif(is_null($email) && !is_null($endDate) && !is_null($startDate)){
         }
     public function paymentAll()
     {
-        return Payment::latest();
+        return Payment::latest()->paginate(10);
     }
 
     public function findBYInvoiceId($invoiceid)
@@ -194,5 +190,9 @@ elseif(is_null($email) && !is_null($endDate) && !is_null($startDate)){
     public function getAllNetIncome()
     {
         return payment::where('status', 'success')->sum('site_share');
+    }
+
+    public function purchase(){
+     
     }
 }

@@ -17,7 +17,8 @@
         <li class="item-li i-users  @if(Request::is('dashboard/user/*') || Request::is('dashboard/user')) ? is-active @endif"><a href="{{route('user.index')}}">  کاربران</a></li>
         @endcan
         <li class="item-li i-users  @if(Request::is('dashboard/user/profile/*') || Request::is('dashboard/user/profile')) ? is-active @endif"><a href="{{route('user.profile')}}">  ویرایش کاربر </a></li>
-{{-- 
+        <li class="item-li i-my__purchases  @if (Request::is('dashboard/payment/purchase/*') || Request::is('dashboard/payment/purchase/')) ? is-active @endif " ><a href="{{route('payment.purchase')}}">خرید های من</a></li>
+        {{-- 
         <li class="item-li i-slideshow"><a href="slideshow.html">اسلایدشو</a></li>
         <li class="item-li i-banners"><a href="banners.html">بنر ها</a></li>
         <li class="item-li i-articles"><a href="articles.html">مقالات</a></li>
@@ -28,7 +29,7 @@
     
         <li class="item-li i-checkouts"><a href="checkouts.html">تسویه حساب ها</a></li>
         <li class="item-li i-checkout__request "><a href="checkout-request.html">درخواست تسویه </a></li>
-        <li class="item-li i-my__purchases"><a href="mypurchases.html">خرید های من</a></li>
+        
         <li class="item-li i-my__peyments"><a href="mypeyments.html">پرداخت های من</a></li>
         <li class="item-li i-notification__management"><a href="notification-management.html">مدیریت اطلاع رسانی</a>
 
